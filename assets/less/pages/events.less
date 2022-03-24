@@ -1,0 +1,215 @@
+.fc-toolbar {
+    flex-direction: column;
+}
+.breakpoint-large({
+    .fc-toolbar {
+        flex-direction: row;
+    }
+});
+
+.fc-button-primary:disabled{
+  visibility: hidden;
+  .breakpoint-small-down({
+    display: none;
+  })
+}
+.events .tabs
+.fc-button-group > .fc-button, .fc-button-group > .fc-button:not(:first-child){
+  background: @default-color!important;
+  color: @white-color!important;
+  border-radius: 10px!important;
+  border: 1px solid @default-color;
+}
+
+.fc-button-group > .fc-today-button, .fc-button-group > fc-prev-button{
+  border-radius: 10px;
+}
+
+.fc-button-group > .fc-button:hover, .fc-button-group > .fc-button:not(:first-child):hover, .fc-button-primary:not(:disabled).fc-button-active{
+  background: none!important;
+  color:@default-color!important;
+  border: 1px solid @default-color!important;
+}
+
+.fc-button-group > .fc-button{
+  .breakpoint-small-down({
+    margin: 50px 3px;
+  });
+
+}
+
+.fc-toolbar.fc-header-toolbar{
+  display: flex;
+}
+
+.fc-left{
+  order: 2;
+  position: absolute;
+  margin-left: 220px;
+  .breakpoint-small-down({
+    //order: 1;
+    position: unset;
+    margin-left: 0px;
+  });
+}
+
+.fc-center{
+  order: 1;
+  h2{
+    text-transform: none;
+  }
+}
+
+.fc-right{
+  order: 3;
+}
+.fc-button{
+  border-radius: 10px!important;
+  .breakpoint-small-down({
+    margin: 20px 5px 10px 5px!important;
+  });
+
+}
+
+.fc-view-container{
+  background: @white-color;
+  padding: 20px;
+}
+
+.fc-left .fc-button{
+  padding: 6px;
+  margin: 0 10px;
+}
+
+.fc-right .fc-button{
+  padding: 5px 6px;
+  margin: 0 10px;
+  width: 80px;
+}
+
+.fc-right .fc-button:nth-of-type(3){
+  margin: 0 0 0 10px;
+}
+
+.fc-event{
+  background: #406144!important;
+  border-color: #406144!important;
+  padding: 10px!important;
+  border-radius: 10px!important;
+}
+
+.fc-day-grid-event .fc-time{
+  display: none;
+}
+
+.event-date{
+  color: @yellow-color;
+  background: url(../../assets/images/calendar_blue.svg) left no-repeat;
+  padding-left: 25px;
+  background-size: 17px;
+  margin: 40px 0 10px 0px;
+}
+.event-place{
+  color: @yellow-color;
+  background: url(../../assets/images/location_blue.svg) left no-repeat;
+  padding-left: 25px;
+  background-size: 15px;
+  margin-bottom: 20px;
+}
+
+
+.events .single-news-item{
+  .event-place, .event-date{
+    margin-left: 20px;
+  }
+}
+.events .tabs{
+  margin-bottom: 40px;
+  width: 100%;
+  display: block;
+  //float: right;
+  text-align: left;
+  .btn-primary{
+    .breakpoint-small-down({
+      margin-bottom: 20px;
+    });
+  }
+  .breakpoint-small-down({
+    margin-bottom: 20px;
+    text-align: center;
+  });
+  a{
+    width: fit-content;
+    font-weight: bold;
+    cursor: pointer;
+    padding-left: 28px;
+    margin-right: 30px;
+    &.calendar_vew{
+      background: url("../../assets/images/calendar_view.svg") left center no-repeat;
+      background-size: 20px;
+    }
+    &.grid_vew{
+      background: url("../../assets/images/grid.svg") left center no-repeat;
+      background-size: 20px;
+    }
+    &.list_vew{
+      background: url("../../assets/images/list.svg") left center no-repeat;
+      background-size: 20px;
+    }
+    .breakpoint-small-down({
+      margin-left: 0px;
+      width: 100%;
+      text-align: center;
+    });
+
+    &.active{
+      opacity: 0.5;
+      //display: none;
+    }
+  }
+
+}
+
+.events{
+  .tabs + div.row{
+    width: 100%;
+  }
+}
+
+
+.events{
+  .newslist .col-xs-12:first-child{
+    display: unset!important;
+  }
+}
+
+
+.fc-listYear-button.fc-button.fc-button-primary{
+  display: none;
+}
+
+.fc-button-primary{
+  background: @default-color!important;
+  border: 1px solid @default-color!important;
+}
+
+
+.events_list_container{
+  .rounded(4px);
+  width: 100%;
+  border: 1px solid #C1C1C1;
+  background: @white-color;
+
+  .event_list_item{
+    padding: 27px 35px;
+    border-bottom: 1px solid #d2d2d2;
+    a {
+      color: @text-color-default;
+    }
+    .time_and_date{
+      color: @link-color;
+      font-weight: bold;
+      font-size: 22px;
+    }
+  }
+}

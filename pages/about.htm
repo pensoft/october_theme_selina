@@ -1,0 +1,49 @@
+url = "/about"
+layout = "default"
+title = "About"
+is_hidden = 0
+meta_description = "about page"
+seo_keywords = "keywords"
+robot_index = "index"
+robot_follow = "follow"
+
+[siteSearchInclude]
+
+[jumbotron intro]
+jumbotron = "about-intro"
+title = 0
+background = "#ffffff"
+templates = "template1"
+description_limit = 0
+
+[jumbotron background]
+jumbotron = "about-page-image"
+title = 0
+background = "unset"
+templates = "template1"
+description_limit = 0
+
+[jumbotron]
+jumbotron = "network-will"
+title = 1
+background = "#E4E7E7"
+templates = "template1"
+description_limit = 0
+==
+{% component 'siteSearchInclude' %}
+<div class="container">
+    <div class="row middle-xs">
+        <div class="col-lg-6 col-xs-12">
+             <div class="intro">
+                 {% component 'intro' %}
+             </div>
+        </div>
+        <div class="col-lg-6 col-xs-12">
+             <div class="background">
+                {% component 'background' %}
+             </div>
+        </div>
+    </div>
+    
+</div>
+{% component 'jumbotron' %}

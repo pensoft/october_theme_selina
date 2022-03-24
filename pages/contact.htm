@@ -1,0 +1,56 @@
+url = "/contact"
+layout = "default"
+title = "Contact"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[siteSearchInclude]
+==
+<?php
+use Pensoft\Cardprofiles\Models\Profiles;
+
+function onStart(){
+	$this['profiles'] =  Profiles::where('category_id', 5)->get();
+}
+?>
+==
+{% component 'siteSearchInclude' %}
+
+<div class="container">
+	<div class="row">
+		{% for profile in profiles %}
+		<div class="col-xs-12 col-md-4">
+			<div class="row profile-container">
+				<div class="col-xs-12"><h1 class="display-1">{{profile.names}}</h1></div>
+				<div class="col-xs-12 col-md-5">
+					<div class="profile-image person">
+						{% if profile.avatar %}
+						<img alt="{{ profile.names }}" src="{{profile.avatar.getThumb(228,274, { mode : 'crop' } )}}">
+						{% else %}
+						<img alt="{{ profile.names }}" src="{{ 'person.svg'|media }}">
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-7">
+					<div class="position">{{profile.position}}</div>
+
+					<div class="contact-info">{{profile.department}}</div>
+
+					<div class="profile-description">
+						{% if profile.email %}<div class="contact-info"><i class="pr small p-mail"></i>{{profile.email}}</div>{% endif %}
+						{% if profile.phone %}<div class="contact-info"><i class="pr normal p-phone"></i>{{profile.phone}}</div>{% endif %}
+						{% if profile.address %}<div class="contact-info"><i class="pr normal p-location"></i>{{profile.address}}</div>{% endif %}
+					</div>
+
+					<a class="contact-mail" href="mailto:l.penev@pensoft.net"></a>
+
+				</div>
+
+
+			</div>
+		</div>
+		{% endfor %}
+
+	</div>
+</div>

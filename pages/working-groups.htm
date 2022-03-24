@@ -1,0 +1,143 @@
+url = "/working-groups"
+layout = "default"
+title = "Network"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+==
+<?php
+use Pensoft\Partners\Models\Partners;
+use Rainlab\Location\Models\Country;
+use Pensoft\Cardprofiles\Models\Category as WorkingGroup;
+use Pensoft\Cardprofiles\Models\Profiles as Profiles;
+
+function onStart(){
+	$this['partners'] =  Partners::get();
+
+	$this['working_groups'] =  WorkingGroup::whereIn('slug', ['integration', 'innovations', 'information', 'identification'])->orderBy('id', 'asc')->get();
+$this['profiles'] =  Profiles::whereIn('category_id', [1,2,3,4])->get();
+
+$this['country'] = new class {
+public function getCountry($id) {
+return Country::where('id', $id)->first();
+}
+};
+$this['wg'] = new class {
+public function getWG($id) {
+return WorkingGroup::where('id', $id)->first();
+}
+};
+
+$this['countries'] =  Country::where('is_enabled', true)->orderBy('name', 'asc')->get();
+}
+
+function onFilterRecords(){
+if(post('country')){
+	if(post('category')){
+			$this['profiles'] = Profiles::where('position','ILIKE','%'.post('category').'%')->where('country_id', post('country'))->whereIn('category_id', [1,2,3,4])->get();
+		}else{
+			$this['profiles'] = Profiles::where('country_id', post('country'))->whereIn('category_id', [1,2,3,4])->get();
+	}
+}else{
+	if(post('category')){
+		$this['profiles'] = Profiles::where('position','ILIKE','%'.post('category').'%')->whereIn('category_id', [1,2,3,4])->get();
+	}else{
+		$this['profiles'] = Profiles::whereIn('category_id', [1,2,3,4])->get();
+	}
+}
+
+$this['country'] = new class {
+public function getCountry($id) {
+return Country::where('id', $id)->first();
+}
+};
+$this['wg'] = new class {
+public function getWG($id) {
+return WorkingGroup::where('id', $id)->first();
+}
+};
+
+
+
+return [
+'#membersListDiv' => $this->renderPartial('memberslist')
+];
+}
+?>
+==
+<div class="container-fluid">
+	<div class="container">
+		<div class=" breadcrumb-fancy">
+			<a class="" href="{{'partners'|page}}">Members</a>
+			<a class="active">Working groups</a>
+		</div>
+	</div>
+</div>
+
+
+<div class="container-fluid" id="workingGroups">
+	<div class="container" >
+
+
+		<h1 class="display-1">Working Groups</h1>
+
+		<div id="structure" class="row text-left working_groups_parent relative top-xs ui-accordion ui-widget ui-helper-reset" role="tablist">
+			{% for i, wg in working_groups %}
+			<div class="accordion-border key_{{i}}"><!-- 1 --><!-- css 1 -->
+				<div class="row middle-xs accordion-toggle">
+					<div class="col-xs green_bullet">WP{{i+1}}</div>
+					<div class="col-xs-10 start-xs container_title_and_text">
+						<div class="row middle-xs">
+							<div class="col-xs start-xs title_container">{{wg.name}}</div>
+							<div class="col-xs-2 end-xs plusminus"><span class="plus"></span></div>
+						</div>
+						<div class="row accordion-content" style="display: none;">
+							{{wg.body|raw}}
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+
+
+		<div class="ui form partners_filter_form">
+			{{ form_ajax('onFilterRecords', { update: {'memberslist': '#membersListDiv'}, id: "myPartnersForm" }) }}
+			<div class="row fields inline">
+				<div class="col-lg-2 col-md-3 col-xs-12 field">
+					<select name="country">
+						<option value="0">Country</option>
+						{% for item in countries %}
+						<option value="{{item.id}}">{{item.name}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="col-lg-1 col-xs field">
+					<input type="hidden" name="category">
+					<button type="button" value="wg1" class="btn btn-primary green_btn">WG1</button>
+				</div>
+				<div class="col-lg-1 col-xs field">
+					<button type="button" value="wg2" class="btn btn-primary green_btn">WG2</button>
+				</div>
+				<div class="col-lg-1 col-xs field">
+					<button type="button" value="wg3" class="btn btn-primary green_btn">WG3</button>
+				</div>
+				<div class="col-lg-1 col-xs field">
+					<button type="button" value="wg4" class="btn btn-primary green_btn">WG4</button>
+				</div>
+				<div class="col-lg-1 col-xs field">
+					<a href="javascript:void(0);" onclick="location.reload();" class="btn btn-primary green_btn">&#x21bb;</a>
+				</div>
+			</div>
+			{{ form_close() }}
+		</div>
+
+		<div id="membersListDiv" class="row text-left working_groups_members relative top-xs ui-accordion ui-widget ui-helper-reset" role="tablist">
+			{% partial 'memberslist' profiles=profiles country=country wg=wg%}
+		</div>
+
+
+	</div>
+
+
+</div>

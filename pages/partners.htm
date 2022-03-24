@@ -1,0 +1,66 @@
+url = "/members"
+layout = "default"
+title = "Network"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+==
+<?php
+use Pensoft\Partners\Models\Partners;
+use Rainlab\Location\Models\Country;
+use Pensoft\Cardprofiles\Models\Category as WorkingGroup;
+use Pensoft\Cardprofiles\Models\Profiles as Profiles;
+
+function onStart(){
+	$this['partners'] =  Partners::get();
+
+	$this['working_groups'] =  WorkingGroup::whereIn('slug', ['integration', 'innovations', 'information', 'identification'])->orderBy('id', 'asc')->get();
+	$this['profiles'] =  Profiles::whereIn('category_id', [1,2,3,4])->get();
+
+	$this['country'] = new class {
+		public function getCountry($id) {
+			return Country::where('id', $id)->first();
+		}
+	};
+	$this['wg'] = new class {
+		public function getWG($id) {
+			return WorkingGroup::where('id', $id)->first();
+		}
+	};
+
+	$this['countries'] =  Country::where('is_enabled', true)->get();
+}
+
+?>
+==
+<div class="container-fluid partners_background">
+	<div class="container">
+		<div class="breadcrumb-fancy">
+			<a class="active" href="">Members</a>
+			<a class="" href="{{'working-groups'|page}}">Working groups</a>
+		</div>
+	</div>
+</div>
+
+
+<div class="container-fluid partners_background"  id="members">
+	<!--tabs content	-->
+
+	<div class="container">
+
+		<h1 class="display-1">Members</h1>
+		{% if partners.count() %}
+		<div class="row partners_list">
+			{% for partner in partners %}
+			<div class="col-xs partner-item">
+				<a href="{{partner.instituion_url}}" class="partner_link" target="_blank">
+					<img alt="{{ partner.institution }}" src="{{partner.cover.thumb(162,162,{'mode':'fit'})}}">
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+		{% endif %}
+	</div>
+
+</div>
+

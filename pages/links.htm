@@ -1,0 +1,41 @@
+url = "/resources/links"
+layout = "default"
+title = "Resources"
+is_hidden = 0
+meta_description = "about page"
+seo_keywords = "keywords"
+robot_index = "index"
+robot_follow = "follow"
+
+[siteSearchInclude]
+
+[jumbotron intro]
+jumbotron = "links"
+title = 1
+background = "#ffffff"
+templates = "template1"
+description_limit = 0
+
+[jumbotron background]
+jumbotron = "links-image"
+title = 0
+background = "#ffffff"
+templates = "template1"
+description_limit = 0
+==
+{% component 'siteSearchInclude' %}
+<div class="container">
+	<div class="row top-xs">
+		<div class="col-md-6 col-xs-12">
+			<div class="intro">
+				{% component 'intro' %}
+			</div>
+		</div>
+		<div class="col-md-6 col-xs-12">
+			<div class="background">
+				{% component 'background' %}
+			</div>
+		</div>
+	</div>
+
+</div>

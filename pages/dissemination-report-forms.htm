@@ -1,0 +1,57 @@
+title = "Dissemination report forms"
+layout = "default"
+url = "/internal-documents/dissemination-report-forms"
+
+[session]
+security = "user"
+allowedUserGroups[] = "internal-users"
+allowedUserGroups[] = "registered"
+allowedUserGroups[] = "guest"
+redirect = "home"
+==
+{% component 'session' %}
+<div class="container">
+	<h1 class="display-1">Internal repository</h1>
+
+	<div class="row middle-xs between-xs">
+		<div class="col-xs-12 col-md-5 mt-1 mb-1">
+			<div id="search" class="search">
+				<form class="input-group align-items-start" action="/documents-search" method="get">
+					<label class="text-grey" style="white-space: nowrap; margin-right: 10px;">Search in Internal repository</label>
+					<input class="form-control search" style="color: #000;" name="query" type="text" autocomplete="on">
+					<button class="btn search btn-link pr p-search big text-grey-search-btn" type="submit"></button>
+				</form>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-md-3 end-xs">
+			<a href="/internal-repository" class="back"> <div class="arrow-left end-xs"></div> &nbsp;Back to documents</a>
+		</div>
+
+
+		<div class="col-xs-12 work_packages">
+			<h1 class="base_heading inner-page">Dissemination report forms</h1>
+
+			<div class="accordion-border">
+				<div class="row middle-xs accordion-toggle">
+
+					<div class="col-xs start-xs"><a href="#" target="_blank">Learning from Nature – Enabling Technologies</a></div>
+
+				</div>
+			</div>
+			<div class="accordion-border">
+				<div class="row middle-xs accordion-toggle">
+
+					<div class="col-xs start-xs"><a href="#" target="_blank">Form 2</a></div>
+
+				</div>
+			</div>
+
+		</div>
+
+
+
+
+	</div>
+
+</div>
