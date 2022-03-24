@@ -1,10 +1,10 @@
-name: "Urban Tree Guard"
+name: "SELINA"
 author: "Pensoft"
 homepage: "https://pensoft.net"
-code: "Pensoft-Urbantreeguard"
+code: "Pensoft-Selina"
 authorCode: "Pensoft"
 description: "Demonstrates the basic concepts of the front-end theming."
-previewImage: "assets/images/preview.png"
+previewImage: "assets/images/SELINA_logo.svg"
 require:
     - rainlab.builder
     - rainlab.googleanalytics
