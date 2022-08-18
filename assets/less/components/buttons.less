@@ -1,6 +1,6 @@
-[type=button]:not(:disabled), 
-[type=reset]:not(:disabled), 
-[type=submit]:not(:disabled), 
+[type=button]:not(:disabled),
+[type=reset]:not(:disabled),
+[type=submit]:not(:disabled),
 button:not(:disabled) {
     cursor: pointer;
 }
@@ -38,8 +38,6 @@ button:not(:disabled) {
         padding-bottom: 0 !important;
         padding-left: 0 !important;
         line-height: unset!important;
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
         .border-bottom();
         .border-top();
         .border-right();
@@ -94,50 +92,26 @@ button:not(:disabled) {
     color: @white-color;
     background-color: @button-background-color;
     border-color: @button-background-color;
-    .rounded(10px);
     padding-left: 30px;
     padding-right: 30px;
     padding-top: 10px;
     padding-bottom: 10px;
-    font-weight: bold;
-    .breakpoint-small-down({
-      padding-left: 15px;
-      padding-right: 15px;
-      white-space: nowrap;
-    });
-  &.green_btn{
-    background: @green-color;
-    font-weight: normal;
-    border: none;
-    width: fit-content;
-    &.active{
-      opacity: 0.6;
-    }
-  }
 }
 
 .btn-primary:hover, .btn-primary.active {
     color: @white-color;
     background-color: @link-color;
     border-color: @link-color;
-    opacity: 0.6;
-    .rounded(10px);
     padding-left: 30px;
     padding-right: 30px;
     padding-top: 10px;
     padding-bottom: 10px;
-    &.green_btn{
-      background: @green-color;
-      font-weight: normal;
-      border: none;
-    }
 }
 
 .btn-secondary {
     color: @white-color;
     background-color: @secondary-btn-color;
     border-color: @secondary-color;
-    .rounded(10px);
     padding: 15px 30px;
     &.width100{
       width: 100%;

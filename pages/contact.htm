@@ -6,51 +6,42 @@ robot_index = "index"
 robot_follow = "follow"
 
 [siteSearchInclude]
+
+[jumbotron]
+jumbotron = "contact"
+background = "#ffffff"
+templates = "template2"
+description_limit = 0
 ==
 <?php
 use Pensoft\Cardprofiles\Models\Profiles;
 
 function onStart(){
-	$this['profiles'] =  Profiles::where('category_id', 5)->get();
+	$this['profiles'] =  Profiles::where('category_id', 1)->get();
 }
 ?>
 ==
 {% component 'siteSearchInclude' %}
 
 <div class="container">
-	<div class="row">
+	<h1 class="page_heading ml-1 mb-4">Contact</h1>
+	<div class="row around-xs">
 		{% for profile in profiles %}
-		<div class="col-xs-12 col-md-4">
-			<div class="row profile-container">
-				<div class="col-xs-12"><h1 class="display-1">{{profile.names}}</h1></div>
-				<div class="col-xs-12 col-md-5">
-					<div class="profile-image person">
-						{% if profile.avatar %}
-						<img alt="{{ profile.names }}" src="{{profile.avatar.getThumb(228,274, { mode : 'crop' } )}}">
-						{% else %}
-						<img alt="{{ profile.names }}" src="{{ 'person.svg'|media }}">
-						{% endif %}
+			<div class="col-xs-12 col-md-7 profile-item">
+				<div class="contact_info row">
+					<div class="col-md-4 col-xs-12 coordinator_image aos-init aos-animate" data-aos="fade-up"><img src="{{profile.avatar.thumb(298, 291, {'mode':'crop'})}}" class="fr-fic fr-dii"></div>
+					<div class="col-md-1">&nbsp;</div>
+                    <div class="col-md-7 col-xs-12 coordinator_info">
+						<h3>{{profile.names}}</h3>
+						{% if profile.position %}<p class="card_title">{{profile.position}}</p>{% endif %}
+						{% if profile.department %}<p class="contact_affiliation">{{profile.department}}</p>{% endif %}
+						{% if profile.address %}<p class="contact_address"><i class="pr big p-location"></i>{{profile.address}}</p>{% endif %}
+						{% if profile.phone %}<p class="contact_phone"><i class="pr big p-phone"></i>{{profile.phone}}</p>{% endif %}
+						{% if profile.email %}<p class="contact_mail"><i class="pr big p-mail"></i><a href="mailto:{{profile.email}}">{{profile.email}}</a></p>{% endif %}
 					</div>
 				</div>
-				<div class="col-xs-12 col-md-7">
-					<div class="position">{{profile.position}}</div>
-
-					<div class="contact-info">{{profile.department}}</div>
-
-					<div class="profile-description">
-						{% if profile.email %}<div class="contact-info"><i class="pr small p-mail"></i>{{profile.email}}</div>{% endif %}
-						{% if profile.phone %}<div class="contact-info"><i class="pr normal p-phone"></i>{{profile.phone}}</div>{% endif %}
-						{% if profile.address %}<div class="contact-info"><i class="pr normal p-location"></i>{{profile.address}}</div>{% endif %}
-					</div>
-
-					<a class="contact-mail" href="mailto:l.penev@pensoft.net"></a>
-
-				</div>
-
-
 			</div>
-		</div>
 		{% endfor %}
-
 	</div>
+
 </div>

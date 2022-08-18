@@ -25,7 +25,8 @@ function onStart(){
 ==
 <div class="container">
 
-	<h1 class="display-1">Presss releases</h1>
+
+	<h1 class="page_heading">Media center</h1>
 
 	<div class="row">
 		{% set records = mediaPressreleasesList %}
@@ -39,13 +40,13 @@ function onStart(){
 		{# Use spaceless tag to remove spaces inside the A tag. #}
 		{% spaceless %}
 		<div class="col-xs">
-			<div class="card-container library-item">
-				<span class="card_title">{{record.name}}</span><br><br>
-				<span class="text-published"> {{record.date |date('F Y')}}</span> <br><br>
+			<div class="card-container press-item">
+				<span class="card_title">{{record.name}}</span><br>
+				<span class=""> {{record.date |date('F Y')}}</span> <br>
 				<div class="body">{{record.description | raw}}</div>
-				<div class="row link mt-3">
+				<div class="row link mt-1">
 					{% for link in record.link %}
-					<a href="{{link.url}}" target="_blank" class="btn btn-primary">{{link.text}}</a> &nbsp;  &nbsp; &nbsp;
+					<a href="{{link.url}}" target="_blank" class="btn btn-primary">{{link.text}}</a>
 					{% endfor %}
 				</div>
 			</div>

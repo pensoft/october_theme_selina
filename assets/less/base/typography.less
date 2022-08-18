@@ -1,4 +1,5 @@
 @import "fonts/@{font-family}.less";
+@import "fonts/aller.less";
 
 .font-size(@ratio: 1) {
     & when (@font-size > 0px) {
@@ -11,7 +12,7 @@
 
 .line-height(@line-height-default: @line-height){
     & when (isnumber(@line-height-default)){
-        line-height: @line-height-default;    
+        line-height: @line-height-default;
     }
     & when (isstring(@line-height-default)){
         line-height: normal;
@@ -20,10 +21,10 @@
 
 .letter-spacing(@letter-spacing-default: @letter-spacing){
     & when (isnumber(@letter-spacing-default)){
-        letter-spacing: @letter-spacing-default;    
+        letter-spacing: @letter-spacing-default;
     }
     & when (isstring(@letter-spacing-default)){
-        letter-spacing: normal;    
+        letter-spacing: normal;
     }
 }
 
@@ -54,8 +55,6 @@ h1,.h1, h2,.h2, h3,.h3, h4,.h4, h5,.h5, h6,.h6,.title {
     margin-bottom: @margin-base-space;
     color: @heading-text-color;
     &.underline {
-
-        display: inline-block;
         //padding-left: @padding-base-space;
         //padding-right: @padding-base-space;
         padding-bottom: @padding-base-space;
@@ -74,7 +73,7 @@ h1,.h1, h2,.h2, h3,.h3, h4,.h4, h5,.h5, h6,.h6,.title {
       margin-bottom: 0;
       text-align: center;
       color: @heading-text-color;
-      font-weight: bold;
+
       &.inner-page{
         margin-bottom: @margin-base-space!important;
         text-transform: none;

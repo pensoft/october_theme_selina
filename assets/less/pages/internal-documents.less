@@ -332,7 +332,6 @@ a.modal-link{
 /* users */
 
 .userPic img{
-  border-radius: 50%;
 }
 
 .userBox{
@@ -429,12 +428,10 @@ a:hover .arrow-left{
 }
 
 .card.internal{
-  //background-color: @secondary-color;
   color: @dark-color;
-  //max-width: 302px;
-  //height: 269px;
   flex-basis: 16.6%;
   max-width: 16.6%;
+    margin-top: 40px;
   .breakpoint-small-down({
     max-width: 95vw;
     margin: 20px auto;
@@ -443,15 +440,12 @@ a:hover .arrow-left{
 
 .card.internal .card-header {
   text-align: center;
-  padding: 0;
-  font-weight: bold;
-  width: 170px;
+  padding: 20px;
 
   a{
     color: @dark-color!important;
     text-transform: none;
     font-size: 22px;
-
   }
 
   a:hover{
@@ -463,49 +457,43 @@ a:hover .arrow-left{
 }
 
 .folder-background{
-  display: flex;
-  background-size: 65px!important;
-  height: 170px!important;
-  width: 170px;
-  background-color: #F0F0F0!important;
-  border-radius: 10px;
-  margin: 25px 0;
-  border: none;
-  &:hover{
-    background-color: @link-color!important;
-  }
-  .breakpoint-small-down({
-    width: 150px!important;
-    height: 150px!important;
-    background-size: 60px!important;
-  })
-}
+    display: block;
+    background-size: 141px!important;
+    height: 141px!important;
+    width: 141px!important;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    box-shadow: none;
+    transition: all .3s ease-in-out!important;
 
-.internal-documents{
-  .base_heading.inner-page{
-    text-align: left;
-    font-size: 22px;
-    margin: 30px 0;
-  }
+    &:hover{
+        margin-top: -20px;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 20px rgba(4, 90, 107, 0.5);
+    }
+
 }
 
 .internal-documents, .documents-search{
 
   h4{
     text-transform: none;
+      text-align: left;
   }
   .accordion-toggle{
-    border-radius: 10px;
-    border: 1px solid #C1C1C1;
+    border: 1px solid @border-color;
     padding: 20px !important;
     margin: 0!important;
     cursor: pointer;
     width: 100%;
-    background: #F0F0F0;
-    color: #555555;
+    background: #EAF0F2;
+    color: @text-color-default;
     font-size: 20px;
     font-weight: normal;
     text-transform: none;
+      text-align: left;
   }
 
   .plusminus{
@@ -555,7 +543,6 @@ a:hover .arrow-left{
 
 
 
-
   .row.middle-xs.between-xs .search {
       background: @white-color;
       position: relative;
@@ -574,9 +561,8 @@ a:hover .arrow-left{
         font-size: 18px;
         color: #122642;
         background-color: #ffffff;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-        border: 1px solid #d1d1d1!important;
+
+        border: 1px solid @border-color!important;
         border-right: 0!important;
         padding: 5px 10px;
       }
@@ -592,4 +578,18 @@ a:hover .arrow-left{
       cursor: pointer;
   }
 
+}
+
+.dissemination-report-forms{
+  .accordion-border{
+    cursor: unset!important;
+    width: 50%;
+    .breakpoint-small-down({
+      width: 90%;
+    });
+    a{
+      color: #122642;
+      text-transform: uppercase;
+    }
+  }
 }

@@ -20,97 +20,82 @@
 
 .vision {
   h1{
-    background: url('../../assets/images/vision.svg') left no-repeat;
-    padding-left: 56px;
-    .breakpoint-small-down({
+      padding-top: 80px;
       text-align: center;
-      width: fit-content;
-      margin: 0 auto;
-    })
+      &::before{
+          width: 68px;
+          height: 68px;
+          background: url('../../assets/images/vision.svg') center no-repeat;
+          content: '';
+          display: flex;
+          align-items: center;
+          margin: -80px auto 20px auto;
+      }
   }
-
   p{
-    .breakpoint-small-down({
       text-align: center;
-    })
-  }
-}
-
-.mission_vision_goals{
-  background: #E4E7E7;
-  h1.display-1{
-    text-align: left;
-    font-size: 40px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    margin-top: 20px;
+      padding: 0 10px;
   }
 }
 .mission{
-  h1{
-    background: url('../../assets/images/mission.svg') left no-repeat;
-    padding-left: 56px;
-    .breakpoint-small-down({
-      text-align: center;
-      width: fit-content;
-      margin: 0 auto;
-    })
-  }
-
-  p{
-    .breakpoint-small-down({
-      text-align: center;
-    })
-  }
+    h1{
+        padding-top: 80px;
+        text-align: center;
+        &::before{
+            width: 68px;
+            height: 68px;
+            background: url('../../assets/images/mission.svg') center no-repeat;
+            content: '';
+            display: flex;
+            align-items: center;
+            margin: -80px auto 20px auto;
+        }
+    }
+    p{
+        text-align: center;
+        padding: 0 10px;
+    }
 }
 .goals{
-  h1{
-    background: url('../../assets/images/goals.svg') left no-repeat;
-    padding-left: 56px;
-    .breakpoint-small-down({
-      text-align: center;
-      width: fit-content;
-      margin: 0 auto;
-    })
-  }
-
-  p{
-    .breakpoint-small-down({
-      text-align: center;
-    })
-  }
+    h1{
+        padding-top: 80px;
+        text-align: center;
+        &::before{
+            width: 68px;
+            height: 68px;
+            background: url('../../assets/images/goal.svg') center no-repeat;
+            content: '';
+            display: flex;
+            align-items: center;
+            margin: -80px auto 20px auto;
+        }
+    }
+    p{
+        text-align: center;
+        padding: 0 10px;
+    }
 }
 
 
 
 .numbers_container{
   margin-bottom: 50px;
-  h1{
-    text-align: center!important;
-    margin-bottom: 50px;
-  }
 }
 
 .numbers {
-  width: 166px;
-  //height: calc(175px - 40%);
-  height: calc(~"175px - 40%");
-  background: url('../../assets/images/leaf.svg') top no-repeat;
+  width: 200px;
+  height: 80px;
   background-size: contain;
-  padding-top: 50%;
-  color: @white-color;
-  font-size: 35px;
+  padding-top: 50px;
+  color: @link-color;
+  font-size: 50px;
   font-weight: bold;
   //margin: 0 auto;
   font-size: 1.5em;
   margin-top: 20px;
-  .breakpoint-large-down({
+  .breakpoint-small-down({
     text-align: center;
     margin: 30px auto;
-    width: 166px;
-    height: calc(~"175px - 22%");
-    padding-top: 30%;
-  margin-bottom: 100px;
   })
 }
 
@@ -119,7 +104,7 @@
   font-weight: bold!important;
   white-space: nowrap!important;
   text-align: center;
-  font-size: 0.7em;
+  font-size: 24px;
 }
 
 .num_container{
@@ -146,32 +131,52 @@
     });
   }
 
-  .network-will{
-    text-align: center;
-    padding: 120px 30px 30px 30px;
-    margin-top: 50px;
-    &:nth-of-type(1){
-      background: url("../../assets/images/about/1.svg") top center no-repeat;
-      background-size: 65px 92px;
+    .about-mission{
+        ul{
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            li{
+                background: url("../../assets/images/mission-icons.svg") no-repeat;
+                background-position: 0px 7px;
+                background-size: 56px 120px;
+                padding-left: 80px;
+                padding-right: 20px;
+                margin-bottom: 30px;
+                padding-bottom: 10px;
+            }
+        }
     }
-    &:nth-of-type(2){
-      background: url("../../assets/images/about/2.svg") top center no-repeat;
-      background-size: 103px;
+    .about-goals{
+        ul{
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            li{
+                padding-left: 80px;
+                margin-bottom: 30px;
+                padding-bottom: 20px;
+                &:nth-of-type(1){
+                    background: url("../../assets/images/1.svg") no-repeat;
+                    background-position: 0px 7px;
+                    background-size: 56px 60px;
+                }
+                &:nth-of-type(2){
+                    background: url("../../assets/images/2.svg") no-repeat;
+                    background-position: 0px 7px;
+                    background-size: 56px;
+                }
+                &:nth-of-type(3){
+                    background: url("../../assets/images/3.svg") no-repeat;
+                    background-position: 0px 7px;
+                    background-size: 56px;
+                }
+                &:nth-of-type(4){
+                    background: url("../../assets/images/4.svg") no-repeat;
+                    background-position: 0px 7px;
+                    background-size: 56px;
+                }
+            }
+        }
     }
-
-    &:nth-of-type(3){
-      background: url("../../assets/images/about/3.svg") top center no-repeat;
-      background-size: 109px 104px;
-    }
-
-    &:nth-of-type(4){
-      background: url("../../assets/images/about/4.svg") top center no-repeat;
-      background-size: 92px 82px;
-    }
-
-    &:nth-of-type(5){
-      background: url("../../assets/images/about/5.svg") top center no-repeat;
-      background-size: 68px;
-    }
-  }
 }

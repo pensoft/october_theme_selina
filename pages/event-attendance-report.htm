@@ -1,0 +1,23 @@
+url = "/event-attendance-planner"
+layout = "default"
+title = "Event Attendance Planner"
+
+[EventReportingForm]
+
+[session]
+security = "user"
+redirect = "home"
+==
+<?php
+function onStart(){
+		if($this['message']){
+			header('Refresh: 10; URL='/event-attendance-report);
+		}
+	}
+?>
+==
+{% component 'session' %}
+<div class="container">
+	<h1 class="page_heading internal">Event Attendance Planner</h1>
+    {% component 'EventReportingForm' %}
+</div>

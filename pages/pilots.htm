@@ -20,6 +20,8 @@ heightStyle = "auto"
 iconsHeader = "ui-icon-triangle-1-e"
 iconsHeaderActive = "ui-icon-triangle-1-s"
 templates = "template4"
+
+
 ==
 {% component 'siteSearchInclude' %}
 <div class="container pilots_background_container">
@@ -29,7 +31,10 @@ templates = "template4"
         {% component 'accordion' %}
         </div>
         <div class="col-md-6 col-xs-12">
-
+			<div class="pilots_svg_map_container">
+				<span class="tooltiptext" id="tooltip">Bulgaria</span>
+				{% partial 'components/pilots_map' %}
+			</div>
         </div>
     </div>
 </div>

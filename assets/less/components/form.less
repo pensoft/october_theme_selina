@@ -13,16 +13,8 @@
 
         &.inline {
             flex-direction: row;
-            .breakpoint-small-down({
-              justify-content: space-around!important;
-            });
             .field {
                 margin-top: 0;
-                white-space: nowrap;
-
-                .breakpoint-large-down({
-                  margin-bottom: 20px;
-                });
             }
         }
         .field {
@@ -49,23 +41,22 @@
         }
         & > input, textarea, select {
             display: block;
-            //width: 100%;
+            width: 100%;
             font-size: @font-size;
             color: @dark-color;
             background-color: @white-color;
             box-sizing: border-box;
-            padding: .7rem .7rem;
+            padding: .7rem 1rem;
             .line-height();
-            .rounded(10px);
-            border: 0px solid #C1C1C1;
+            border: 0px solid @border-color;
             border-right-width: 15px;
             border-right-color: white;
-            box-shadow: 0 0 0 1px #C1C1C1;
+            box-shadow: 0 0 0 1px @border-color;
 
             &:focus {
                 outline: none;
             }
         }
     }
-    
+
 }

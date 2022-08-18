@@ -1,6 +1,6 @@
-title = "Media center"
 url = "/media-center/flyer"
 layout = "default"
+title = "Promotional materials"
 is_hidden = 0
 robot_index = "index"
 robot_follow = "follow"
@@ -24,7 +24,7 @@ function onStart(){
 	if(get('download')){
 		$file = File::find((int)get('download'));
 		$file_name = $file->getLocalPath();
-$recordName = get('file_name') ? get('file_name') : 'UrbanTreeGuard_flyer';
+$recordName = get('file_name') ? get('file_name') : 'REST-COAST_flyer';
 $ext= $file->getExtension();
 
 if (file_exists($file_name)) {
@@ -49,7 +49,8 @@ return Redirect::to('/media-center/flyer');
 ?>
 ==
 <div class="container">
-	<div class="row">
+	<h1 class="page_heading">Media center</h1>
+	<div class="row between-md around-xs">
 		{% set records = mediaFlyersList %}
 		{% set displayColumn = mediaFlyersList.displayColumn %}
 		{% set noRecordsMessage = mediaFlyersList.noRecordsMessage %}
@@ -61,12 +62,13 @@ return Redirect::to('/media-center/flyer');
 		{# Use spaceless tag to remove spaces inside the A tag. #}
 		{% spaceless %}
 		{% if record.flyer_image %}
-		<div class="col-md col-xs-12">
+		<div class="col-md-4 col-xs-12">
 			<div class="card-container text-center">
-				<h1 class="display-1">{{record.name}}</h1>
-				<span class="card_image_container" style="background: url({{record.flyer_image.thumb(auto,448,{'mode':'crop'})}}) center center no-repeat;" title="{{record.name}}"></span>
+                <a href="{{ record.file.path }}#{{record.file.file_name}}" target="_blank" title="{{record.name}}">
+                    <span class="card_image_container" style="background: url({{record.flyer_image.thumb(auto,550,{'mode':'crop'})}}) center center no-repeat;" title="{{record.name}}"></span>
+                </a>
 
-				<br><a href="{{ ''| page }}?{{queries}}&download={{record.file.id}}&file_name={{record.name|replace({' ': '_'})}}" title="{{record.name}}" class="btn btn-primary">Download</a>
+				<span class="card_title">{{record.name}}</span><br>
 			</div>
 		</div>
 

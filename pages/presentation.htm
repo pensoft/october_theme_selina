@@ -66,10 +66,10 @@ return Redirect::to('/media-center/flyer');
 		{% if record.presentation_image %}
 		<div class="col-xs-12 col-lg-6 center-xs">
 			<div class="story broshure_and_poster">
-				<p align="center"><a href="{{record.file.path}}" target="_blank"><img src="{{record.presentation_image.thumb(812,454,{'mode':'crop'})}}" title="{{record.name}}"> </a></p>
+				<p align="center"><a href="{{record.file.path}}#{{record.file.file_name}}" target="_blank"><img src="{{record.presentation_image.thumb(812,454,{'mode':'crop'})}}" title="{{record.name}}"> </a></p>
 			</div>
 			{% if record.file %}
-			<a class="btn btn-primary" href="{{ ''| page }}?{{queries}}&download={{record.file.id}}&file_name={{record.name|replace({' ': '_'})}}" target="_blank">Download</a>
+			<a class="btn btn-primary" href="{{ record.file.path }}#{{record.file.file_name}}" target="_blank">Download</a>
 
 			{% endif %}
 		</div>

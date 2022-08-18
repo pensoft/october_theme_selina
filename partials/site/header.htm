@@ -1,4 +1,4 @@
-[menu main]
+[menu]
 start = "id-1"
 activeNode = 0
 listItemClasses = "nav-item"
@@ -7,8 +7,8 @@ secondaryClasses = "dropdown-menu"
 numberOfLevels = 2
 
 [menu login]
-start = "id-23"
-activeNode = "id-24"
+start = "id-2"
+activeNode = 0
 listItemClasses = "item"
 primaryClasses = "nav nav-pills"
 secondaryClasses = "dropdown-menu"
@@ -34,32 +34,23 @@ numberOfLevels = 2
 		<span></span>
 		<span></span>
 		<span></span>
-		{% component 'main' %}
-
+		{% component 'menu' %}
 	</div>
-	<a href="{{'home'|page}}" class="navbar-brand" style="background-image: url('{{ this.theme.site_logo.getPath() }}'); background-position: center; background-size: contain;
-	{% if user and page_id != 'home' %}
-	height: 95px;
-    margin: 18px 0px 20px 20px;
-    flex-basis: 83px;  {% endif %}">
+	<a href="{{'home'|page}}" class="navbar-brand" style="background-image: url('{{ this.theme.site_logo.getPath() }}'); background-position: center; background-size: contain;">
 
     </a>
 
-        <div class="navbar-collapse collapse end-xs" style="display: none;">
-			<div id="headerNavbarNav" style="position: fixed; right: 72px;   {% if user %} top: 83px; {% else%} top: 14px;{% endif %}">
-				{% component 'main' %}
-			</div>
-
+        <div class="navbar-collapse collapse end-xs" id="headerNavbarNav" style="display: none;">
+			{% component 'menu' %}
 			<div id="headerNavbarLogin">
 				<ul class="navbar-nav" style="padding: 0; margin: 0;">
 
 				</ul>
 			</div>
 		</div>
-		<a class="pr p-search medium search-btn"  style="position: fixed; right: 0px;   {% if user %} top: 83px; {% else%} top: 20px;{% endif %}" onclick="showSearchForm();"></a>
+		<a class="pr p-search medium search-btn" onclick="showSearchForm();"></a>
 
 		<div id="search" class="search" style="display: none;">
-			<div class="close-search" onclick="hideSearchForm();"></div>
 			<form class="input-group align-items-start" action="{{ url('search')}}" method="get">
 				<input class="form-control search_input" style="color: #000;" name="q" type="text" autocomplete="on" placeholder="Search">
 				<button class="btn btn-link pr p-search big text-grey-search-btn" type="submit"></button>
@@ -74,12 +65,15 @@ numberOfLevels = 2
 
 {% if this.theme.header_image %}
 <div class="header-image {{page_id}}">
-    <div class="header-image-bar" style="background-image: url('{{this.theme.header_image.getPath()}}'); background-position: left center;"></div>
-
-	<div class="jumbotron" data-aos="fade-up">
-        <h1 class="underline white  {% if page_id == 'home'%}home-page-header{% endif %}">{%if page_title%} {{page_title}} {%else%} {{site_name}} {%endif%}</h1>
+    {%if this.page.header_image %}
+        <div class="header-image-bar" style="background-image: url('{{this.page.header_image|media}}'); background-position: top center;"></div>
+    {%else%}
+        <div class="header-image-bar" style="background-image: url('{{this.theme.header_image.getPath()}}'); background-position: left center;"></div>
+    {%endif%}
+    <div class="jumbotron">
+        <h1  data-aos="fade-up" class="underline white  {% if page_id == 'home'%}home-page-header{% endif %}">{%if page_title%} {{page_title}} {%else%} {{site_name}} {%endif%}</h1>
         {% if page_id == 'home' and tag_line %}
-            <p>{{tag_line}}</p>
+            <p data-aos="fade-up">{{tag_line|raw}}</p>
         {% endif %}
     </div>
 </div>

@@ -4,12 +4,21 @@ title = "User manual"
 
 [jumbotron]
 jumbotron = "user-manual"
-templates = "template2"
+background = "#ffffff"
+templates = "template1"
 description_limit = 0
+
+[session]
+security = "user"
+allowedUserGroups[] = "internal-users"
+allowedUserGroups[] = "registered"
+allowedUserGroups[] = "guest"
+redirect = "home"
 ==
+{% component 'session' %}
 <div class="container-fluid banner " style="background-color:transperant;">
 	<div class="container">
-				<h1 class="display-1">User manual</h1>
+				<h1 class="page_heading">User manual</h1>
 				{% component 'jumbotron' %}
 
 		

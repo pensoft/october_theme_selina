@@ -1,3 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="39.42" height="39.419" viewBox="0 0 39.42 39.419">
-  <path id="Icon_awesome-linkedin-in" data-name="Icon awesome-linkedin-in" d="M8.824,39.42H.651V13.1H8.824ZM4.733,9.512A4.756,4.756,0,1,1,9.466,4.734,4.773,4.773,0,0,1,4.733,9.512ZM39.411,39.42H31.256V26.608c0-3.053-.062-6.969-4.249-6.969-4.249,0-4.9,3.317-4.9,6.749V39.42H13.943V13.1h7.838v3.59H21.9a8.587,8.587,0,0,1,7.733-4.25c8.271,0,9.792,5.447,9.792,12.521V39.42Z" transform="translate(0 -0.001)" fill="#2f2f2f"/>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="29.365" height="27.257" viewBox="0 0 29.365 27.257">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_3302" data-name="Rectangle 3302" width="29.365" height="27.257" fill="#fff"/>
+    </clipPath>
+  </defs>
+  <g id="Group_14438" data-name="Group 14438" transform="translate(0 0)">
+    <g id="Group_14427" data-name="Group 14427" transform="translate(0 0)">
+      <g id="Group_14426" data-name="Group 14426" clip-path="url(#clip-path)">
+        <path id="Path_29468" data-name="Path 29468" d="M2.185,1.746h5.8V4.718h.082A6.446,6.446,0,0,1,13.8,1.746c6.127,0,7.26,3.817,7.26,8.777v10.1H15V11.666c0-2.132-.038-4.888-3.14-4.888-3.15,0-3.63,2.329-3.63,4.734V20.62H2.195V1.746Z" transform="translate(8.306 6.639)" fill="#fff"/>
+      </g>
+    </g>
+    <rect id="Rectangle_3303" data-name="Rectangle 3303" width="6.29" height="18.869" transform="translate(0 8.383)" fill="#fff"/>
+    <g id="Group_14429" data-name="Group 14429" transform="translate(0 0)">
+      <g id="Group_14428" data-name="Group 14428" clip-path="url(#clip-path)">
+        <path id="Path_29469" data-name="Path 29469" d="M6.282,3.14A3.14,3.14,0,1,1,3.142,0a3.144,3.144,0,0,1,3.14,3.14" transform="translate(0.008 0.002)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
 </svg>

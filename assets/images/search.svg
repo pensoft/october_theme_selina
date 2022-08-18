@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="27.879" height="27.453" viewBox="0 0 27.879 27.453">
-  <g id="Group_13875" data-name="Group 13875" transform="translate(-1559.17 725.678) rotate(-45)">
-    <g id="Ellipse_2666" data-name="Ellipse 2666" transform="translate(1606 599)" fill="none" stroke="#383838" stroke-width="3">
-      <circle cx="9.632" cy="9.632" r="9.632" stroke="none"/>
-      <circle cx="9.632" cy="9.632" r="8.132" fill="none"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="34.551" height="36.025" viewBox="0 0 34.551 36.025">
+  <g id="Group_294" data-name="Group 294" transform="translate(-1559.171 730.888) rotate(-45)">
+    <g id="Ellipse_2666" data-name="Ellipse 2666" transform="translate(1607.414 597.586)" fill="none" stroke="#045a6b" stroke-linecap="round" stroke-width="2">
+      <circle cx="11.902" cy="11.902" r="11.902" stroke="none"/>
+      <circle cx="11.902" cy="11.902" r="10.902" fill="none"/>
     </g>
-    <line id="Line_22" data-name="Line 22" y2="9.632" transform="translate(1615.933 617.361)" fill="none" stroke="#383838" stroke-width="3"/>
+    <line id="Line_22" data-name="Line 22" y2="11.902" transform="translate(1618.274 621.688)" fill="none" stroke="#045a6b" stroke-linecap="round" stroke-width="2"/>
   </g>
 </svg>

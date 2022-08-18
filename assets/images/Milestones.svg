@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="141" height="141" viewBox="0 0 141 141">
+  <g id="Group_14578" data-name="Group 14578" transform="translate(-741 -538)">
+    <g id="Group_14572" data-name="Group 14572">
+      <path id="Path_29494" data-name="Path 29494" d="M0,0H141V141H0Z" transform="translate(741 538)" fill="#045a6b"/>
+      <g id="Group_14504" data-name="Group 14504" transform="translate(723.984 511.456)">
+        <g id="Group_1779" data-name="Group 1779" transform="translate(53.569 51.454)">
+          <rect id="Rectangle_3353" data-name="Rectangle 3353" width="68" height="63" transform="translate(-0.053 2.089)" fill="#fff"/>
+          <path id="Icon_awesome-check" data-name="Icon awesome-check" d="M12.227,30.9.527,19.2a1.8,1.8,0,0,1,0-2.546L3.073,14.1a1.8,1.8,0,0,1,2.546,0L13.5,21.986,30.382,5.1a1.8,1.8,0,0,1,2.546,0L35.473,7.65a1.8,1.8,0,0,1,0,2.546l-20.7,20.7A1.8,1.8,0,0,1,12.227,30.9Z" transform="translate(16.947 16.089)" fill="#045a6b"/>
+        </g>
+      </g>
+      <path id="Path_29495" data-name="Path 29495" d="M10.086,55.914c4.862-26.495,31.386-9.837,46.719-21.8,3.932-3.069,6.212-8.73,4.064-13.233" transform="translate(751.109 604.845)" fill="none" stroke="#fff" stroke-linejoin="round" stroke-width="4" stroke-dasharray="6 6 6 6 6 6"/>
+    </g>
+  </g>
+</svg>

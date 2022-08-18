@@ -2,10 +2,7 @@
 	SVG map
 */
 
-.st1:hover,
-.st2:hover,
-.st3:hover,
-.st4:hover
+.fill_default:hover
 {
   opacity:0.5;
   cursor:pointer;
@@ -15,18 +12,27 @@
   display: none;
   width: 120px;
   background-color: #FFF;
-  color: #000000;
+  color: @dark-color;
   text-align: center;
-  border-radius: 10px;
   position: fixed;
   z-index: 1;
-  padding: 10px 15px;
-  -webkit-box-shadow: 0px -1px 11px 0px #c1c1c1;
-  -moz-box-shadow: 0px -1px 11px 0px #c1c1c1;
-  box-shadow: 0px -1px 11px 0px #c1c1c1;
+  padding: 5px 10px;
   font-weight: bold;
 }
 
 .tooltiptext.active {
   display: initial;
+}
+
+.active_path{
+  //fill:#102441!important;
+  //stroke:#c1c1c1!important;
+  //stroke-width:10px!important;
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }

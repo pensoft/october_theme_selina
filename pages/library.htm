@@ -1,58 +1,51 @@
-url = "/resources"
+url = "/library"
 layout = "default"
-title = "Resources"
+title = "Library"
 is_hidden = 0
 robot_index = "index"
 robot_follow = "follow"
+
+[LibraryPage]
+templates = "template5"
+has_search = 1
+add_file_name = 1
+no_records_message = "No records found"
 ==
 <div class="container">
-	<div class="row between-sm between-xs">
-		<div class="col-sm-2 col-xs-6">
-			<div class="card-container text-center">
-				<a href="{{url('/resources/publications')}}" title="Publications">
-					<span class="card_image_container" style="background: url({{'pensoft/publications.svg'|media}}) center center no-repeat;" href="{{url('library')}}" title="Publications"></span>
-					<span class="media_label">Publications</span>
-				</a>
-			</div>
-		</div>
-		
-		<div class="col-sm-2 col-xs-6">
-			<div class="card-container text-center">
-				<a href="{{'wiki'|page}}" title="Wiki">
-					<span class="card_image_container" style="background: url({{'pensoft/wiki.svg'|media}}) center center no-repeat;" href="{{url('library')}}" title="Wiki"></span>
-					<span class="media_label">Wiki</span>
-				</a>
-			</div>
-		</div>
-		
-		<div class="col-sm-2 col-xs-6">
-			<div class="card-container text-center">
-				<a href="{{'teaching-tools'|page}}" title="Teaching tools">
-					<span class="card_image_container" style="background: url({{'pensoft/teaching-tools.svg'|media}}) center center no-repeat;" href="{{url('library')}}" title="Teaching tools"></span>
-					<span class="media_label">Teaching tools</span>
-				</a>
-			</div>
-		</div>
-		
-		<div class="col-sm-2 col-xs-6">
-			<div class="card-container text-center">
-				<a href="{{'gallery'|page}}" title="Gallery">
-					<span class="card_image_container" style="background: url({{'pensoft/gallery.svg'|media}}) center center no-repeat;" href="{{url('library')}}" title="Gallery"></span>
-					<span class="media_label">Gallery</span>
-				</a>
-			</div>
-		</div>
-		
-		<div class="col-sm-2 col-xs-6">
-			<div class="card-container text-center">
-				<a href="{{'links'|page}}" title="Links">
-					<span class="card_image_container" style="background: url({{'pensoft/links.svg'|media}}) center center no-repeat;" href="{{url('library')}}" title="Links"></span>
-					<span class="media_label">Links</span>
-				</a>
-			</div>
-		</div>
-		
+	<h1 class="page_heading">Library</h1>
+	<div class="tabs" id="mylibraryForm">
+
+
+		{{ form_ajax( 'LibraryPage::onFilterRecords',
+		{update: { '@libraries': '#partialLibraries' }}) }}
+		<input type="hidden" name="Filter[type]" value="0">
+		<a>All documents</a>
+		{{ form_close() }}
+
+
+		{{ form_ajax( 'LibraryPage::onFilterRecords',
+		{update: { '@libraries': '#partialLibraries' }}) }}
+		<input type="hidden" name="Filter[type]" value="1">
+		<a>Deliverables</a>
+		{{ form_close() }}
+
+
+		{{ form_ajax( 'LibraryPage::onFilterRecords',
+		{update: { '@libraries': '#partialLibraries' }}) }}
+		<input type="hidden" name="Filter[type]" value="2">
+		<a>{{this.theme.site_name}} publications</a>
+		{{ form_close() }}
+
+
+		{{ form_ajax( 'LibraryPage::onFilterRecords',
+		{update: { '@libraries': '#partialLibraries' }}) }}
+		<input type="hidden" name="Filter[type]" value="3">
+		<a>Relevant publications</a>
+		{{ form_close() }}
+
+
 
 	</div>
-	<p>&nbsp;</p>
+	{% component 'LibraryPage' %}
+
 </div>

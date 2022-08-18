@@ -1,4 +1,4 @@
-title = "Media center"
+title = "Videos"
 url = "/media-center/videos"
 layout = "default"
 is_hidden = 0
@@ -24,7 +24,7 @@ function onStart(){
 if(get('download')){
 $file = File::find((int)get('download'));
 $file_name = $file->getLocalPath();
-$recordName = get('file_name') ? get('file_name') : 'UrbanTreeGuard_video';
+$recordName = get('file_name') ? get('file_name') : 'REST-COAST_video';
 $ext= $file->getExtension();
 
 if (file_exists($file_name)) {
@@ -49,7 +49,7 @@ return Redirect::to('/media-center/videos');
 ==
 <div class="container">
 
-	<h1 class="display-1">Videos</h1>
+	<h1 class="page_heading">Media center</h1>
 	<div class="row">
 		{% set records = mediaVideosList %}
 		{% set displayColumn = mediaVideosList.displayColumn %}

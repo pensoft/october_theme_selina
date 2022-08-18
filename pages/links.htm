@@ -1,41 +1,30 @@
-url = "/resources/links"
+title = "Links"
+url = "/links"
 layout = "default"
-title = "Resources"
 is_hidden = 0
-meta_description = "about page"
-seo_keywords = "keywords"
 robot_index = "index"
 robot_follow = "follow"
 
-[siteSearchInclude]
+[Pensoft\Links\Components\Items items]
+show-category-title = 1
+category = 1
+maxItems = 0
 
-[jumbotron intro]
-jumbotron = "links"
-title = 1
-background = "#ffffff"
-templates = "template1"
-description_limit = 0
-
-[jumbotron background]
-jumbotron = "links-image"
-title = 0
-background = "#ffffff"
-templates = "template1"
-description_limit = 0
+[Pensoft\Links\Components\Items items3]
+show-category-title = 0
+category = 2
+maxItems = 0
 ==
-{% component 'siteSearchInclude' %}
 <div class="container">
-	<div class="row top-xs">
-		<div class="col-md-6 col-xs-12">
-			<div class="intro">
-				{% component 'intro' %}
-			</div>
-		</div>
-		<div class="col-md-6 col-xs-12">
-			<div class="background">
-				{% component 'background' %}
-			</div>
-		</div>
-	</div>
+    <div class="row center-xs">
+        <div class="col-xs">
+            {% component 'items3' %}
+        </div>
+    </div>
 
+    <div class="row center-xs">
+        <div class="col-xs">
+            {% component 'items' %}
+        </div>
+    </div>
 </div>

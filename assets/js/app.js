@@ -1,26 +1,11 @@
 $(window).scroll(animateNumbers);
 var viewed = false;
 
-// console.log(window.innerHeight)
-// console.log(document.body.offsetHeight)
-//
-// var documentHasScroll = function() {
-//
-//     return window.innerHeight <= document.body.offsetHeight;
-// };
-// var keepFooter = function(documentHasScroll){
-//     if (!document.getElementById("layout-footer")){
-//         return;
-//     }
-//
-//     if(documentHasScroll){
-//         document.getElementById("layout-footer").classList.remove('fixed-bottom');
-//     }else{
-//         document.getElementById("layout-footer").classList.add('fixed-bottom');
-//     }
-// }
+var documentHasScroll = function() {
+    return window.innerHeight <= document.body.offsetHeight;
+};
 
-
+var width = $(window).width();
 
 $(document).ready(function() {
 	/* MENU */
@@ -32,19 +17,6 @@ $(document).ready(function() {
 		divs.slice(i, i+2).wrapAll( '<div class="col-xs" />');
 	}
 
-
-	if(window.pageYOffset > 20){
-		$("nav").addClass("shrink");
-    }
-	$(document).on("scroll", function () {
-		if($(document).scrollTop() > 20) {
-			$("nav").addClass("shrink");
-		} else
-		{
-			$("nav").removeClass("shrink");
-		}
-	});
-
 	var headerNavbar = $('#headerNavbar');
 	var width100 = $('.width100');
 	var innerWidth = $('body').innerWidth();
@@ -52,33 +24,28 @@ $(document).ready(function() {
 	width100.width(innerWidth);
 
 
-	$('body').on('click', '.working_groups_parent .accordion-toggle', function () {
-		if ($(this).find(".accordion-content").is(':visible')) {
-			$(this).find(".accordion-content").slideUp(300);
+	$('body').on('click', '.work_packages .accordion-toggle, .partners_list_container .accordion-toggle', function () {
+	    $('.ui-accordion-header').show();
+		if ($(this).next(".accordion-content").is(':visible')) {
+			$(this).next(".accordion-content").slideUp(300);
 			$(this).children().find(".plusminus").text('+');
 			$(this).children(".plusminus").html('<span class="plus"></span>');
 		} else {
-			$(this).find(".accordion-content").slideDown(300);
+			$(this).next(".accordion-content").slideDown(300);
 			$(this).children().find(".plusminus").text('-');
 			$(this).children(".plusminus").html('<span class="minus"></span>');
 		}
 	});
 
-	$('body').on('click', '.working_groups_members .accordion-toggle', function () {
-		if ($(this).next(".accordion-content").is(':visible')) {
-			$(this).next(".accordion-content").slideUp(300);
-			$(this).children(".plusminus").addClass('plus');
-			$(this).children(".plusminus").removeClass('minus');
-		} else {
-			$(this).next(".accordion-content").slideDown(300);
-			$(this).children(".plusminus").removeClass('plus');
-			$(this).children(".plusminus").addClass('minus');
-		}
+	$('.work_packages .accordion-content, .partners_list_container .accordion-toggle').each(function( index, value ) {
+		$(value).find('a').attr( "onclick", "window.open(this.href, '_blank');" )
 	});
+
 
 	$('.nav.nav-pills').removeAttr('id');
 
 	var count = $("h1").text().length;
+
 
 	$('.tabs').each(function(){
 		// For each set of tabs, we want to keep track of
@@ -107,23 +74,8 @@ $(document).ready(function() {
 			}, speed);
 		}
 
-		if(window.location.hash == '#workingGroups') {
-			if($('.partners .container-fluid:first-child').hasClass('partners_background')){
-				$('.partners .container-fluid:first-child').removeClass('partners_background');
-			}
-		}
-
 		// Bind the click event handler
 		$(this).find("a").click(function (e) {
-			if(window.location.hash == '#members') {
-				if($('.partners .container-fluid:first-child').hasClass('partners_background')){
-					$('.partners .container-fluid:first-child').removeClass('partners_background');
-				}
-			}else{
-				if(!$('.partners .container-fluid:first-child').hasClass('partners_background')){
-					$('.partners .container-fluid:first-child').addClass('partners_background');
-				}
-			}
 			if($(this).hasClass('active')) {
 				$content.slideDown({
 					scrollTop: $content.offset().top - $('header').height()
@@ -158,12 +110,23 @@ $(document).ready(function() {
 
 			// Make the tab active.
 			$active.addClass('active');
-
-
 			$content.slideDown({
 				scrollTop: $content.offset().top - $('header').height()
 			}, speed);
+			// var screenSize = getScreenSize();
+			// if (screenSize.width < 800) {
+			// 	// scroll to element
+			// 	$('html, body').animate({
+			// 		scrollTop: $content.offset().top - $('header').height() + 300 // mobile
+			// 	}, speed);
+			// }else{
+			// 	//scroll to element icons top
+			// 	$('html, body').animate({
+			// 		scrollTop:  $content.offset().top - $('header').height() + 300
+			// 	}, speed);
+			// }
 
+			// Prevent the anchor\'s default click action
 			e.preventDefault();
 		});
 	});
@@ -177,11 +140,11 @@ $(document).ready(function() {
 	$('.card-img-top').attr('data-aos', 'fade-up');
 	$('.logo-container').attr('data-aos', 'fade-up');
 	$('.subscribe-items a').attr('data-aos', 'fade-up');
-	// $('.icons a').attr('data-aos', 'fade-up');
-	$('.about .network-will').attr('data-aos', 'fade-up');
+	$('.icons a').attr('data-aos', 'fade-up');
+	$('.about h1.display-1').attr('data-aos', 'fade-up');
 	$('h2.underline').attr('data-aos', 'fade-up');
 	$('.news_column').attr('data-aos', 'fade-up');
-	$('.timeline-item').attr('data-aos', 'fade-up');
+	// $('.timeline-item').attr('data-aos', 'fade-up');
 
 	// about page
 
@@ -196,56 +159,64 @@ $(document).ready(function() {
 	$('.card_image_container').attr('data-aos', 'fade-up');
 	$('.coordinator_image').attr('data-aos', 'fade-up');
 
-	if ($(window).width() >= 1024) {
-		$('.key_1, .key_3, .key_5, .key_7, .key_9, .key_11, .key_13').wrapAll('<div class="col-md-6 col-xs-12" />');
-		$('.key_0, .key_2, .key_4, .key_6, .key_8, .key_10, .key_12').wrapAll('<div class="col-md-6 col-xs-12" />');
-	}
 
-
-
-	$('.gallery-item img').each(function(){
-		$(this).attr('id', 'myImg');
-		$(this).addClass('myImages');
+	$('.partners .partner_description, .partners .list-item-body').each(function(){
+		var countParagraphs = $(this).find('p').length;
+		if(countParagraphs > 1) {
+			$(this).find('p').first().append('<div class="dorsal">Read more</div>');
+			$(this).find('p:not(:first)').wrapAll("<div class='toogle-contact-paragraphs'></div>")
+		}
 	});
 
-	$('.gallery-container').after('<div id=\"myModal\" class=\"modal\">\n' +
-		'  <span class=\"close_modal\">&times;</span>\n' +
-		'  <img class=\"modal-content\" id=\"img01\">\n' +
-		'  <div id=\"caption\"></div>\n' +
-		'</div>');
+	$('.dorsal').click(function () {
+		var link = $(this);
+		link.parent().parent().find('.toogle-contact-paragraphs').slideToggle('slow', function() {
+			if ($(this).is(':visible')) {
+				link.text('Read less');
+			} else {
+				link.text('Read more');
+			}
+		});
+
+	});
+
+	// $('.see_all_partners_link').hide();
+
+	if(width >= 1024){
+        $('.work_packages .key_0, .work_packages .key_3, .work_packages .key_6, .work_packages .key_9, .work_packages .key_12, .work_packages .key_15').wrapAll('<div class="col-md-4 col-xs-12" />');
+        $('.work_packages .key_1, .work_packages .key_4, .work_packages .key_7, .work_packages .key_10, .work_packages .key_13, .work_packages .key_16').wrapAll('<div class="col-md-4 col-xs-12" />');
+        $('.work_packages .key_2, .work_packages .key_5, .work_packages .key_8, .work_packages .key_11, .work_packages .key_14, .work_packages .key_17').wrapAll('<div class="col-md-4 col-xs-12" />');
+
+        setboxHeight()
+        $(window).resize(function() {
+            setboxHeight();
+        });
+    }
 
 
-	// create references to the modal...
-	var modal = document.getElementById('myModal');
-// to all images -- note I'm using a class!
-	var images = document.getElementsByClassName('myImages');
-// the image in the modal
-	var modalImg = document.getElementById("img01");
-// and the caption in the modal
-	var captionText = document.getElementById("caption");
-
-// Go through all of the images with our custom class
-	for (var i = 0; i < images.length; i++) {
-		var img = images[i];
-		// and attach our click listener for this image.
-		img.onclick = function(evt) {
-			modal.style.display = "block";
-			modalImg.src = this.src;
-			captionText.innerHTML = this.alt;
-		}
-	}
-
-	var span = document.getElementsByClassName("close_modal")[0];
-	if(span){
-		span.onclick = function() {
-			modal.style.display = "none";
-		}
-	}
 
 
+    $(".fill_blue").bind("mouseover", function() {
+        $(this).attr('fill', '#96B93C');
+    });
+    $(".fill_blue").bind("mouseout", function() {
+        $(this).attr('fill', '#045A6B');
+    });
 
 
 });
+
+
+
+function setboxHeight() {
+    var box1height = $('.partners_map_container').height();
+    $('.partners_map').height(box1height)
+}
+
+// function sortMe(a, b) {
+//     console.log(a.className, b.className);
+//     return a.className < b.className;
+// }
 
 
 function createTippy(element, options) {
@@ -259,7 +230,6 @@ function createTippy(element, options) {
 		resolve();
 	});
 }
-
 
 
 function encodeURIObject(data){
@@ -297,10 +267,10 @@ function appendSignOut() {
 
 function appendSearchAndSocialMedia(){
 	var liSearch = '<li class="nav-item search_field"><a href=\"javascript: void(0);\" onclick=\"showSearchForm();\"></a></li>';
-	var liSocial = '<li class="nav-item social"><a href=\"https://www.facebook.com/BiCIKLProjectH2020\" target=\"_blank\" class=\"pr p-facebook big\" target=\"_blank\"></a><a href=\"https://twitter.com/BiCIKL_H2020\" target=\"_blank\" class=\"pr p-twitter big\" target=\"_blank\"></a></li>';
+	// var liSocial = '<li class="nav-item social"><a href=\"https://www.facebook.com/BiCIKLProjectH2020\" target=\"_blank\" class=\"pr p-facebook big\" target=\"_blank\"></a><a href=\"https://twitter.com/BiCIKL_H2020\" target=\"_blank\" class=\"pr p-twitter big\" target=\"_blank\"></a></li>';
 	var menu = $('#menuToggle');
-	menu.find('>ul').append(liSearch).append(liSocial);
-	// menu.find('>ul').append(liSearch);
+	// menu.find('>ul').append(liSearch).append(liSocial);
+	menu.find('>ul').append(liSearch);
 }
 
 function redirectAndRefresh(url){
@@ -320,11 +290,6 @@ function showSearchForm(){
 	$('#search').toggle();
 }
 
-function hideSearchForm(){
-	$('#layout-header').toggleClass('full-width');
-	$('#search').hide();
-}
-
 function requestFormLibrary() {
 	$('#mylibraryForm').on('click', 'a', function () {
 		var $form = $(this).closest('form');
@@ -333,15 +298,7 @@ function requestFormLibrary() {
 }
 
 function requestFormPartners() {
-
-	$('#myPartnersForm').on('click', 'button', function () {
-		$('#myPartnersForm button').removeClass('active');
-		var $form = $(this).closest('form');
-		$(this).addClass('active');
-		$('input[name="category"]').val($(this).val());
-		$form.request();
-	})
-	$('#myPartnersForm').on('change', 'select', function () {
+	$('#myPartnersForm').on('click', 'a', function () {
 		var $form = $(this).closest('form');
 		$form.request();
 	})
@@ -402,7 +359,7 @@ function init() {
         if (isBreakpointLarge()) {
             $('#card-carousel').slick('unslick');
         } else {
-            if (typeof cardCarousel === 'function') { 
+            if (typeof cardCarousel === 'function') {
                 cardCarousel({
                     slidesToShow: 3,
                     slidesToScroll: 3,
@@ -413,12 +370,11 @@ function init() {
                 });
              }
         }
-        // keepFooter(documentHasScroll());
 
     });
     document.addEventListener('DOMContentLoaded', function () {
         if (!isBreakpointLarge()) {
-            if (typeof cardCarousel === 'function') { 
+            if (typeof cardCarousel === 'function') {
                 cardCarousel({
                     slidesToShow: 3,
                     slidesToScroll: 3,
@@ -431,7 +387,7 @@ function init() {
         }
 		appendSearchAndSocialMedia()
 		requestFormLibrary()
-		requestFormPartners()
+		// requestFormPartners()
         // keepFooter(documentHasScroll());
 
     });
@@ -439,5 +395,56 @@ function init() {
     appendSignIn()
     appendSignOut()
 }
+
+function createCustomTippy(element, options) {
+    return new Promise(resolve => {
+        tippy(element, Object.assign({}, {
+            allowHTML: true,
+            interactive: true,
+            animation: 'scale',
+            theme: 'light',
+            trigger: 'click',
+        }, options));
+        resolve();
+    });
+}
+
+function onMapCustomPartners(pCode) {
+    $.request('onPartners', {
+        update: { 'components/partners_list': '#mycomponentpartners',
+        },
+        data: {
+            code: pCode
+        },
+    }).then(response => {
+        $('html, body').animate({
+            scrollTop: $("#mycomponentpartners").offset().top - 100
+        }, 1000);
+        var tooltip = document.getElementById("tooltip");
+        tooltip.classList.remove("active");
+
+        $('.partners .partner_description').each(function(){
+            var countParagraphs = $(this).find('p').length;
+            if(countParagraphs > 1) {
+                $(this).find('p').first().append('<div class="dorsal">Read more</div>');
+                $(this).find('p:not(:first)').wrapAll("<div class='toogle-contact-paragraphs'></div>")
+            }
+        });
+
+        $('.dorsal').click(function () {
+            var link = $(this);
+            link.parent().parent().find('.toogle-contact-paragraphs').slideToggle('slow', function() {
+                if ($(this).is(':visible')) {
+                    link.text('Read less');
+                } else {
+                    link.text('Read more');
+                }
+            });
+
+        });
+
+    });
+}
+
 
 init()

@@ -1,5 +1,6 @@
 
 .card_title{
+  font-family: Aller;
   font-size: 22px;
   font-weight: 600;
   color: @dark-color;
@@ -23,83 +24,50 @@
 
 
 .card_image_container{
-  display: flex;
-  background-size: 65px!important;
-  height: 170px;
-  width: 170px;
-  background-color: #E6E6E6!important;
-  border-radius: 10px;
-  margin: 25px auto;
-  border: none;
-  &:hover{
-    background-color: @link-color!important;
-  }
-  .breakpoint-small-down({
-    width: 150px!important;
-    height: 150px!important;
-    background-size: 60px!important;
-  })
+  display: block;
+  background-size: 141px!important;
+  height: 141px;
+  width: 141px;
+  margin-left: auto;
+  margin-right: auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    box-shadow: none;
+    transition: all .3s ease-in-out!important;
+
+    &:hover{
+        margin-top: -20px;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 20px rgba(4, 90, 107, 0.5);
+    }
 }
 
+
 .newsletters,
-.press-releases,
 .logo,
-.videos,
-.templates,
 .flyer{
   .card_image_container{
     display: flex;
     background-size: unset!important;
-    height: unset;
-    width: unset;
-    background-color: @white-color!important;
-    border-radius: 10px;
+    height: 550px;
+    width: auto;
     margin: 27px auto;
     border: none;
     &:hover{
-      opacity: 0.7;
+      opacity: 0.7!important;
+        box-shadow: none;
     }
-    //.breakpoint-small-down({
-    //  width: 220px!important;
-    //  height: 220px!important;
-    //  background-size: unset!important;
-    //});
-  }
-
-  .btn-primary{
-    font-weight: normal;
+    .breakpoint-small-down({
+      width: 220px!important;
+      height: 220px!important;
+      background-size: unset!important;
+    });
   }
 }
 
 .logo .card_image_container{
   border-radius: 0;
   background-size: 50%!important;
-  img{
-    object-fit: contain;
-    width: 102px;
-    height: 122px;
-    margin: 0 auto;
-  }
-}
-
-a:hover > .card_image_container{
-    background: @link-color;
-}
-
-.flyer, .templates{
-  .card_image_container{
-    display: flex;
-    background-size: unset!important;
-    height: 448px;
-    width: auto;
-    background-color: @white-color!important;
-    border-radius: 10px;
-    margin: 27px auto;
-    border: none;
-    &:hover{
-      opacity: 0.7;
-    }
-  }
 }
 
 

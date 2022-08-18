@@ -1,6 +1,6 @@
-title = "Media center"
 url = "/media-center"
 layout = "default"
+title = "Media center"
 is_hidden = 0
 robot_index = "index"
 robot_follow = "follow"
@@ -24,13 +24,14 @@ function onStart(){
 ?>
 ==
 <div class="container">
-	<div class="row">
+	<h1 class="page_heading ml-1">Media center</h1>
+	<div class="row between-md around-xs">
 		{% if logos.count() %}
 		<div class="col-sm-2 col-xs-6">
 			<div class="card-container text-center">
 				<a href="{{url('media-center')}}/logo" title="Logo">
-					<span class="card_image_container" style="background: url({{'pensoft/logo.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/logo" title="Logo"></span>
-					<span class="media_label">Logo</span>
+					<span class="card_image_container" style="background: url({{'media-center/logo.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/logo" title="Logo"></span>
+					<br><span class="media_label">Logo</span>
 				</a>
 			</div>
 		</div>
@@ -39,8 +40,8 @@ function onStart(){
 		<div class="col-sm-2 col-xs-6">
 			<div class="card-container text-center">
 				<a href="{{url('media-center')}}/flyer" title="Promotional materials">
-					<span class="card_image_container" style="background: url({{'pensoft/promotional-materials.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/flyer" title="Flyer and poster"></span>
-					<span class="media_label">Promotional materials</span>
+					<span class="card_image_container" style="background: url({{'media-center/Promotional_materials.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/flyer" title="Flyer and poster"></span>
+                    <br><span class="media_label">Promotional materials</span>
 				</a>
 			</div>
 		</div>
@@ -50,18 +51,8 @@ function onStart(){
 		<div class="col-sm-2 col-xs-6">
 			<div class="card-container text-center">
 				<a href="{{url('media-center')}}/press-releases" title="Press releases">
-					<span class="card_image_container" style="background: url({{'pensoft/press-releases.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/press-releases" title="Press releases"></span>
-					<span class="media_label">Press releases</span>
-				</a>
-			</div>
-		</div>
-		{% endif %}
-		{% if presentations.count() %}
-		<div class="col-sm-2 col-xs-6">
-			<div class="card-container text-center">
-				<a href="{{url('media-center')}}/templates" title="Templates">
-					<span class="card_image_container" style="background: url({{'pensoft/templates.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/templates" title="Templates"></span>
-					<span class="media_label">Templates</span>
+					<span class="card_image_container" style="background: url({{'media-center/press releases.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/press-releases" title="Press releases"></span>
+                    <br><span class="media_label">Press releases</span>
 				</a>
 			</div>
 		</div>
@@ -70,8 +61,8 @@ function onStart(){
 		<div class="col-sm-2 col-xs-6">
 			<div class="card-container text-center">
 				<a href="{{url('media-center')}}/videos" title="Videos">
-					<span class="card_image_container" style="background: url({{'pensoft/videos.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/videos" title="Videos"></span>
-					<span class="media_label">Videos</span>
+					<span class="card_image_container" style="background: url({{'media-center/videos.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/videos" title="Videos"></span>
+                    <br><span class="media_label">Videos</span>
 				</a>
 			</div>
 		</div>
@@ -82,8 +73,8 @@ function onStart(){
 		<div class="col-sm-2 col-xs-6">
 			<div class="card-container text-center">
 				<a href="{{url('media-center')}}/newsletters" title="Newsletters">
-					<span class="card_image_container" style="background: url({{'pensoft/newsletters.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/newsletters" title="Newsletters"></span>
-					<span class="media_label">Newsletters</span>
+					<span class="card_image_container" style="background: url({{'media-center/newsletters.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/newsletters" title="Newsletters"></span>
+                    <br><span class="media_label">Newsletters</span>
 				</a>
 			</div>
 		</div>

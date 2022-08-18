@@ -1,6 +1,6 @@
 url = "/"
 layout = "default"
-title = "Urban Tree Guard"
+title = "SELINA"
 is_hidden = 0
 meta_description = "homepage desc"
 seo_keywords = "keywords"
@@ -8,49 +8,49 @@ robot_index = "index"
 robot_follow = "follow"
 
 [article_highlights]
-maxItems = 3
+maxItems = 4
 title = "Latest News"
 baseUrl = "/news"
 templates = "template4"
-thumb_width = 496
-thumb_height = 361
+thumb_width = 380
+thumb_height = 305
 
 [Timeline]
 limit = 3
 upcoming = 0
 marked_for_display = 1
-templates = "template4"
+templates = "template3"
 
 [jumbotron vision]
-jumbotron = "mission"
+jumbotron = "vision"
 title = 1
-background = "#E4E7E7"
+background = "#ffffff"
 templates = "template1"
 description_limit = 0
 
 [jumbotron mission]
-jumbotron = "vision"
+jumbotron = "mission"
 title = 1
-background = "#E4E7E7"
+background = "#ffffff"
 templates = "template1"
 description_limit = 0
 
 [jumbotron goals]
-jumbotron = "goals"
+jumbotron = "goal"
 title = 1
-background = "#E4E7E7"
+background = "#ffffff"
 templates = "template1"
 description_limit = 0
 
 [jumbotron numbers]
-jumbotron = "urban-tree-guard-numbers"
+jumbotron = "selina-numbers"
 title = 1
 background = "#ffffff"
 templates = "template1"
 description_limit = 0
 ==
 <!-- 3 blocks -->
-<div class="container-fluid mission_vision_goals">
+<div class="container-fluid">
 	<div class="container">
 		<div class="row between-md around-xs">
 			<div class="col-sm-4 col-xs-12 vision">
@@ -78,25 +78,28 @@ description_limit = 0
 </div>
 <div class="container-fluid">
 	<div class="container">
-		<h1 class="base_heading">Events</h1>
-		{% component 'Timeline' %}
+		<h1 class="base_heading">Latest Events</h1>
+        <div class="timeline-container">
+            {% component 'Timeline' %}
+        </div>
 	</div>
 </div>
-<div class="container-fluid bg-secondary subscribe_holder_bg">
+<div class="container-fluid bg-secondary">
 	<div class="container">
 	<!-- subscribes -->
 	<div class="row between-xs">
 		<div class="col-lg-6 col-sm-5 col-xs-12">
+			<h1 class="base_heading">Latest updates</h1>
 			<div class="twitter-widget">
-				<a class="twitter-timeline" href="https://twitter.com/UB3Guard?ref_src=twsrc%5Etfw">Tweets by UB3Guard</a>
-				<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+			    <a class="twitter-timeline" href="https://twitter.com/RESTCOAST_H2020?ref_src=twsrc%5Etfw">Tweets by SELINA</a>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 			</div>
 		</div>
 		<div class="col-sm-6 col-xs-12 social-media-container">
-			<h1 class="base_heading">Follow Urban Tree Guard</h1>
+			<h1 class="base_heading">Follow {{ this.theme.site_name }}</h1>
 			<div class="subscribe-container">
-				
-				<div class="subscribe-items">
+
+				<div class="row subscribe-items">
 					{% if this.theme.twitter %}
 					<a href="{{this.theme.twitter_url}}" target="_blank" class="btn p-primary pr p-twitter large"></a>
 					{% endif %}
@@ -113,9 +116,18 @@ description_limit = 0
 					<a href="{{this.theme.instagram_url}}" target="_blank" class="btn pr p-primary p-instagram large"></a>
 					{% endif %}
 					{% if this.theme.researchgate %}
-					<a href="{{this.theme.researchgate_url}}" target="_blank" class="btn pr p-primary p-researchgate large" style="width: 64px;"></a>
+					<a href="{{this.theme.researchgate_url}}" target="_blank" class="btn pr p-primary p-researchgate large"></a>
 					{% endif %}
 				</div>
+
+                <div class="row subscribe-items">
+                    <div class="col-xs-12">
+                        {%if this.theme.subscribe%}
+                        <a href="{{this.theme.subscribe}}" target="_blank" class="btn p-primary middle subscribe-btn">Subscribe to our newsletter</a>
+                        {%endif%}
+
+                    </div>
+                </div>
 
 			</div>
 
