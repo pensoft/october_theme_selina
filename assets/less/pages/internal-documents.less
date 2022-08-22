@@ -435,6 +435,8 @@ a:hover .arrow-left{
   .breakpoint-small-down({
     max-width: 95vw;
     margin: 20px auto;
+      flex-basis: unset;
+      width: 100%;
   });
 }
 
@@ -490,7 +492,7 @@ a:hover .arrow-left{
     width: 100%;
     background: #EAF0F2;
     color: @text-color-default;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: normal;
     text-transform: none;
       text-align: left;
@@ -554,6 +556,15 @@ a:hover .arrow-left{
       right: 0;
       z-index: 11;
 
+      .text-grey {
+          color: #495a62;
+          line-height: 42px;
+          .breakpoint-small-down({
+              position: absolute;
+              top: -45px;
+          });
+      }
+
       &.form-control{
         display: block;
         width: 100%;
@@ -565,12 +576,11 @@ a:hover .arrow-left{
         border: 1px solid @border-color!important;
         border-right: 0!important;
         padding: 5px 10px;
+
+
       }
 
-      .text-grey {
-        color: #495a62;
-        line-height: 42px;
-      }
+
   }
 
   .search-btn{

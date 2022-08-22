@@ -64,11 +64,11 @@ numberOfLevels = 2
 
 
 {% if this.theme.header_image %}
-<div class="header-image {{page_id}}">
+<div class="header-image {{page_id}} {% if user %}logged-in-header{% endif %}">
     {%if this.page.header_image %}
         <div class="header-image-bar" style="background-image: url('{{this.page.header_image|media}}'); background-position: top center;"></div>
     {%else%}
-        <div class="header-image-bar" style="background-image: url('{{this.theme.header_image.getPath()}}'); background-position: left center;"></div>
+        <div class="header-image-bar" style="background-image: url('{{this.theme.header_image.getPath()}}'); background-position: center;"></div>
     {%endif%}
     <div class="jumbotron">
         <h1  data-aos="fade-up" class="underline white  {% if page_id == 'home'%}home-page-header{% endif %}">{%if page_title%} {{page_title}} {%else%} {{site_name}} {%endif%}</h1>

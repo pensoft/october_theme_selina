@@ -14,10 +14,12 @@
         max-width: 720px;
     });
     .breakpoint-large({
-        max-width: 960px;
+        max-width: 960px;;
     });
     .breakpoint-huge({
         max-width: 1600px;
+        padding-left: 50px;
+        padding-right: 50px;
     });
     &.highlights-news{
         padding-bottom: 250px;
@@ -27,6 +29,20 @@
 .container-fluid {
     width: 100%;
     padding-left: 0!important;
+}
+
+.container-fluid .container {
+    .breakpoint-huge-down({
+        width: 100%;
+        padding-right: 0.5rem!important;
+        padding-left: 0.5rem!important;
+    });
+    .breakpoint-small-down({
+        width: auto;
+        padding-right: 0.5rem!important;
+        padding-left: 0.5rem!important;
+    });
+
 }
 
 .fixed-top,.fixed-bottom,.fixed-right,.fixed-left {

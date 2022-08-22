@@ -62,6 +62,11 @@
         i{
             line-height: unset!important;
         }
+
+        .breakpoint-small-down({
+            margin: 10px auto!important;
+            display: block;
+        });
     }
 }
 
@@ -78,7 +83,7 @@
   .row.center-xs.mb-1{
     position: absolute;
     top: 391px;
-    right: 0px;
+    right: 40px;
       .btn-primary{
           height: 54px;
           display: flex;
@@ -94,16 +99,21 @@
               margin-left: 15px;
           }
       }
-    //.breakpoint-large-down({
-    //  position: absolute;
-    //  top:  409px;
-    //  left: 0px;
-    //});
-    //.breakpoint-small-down({
-    //  position: absolute;
-    //  top:  509px;
-    //  left: 0px;
-    //})
+
+      .breakpoint-laptop-down({
+          right: 40px;
+          top: 357px;
+      });
+
+      .breakpoint-huge-down({
+          //top: 391px;
+          top: 353px;
+          right: 0px;
+      });
+      .breakpoint-large-down({
+          position: unset;
+          width: 100%;
+      });
   }
 
     .col-xs{
@@ -117,7 +127,7 @@
   width: fit-content;
 
   .breakpoint-large-down({
-    width: 100%;
+      float: none;
   });
 
   .col-sm-3.col-xs{
@@ -142,6 +152,7 @@
     .breakpoint-small-down({
       margin-right: 0px;
       margin-bottom: 20px;
+        width: 100%;
     });
   }
 }
@@ -152,8 +163,7 @@
     width: 386px;
     height: 53px !important;
     .breakpoint-large-down({
-      margin: 0 0 0 8px;
-      width: 95%!important;
+      width: 97%!important;
     });
   }
 
@@ -199,12 +209,6 @@
     background: url(../../assets/images/search_grey.svg) center no-repeat;
     background-size: 26px;
   }
-
-  .breakpoint-large-down({
-    margin: 0 0 0 0;
-    width: 95%!important;
-    display: unset;
-  })
 }
 
 .library .tabs{
@@ -236,6 +240,7 @@
     border: none;
     background: none;
     font-size: 18px;
+      font-weight: 500;
     .breakpoint-small-down({
       margin-left: 0px;
       width: 100%;
