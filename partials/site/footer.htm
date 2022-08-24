@@ -1,9 +1,5 @@
 [menu about_menu]
-<<<<<<< Updated upstream
 start = "id-3"
-=======
-start = "id-11"
->>>>>>> Stashed changes
 activeNode = 0
 listItemClasses = "footer-menu-item"
 primaryClasses = "footer-menu"
@@ -11,24 +7,16 @@ secondaryClasses = "dropdown-menu"
 numberOfLevels = 1
 
 [menu latest_menu]
-<<<<<<< Updated upstream
 start = "id-4"
-=======
-start = "id-15"
->>>>>>> Stashed changes
 activeNode = 0
 listItemClasses = "footer-menu-item"
 primaryClasses = "footer-menu"
 secondaryClasses = "dropdown-menu"
 numberOfLevels = 1
 
-<<<<<<< Updated upstream
 [menu resources_menu]
 start = "id-5"
-=======
-[menu network_menu]
-start = "id-19"
->>>>>>> Stashed changes
+
 activeNode = 0
 listItemClasses = "footer-menu-item"
 primaryClasses = "footer-menu"
@@ -43,7 +31,6 @@ link = "/privacy-policy"
 theme = "dark-bottom"
 ==
 <div class="container-fluid border-box dark-background">{% component 'cookieConsent' %}
-<<<<<<< Updated upstream
     <div class="container">
         <div class="row top-xs between-xs footer-menu-container">
             <div class="col-xs-12 col-md-2 start-md center-xs col-sm-6 start-sm">
@@ -125,86 +112,5 @@ theme = "dark-bottom"
                     <img class="text" src="{{ 'assets/images/pensoft-logo.svg'|theme }}" /></a>
                 </span></div></div>
     </div>
-=======
-	<div class="container">
-		<div class="row top-xs between-xs footer-menu-container">
-			<div class="col-xs-12 col-lg-2 col-md-4 start-md center-xs col-sm-6 start-sm  mb-2">
-				<div class="head">About</div>
-				{% component 'about_menu' %}
-			</div>
-			<div class="col-xs-12 col-lg-2 col-md-4 start-md center-xs col-sm-6 start-sm">
-				<div class="head">Latest</div>
-				{% component 'latest_menu' %}
-			</div>
-			<div class="col-xs-12 col-lg-2 col-md-4 start-md center-xs col-sm-6 start-sm">
-				<div class="head">Network</div>
-				{% component 'network_menu' %}
-			</div>
-			<div class="col-xs-12 col-lg-2 col-md-4 start-md center-xs col-sm-6 start-sm">
-				{% if (enable_social_media) %}
-				<div class="head">Follow U3G</div>
-				<div class="social-networks">
-					<div class="icons mt-1">
-						{% if enable_facebook and facebook_url %}
-						<a href="{{facebook_url}}" target="_blank" class="pr p-secondary p-facebook big" target="_blank"></a>
-						{% endif %}
-						{% if enable_twitter and twitter_url %}
-						<a href="{{twitter_url}}" target="_blank" class="pr p-secondary p-twitter big" target="_blank"></a>
-						{% endif %}
-						{% if enable_linkedin and linkedin_url %}
-						<a  href="{{linkedin_url}}" target="_blank" class="pr p-secondary p-linkedin big" target="_blank"></a>
-						{% endif %}
-						{% if enable_youtube and youtube_url %}
-						<a  href="{{youtube_url}}" target="_blank" class="pr p-secondary p-youtube big" target="_blank"></a>
-						{% endif %}
-						{% if enable_instagram and instagram_url %}
-						<a  href="{{instagram_url}}" target="_blank" class="pr p-secondary p-instagram big" target="_blank"></a>
-						{% endif %}
-					</div>
-				</div>
-				{% endif %}
-			</div>
-			<div class="col-xs-12 col-lg-2 col-md-4 start-md center-xs col-sm-6 start-sm">
-				<div class="head">Contact us</div>
-				<div class="social-networks contacts col-md-2 col-xs-12 start-md center-xs">
-					<div class="icons mt-1">
-						<a href="{{'contact'|page}}" class="pr p-secondary p-mail big"></a>
-					</div>
-				</div>
-			</div>
 
-			{%if this.theme.subscribe%}
-			<div class="col-xs-12 col-lg-2 col-md-4 start-md center-xs col-sm-6 start-sm">
-				<div class="head">Stay up to date</div>
-				<div class="mt-1">
-					<a href="{{this.theme.subscribe}}" target="_blank" class="btn btn-primary news-alert"><i class="pr p-subscribe"></i> News alert</a>
-				</div>
-			</div>
-			{%endif%}
-
-		</div>
-	</div>
-
-</div>
-<div class="container-fluid border-box black-background">
-	<div class="row nowrap text-light d-flex justify-content-between align-items-center flex-column flex-lg-row dark-background">
-		{% if (footer_funds_flag != null or footer_funds_text != '') %}
-		<div class="funding flex-column my-1 my-lg-0 flex-lg-row px-1 align-items-center col-sm-1 col-xs-12">
-			{% if footer_funds_flag %}
-			<img class="text mr-0" style="height:50px;" src="{{ footer_funds_flag }}"/>
-			{% endif %}
-
-		</div>
-		{% endif %}
-		<div class="cost flex-column my-1 my-lg-0 flex-lg-row px-1 align-items-center col-sm col-xs-12">
-			<img class="text mr-0" style="height:50px;" src="{{'cost_logo-white.svg'|media}}"/> CA20132
-		</div>
-
-		<div class="col-lg-2 col-sm-1 col-xs-12 center-xs"><a style="flex:0 0 auto; font-size: 18px;" href="/privacy-policy">Privacy Policy</a></div>
-		<div class="col-lg-3 col-sm-4 col-xs-12 end-sm center-xs">
-            <div class="powered-by my-1 my-lg-0 px-1 align-items-center end-sm center-xs">
-                <span>Created and maintained by <a href="https://pensoft.net/" target="_blank"><img class="text" src="{{ 'assets/images/pensoft-logo.svg'|theme }}" style="height: 25px; margin-top: -5px;"/></a>
-                </span></div></div>
-	</div>
->>>>>>> Stashed changes
 </div>
