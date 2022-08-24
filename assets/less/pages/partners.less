@@ -4,12 +4,12 @@
 
     img{
         width: auto;
-    }
-
-    .title_container{
-        font-size: 24px;
-        font-weight: bold;
-        color: @dark-color;
+        .breakpoint-large-down({
+            width: 100%;
+        });
+        .breakpoint-small-down({
+            width: auto;
+        });
     }
 }
 .mapView .partners_map_container{
@@ -24,10 +24,12 @@
         .breakpoint-small-down({
             top: unset;
             bottom: 0;
+            position: unset;
         });
     }
 
     .consortium{
+        padding: 100px 0;
         h1{
             text-align: left;
         }
@@ -40,7 +42,19 @@
         }
 
         .breakpoint-small-down({
-            padding-bottom: 100px;
+            padding: 0px;
+        });
+
+        .breakpoint-laptop-down({
+            .container-fluid .container{
+                padding: 0!important;
+            }
+        });
+
+        .breakpoint-large({
+            .container-fluid .container{
+                padding: 0!important;
+            }
         });
     }
 }
@@ -62,7 +76,7 @@
 
 .fill_blue:hover
 {
-  cursor: pointer;
+  cursor: pointer!important;
 }
 
 
@@ -83,9 +97,11 @@
 .partners .tabs{
     width: 100%;
     display: block;
+    margin-left: 10px;
 
     .breakpoint-small-down({
         text-align: center;
+        margin-left: 0;
     });
     a{
         width: fit-content;
@@ -121,16 +137,35 @@
 }
 
 .partners-map-container{
-
-    padding: 20px 0px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     line-height: 1.3em!important;
     font-weight: 300!important;
+
 
     .accordion-toggle{
         font-size: 24px;
         color: @dark-color;
         font-weight: bold;
         height: 75px;
+        .breakpoint-small-down({
+            height: unset;
+        });
+
+        .title_container{
+            font-size: 24px;
+            font-weight: bold;
+            color: @dark-color;
+            .breakpoint-small-down({
+                margin: 20px auto;
+            });
+        }
+
+        .website{
+            .breakpoint-small-down({
+                margin: 0px auto;
+            });
+        }
     }
 
     h2{
@@ -147,6 +182,7 @@
             padding-left: 36px;
             margin: 9px 0;
             display: block;
+            float: left;
         }
     }
 
@@ -163,7 +199,17 @@
             font-size: 18px;
             font-weight: bold;
             margin: 0 10px 10px 0;
+            .breakpoint-small-down({
+                margin: 10px auto;
+                display: table;
+            });
         }
     }
+
+    .breakpoint-laptop-down({
+        .col-lg-6{
+            padding: 0!important;
+        }
+    });
 }
 

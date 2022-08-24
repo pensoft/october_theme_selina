@@ -81,18 +81,18 @@ function onPartners(){
                     <div class="col-lg-6 col-xs-12 partner-item-map-view">
                         <div class="row middle-xs between-xs accordion-toggle">
                             {% if partner.cover %}
-                            <div class="col-xs-2 start-xs title_container">
+                            <div class="col-md-2 col-xs-12 start-md center-xs title_container">
                                 <img alt="{{ partner.instituion }}" src="{{partner.cover.getThumb(178,auto, { mode : 'crop' } )}}">
                             </div>
                             {% endif %}
-                            <div class="col-xs-10 start-xs title_container">
+                            <div class="col-md-10 col-xs-12 start-md center-xs title_container">
                                 {{ partner.instituion }}
                             </div>
                         </div>
                         <div class="row accordion-content">
                             <div class="col-xs-12">{{partner.content|raw}}</div>
                             {% if partner_members.getProfiles(partner.id).count > 0 %}
-                            <div class="col-xs-12 col-md-6">
+                            <div class="col-xs-12 col-md-6 start-md center-xs">
                                 <h2>Contact</h2>
                                 {% for profile in partner_members.getProfiles(partner.id) %}
                                     <b>{{profile.names}}</b>{% if profile.position %}, {{profile.position}}{% endif %}{% if profile.department %}, {{profile.department}}{% endif %}
@@ -104,7 +104,7 @@ function onPartners(){
                             {% endif %}
 
                             {% if partner.instituion_url %}
-                            <div class="col-xs-12 col-md-6">
+                            <div class="col-xs-12 col-md-6 start-md center-xs">
                                 <h2>Website</h2>
                                 <a class="website" href="{{partner.instituion_url}}" target="_blank">{{partner.instituion_url}}</a>
                             </div>
@@ -137,7 +137,7 @@ function onPartners(){
                         <img alt="{{ partner.instituion }}" src="{{partner.cover.getThumb(178,auto, { mode : 'crop' } )}}">
                     </div>
                     {% endif %}
-                    <div class="col-xs-9 start-xs title_container">
+                    <div class="col-xs-8 start-xs title_container">
                         {{ partner.instituion }}
                     </div>
                     <div class="col-xs end-xs plusminus"><span class="plus"></span></div>

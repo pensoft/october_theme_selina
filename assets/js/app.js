@@ -198,9 +198,29 @@ $(document).ready(function() {
 
     $(".fill_blue").bind("mouseover", function() {
         $(this).attr('fill', '#96B93C');
+        var countryCode = $(this).attr('country_code');
+
+        if(countryCode !== 'undefined'){
+            var elements  = $("path[country_code='" + countryCode +"']");
+            if(elements.length){
+                elements.each(function(){
+                    $(this).attr('fill', '#96B93C');
+                });
+            }
+        }
     });
     $(".fill_blue").bind("mouseout", function() {
-        $(this).attr('fill', '#045A6B');
+        $(this).attr('fill', '#045A6B')
+        var countryCode = $(this).attr('country_code');
+
+        if(countryCode !== 'undefined'){
+            var elements  = $("path[country_code='" + countryCode +"']");
+            if(elements.length){
+                elements.each(function(){
+                    $(this).attr('fill', '#045A6B');
+                });
+            }
+        }
     });
 
 
@@ -385,7 +405,7 @@ function init() {
                 });
             }
         }
-		appendSearchAndSocialMedia()
+		// appendSearchAndSocialMedia()
 		requestFormLibrary()
 		// requestFormPartners()
         // keepFooter(documentHasScroll());
