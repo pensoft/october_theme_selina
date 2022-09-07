@@ -4,6 +4,9 @@
 
     img{
         width: auto;
+        max-width: 260px;
+        max-height: 100px;
+        object-fit: contain;
         .breakpoint-large-down({
             width: 100%;
         });
@@ -21,7 +24,7 @@
         //max-width: 50%;
         text-align: right;
         display: flex;
-        .breakpoint-small-down({
+        .breakpoint-huge-down({
             top: unset;
             bottom: 0;
             position: unset;
@@ -144,21 +147,24 @@
 
 
     .accordion-toggle{
-        font-size: 24px;
-        color: @dark-color;
-        font-weight: bold;
-        height: 75px;
-        .breakpoint-small-down({
-            height: unset;
-        });
+
 
         .title_container{
             font-size: 24px;
-            font-weight: bold;
             color: @dark-color;
-            .breakpoint-small-down({
+            font-weight: bold;
+            height: 75px;
+            .breakpoint-huge-down({
+                height: unset;
                 margin: 20px auto;
             });
+
+            img{
+                max-width: 178px;
+                max-height: 60px;
+                object-fit: contain;
+
+            }
         }
 
         .website{

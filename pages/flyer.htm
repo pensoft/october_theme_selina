@@ -69,6 +69,7 @@ return Redirect::to('/media-center/flyer');
                 </a>
 
 				<span class="card_title">{{record.name}}</span><br>
+                <br><a href="{{ ''| page }}?{{queries}}&download={{record.file.id}}&file_name={{record.file.file_name|replace({' ': '_'})}}" title="{{record.name}}" class="btn btn-primary">Download</a>
 			</div>
 		</div>
 

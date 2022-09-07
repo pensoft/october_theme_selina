@@ -186,7 +186,9 @@ $(document).ready(function() {
         $('.work_packages .key_0, .work_packages .key_3, .work_packages .key_6, .work_packages .key_9, .work_packages .key_12, .work_packages .key_15').wrapAll('<div class="col-md-4 col-xs-12" />');
         $('.work_packages .key_1, .work_packages .key_4, .work_packages .key_7, .work_packages .key_10, .work_packages .key_13, .work_packages .key_16').wrapAll('<div class="col-md-4 col-xs-12" />');
         $('.work_packages .key_2, .work_packages .key_5, .work_packages .key_8, .work_packages .key_11, .work_packages .key_14, .work_packages .key_17').wrapAll('<div class="col-md-4 col-xs-12" />');
+    }
 
+	if(width >= 1200){
         setboxHeight()
         $(window).resize(function() {
             setboxHeight();

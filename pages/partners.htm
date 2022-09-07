@@ -64,10 +64,10 @@ function onPartners(){
             <div class="container-fluid partners_map_container" style="background: #eaf0f2;">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-6 col-xs-12 consortium">
+                        <div class="col-lg-6 col-xs-12 consortium">
                         {% component 'jumbotron' %}
                         </div>
-                        <div class="col-md-6 col-xs-12">&nbsp;</div>
+                        <div class="col-lg-6 col-xs-12">&nbsp;</div>
                     </div>
                 </div>
                 <div class="partners_map">{% partial 'components/svg' %}</div>
@@ -134,7 +134,7 @@ function onPartners(){
                 <div class="row middle-xs between-xs accordion-toggle">
                     {% if partner.cover %}
                     <div class="col-xs-2 start-xs title_container">
-                        <img alt="{{ partner.instituion }}" src="{{partner.cover.getThumb(178,auto, { mode : 'crop' } )}}">
+                        <img alt="{{ partner.instituion }}" src="{{partner.cover.getThumb(260,auto, { mode : 'crop' } )}}">
                     </div>
                     {% endif %}
                     <div class="col-xs-8 start-xs title_container">
@@ -144,11 +144,18 @@ function onPartners(){
                 </div>
                 <div class="row accordion-content" style="display: none;">
                     <div class="col-xs-12">{{partner.content|raw}}</div>
-                    <div class="col-xs-12 col-md-6">
-                        <h2>Contact</h2>
-                        <b>Prof. Benjamin Burkhard</b>, Director, Institute of Physical Geography and Landscape Ecology
-                        <br><a class="email" href="mailto:">bukhard@phygeo.uni-hannover.de</a>
-                    </div>
+                        {% if partner_members.getProfiles(partner.id).count > 0 %}
+                        <div class="col-xs-12 col-md-6 start-md center-xs">
+                            <h2>Contact</h2>
+                            {% for profile in partner_members.getProfiles(partner.id) %}
+                            <b>{{profile.names}}</b>{% if profile.position %}, {{profile.position}}{% endif %}{% if profile.department %}, {{profile.department}}{% endif %}
+                            {% if profile.email %}
+                            <br><a class="email" href="mailto:{{profile.email}}">{{profile.email}}</a>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
                     <div class="col-xs-12 col-md-6">
                         <h2>Website</h2>
                         <a class="website" href="{{partner.instituion_url}}" target="_blank">{{partner.instituion_url}}</a>
