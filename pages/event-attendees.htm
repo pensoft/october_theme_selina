@@ -1,0 +1,140 @@
+url = "/planned-events"
+layout = "default"
+title = "Planned Events"
+
+[Calendar]
+default = "true"
+limit = "null"
+category = "null"
+language = "en"
+redirect_to_detailed_page = "false"
+
+[session]
+security = "user"
+redirect = "home"
+==
+<?php
+use Pensoft\EventReporting\Models\EventsreportingData as Data;
+use Pensoft\EventReporting\Models\EventsreportingAttendants as Attendant;
+
+function onStart(){
+    $this['events'] =
+            Data::select(
+                'event_name',
+                'event_start',
+                DB::raw('max(event_end) as event_end'),
+                DB::raw('max(organiser) as organiser'),
+                DB::raw('max(project_organised) as project_organised'),
+                DB::raw('max(website) as website'),
+                DB::raw('max(online_hybrid_onsite) as online_hybrid_onsite'),
+                DB::raw('max(venue) as venue'),
+                DB::raw('min(slug) as slug'),
+                DB::raw('max(id) as id')
+            )
+            ->whereNull('pensoft_eventreporting_data.deleted_at')
+            ->groupBy('event_name','event_start')
+            ->orderBy('event_start','desc')
+            ->get();
+
+    $this['attendees'] = new class {
+        public function getIM($id) {
+            return Attendant::where('event_id', $id)
+->join('users', 'users.id', '=', 'pensoft_eventreporting_attendants.user_id')
+->get();
+        }
+    };
+
+}
+?>
+==
+{% component 'session' %}
+<div class="container events">
+
+    <h1 class="page_heading internal">Planned Events</h1>
+
+    <a href="{{'event-attendance-report'|page}}" target="_blank" class="btn btn-primary no-margin">Add event</a> &nbsp; &nbsp;
+    <a href="{{'event-attendance-form'|page}}" target="_blank" class="btn btn-primary no-margin">Add attendance</a>
+
+    <p>&nbsp;</p>
+    <div class="tabs">
+        <a class="" href="#calendarView">Calendar view</a>
+        <a class="" href="#listView">List view</a>
+    </div>
+    <!--tabs content	-->
+
+    <div class="row" id="calendarView">
+        {% component 'Calendar' %}
+    </div>
+    <div class="row" id="listView">
+        <div class="library-items col-xs-12" id="partialLibraries">
+            {% for event in events %}
+            {% set url = event.website ?  event.website : '/events/' ~ event.slug %}
+
+            <div class="library-item">
+                <div class="row">
+                    <div class="col-md-9 col-xs-12">
+                        <h3 class="card-title">{{event.event_name}}</h3>
+                        <div class="body">
+                            <div>
+                                <span class="text-bold">Start date:</span>
+                                <span class="text-ligth">{{event.event_start|date("d F Y") }}</span>
+                            </div>
+                            <div>
+                                <span class="text-bold">End date:</span>
+                                <span class="text-ligth">{{event.event_end|date("d F Y") }}</span>
+                            </div>
+                            <br>
+
+                            <div>
+                                <span class="text-bold">Organiser:</span>
+                                <span class="text-ligth">{{event.organiser}}</span>
+                            </div>
+                            <div>
+                                <span class="text-bold">REST-COAST organised or relevant:</span>
+                                {% set arrayOrganised = {'1': 'organised', '2': 'relevant'} %}
+                                <span class="text-ligth">{{arrayOrganised[event.project_organised]}}</span>
+                            </div>
+                            <div>
+                                <span class="text-bold">Venue:</span>
+                                <span class="text-ligth">{{event.venue}}</span>
+                            </div>
+                            <div>
+                                <span class="text-bold">Online, hybrid or on-site:</span>
+                                {% set onlineHybridOnsite = {'1': 'online', '2': 'hybrid', '2': 'on-site'} %}
+                                <span class="text-ligth">{{onlineHybridOnsite[event.online_hybrid_onsite]}}</span>
+                            </div>
+                            <div>
+                                <span class="text-bold">Attendees:</span>
+                                {% if attendees.getIM(event.id).count %}
+                                    {% for profile in attendees.getIM(event.id) %}
+                                        <span class="text-ligth">{{profile.name}} {{profile.surname}}</span>
+                                        {% if not loop.last %},&nbsp;{% endif %}
+                                    {% endfor %}
+                                {% endif %}
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12">
+                        {% set url = event.website ?  event.website : '/events/' ~ event.slug %}
+                        <a href="{{url}}" target="_blank" class="btn btn-primary" style="width: 230px; font-size: unset;">Go to event website</a>
+                        {% if date(event.event_end) >= date() %}
+                        <a href="{{'event-attendance-form'|page}}/{{event.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px;  font-size: unset;">Add attendance</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+        <div class="row container">
+            {{ entries.fragment('listView').render|raw }}
+        </div>
+
+    </div>
+
+
+
+</div>
