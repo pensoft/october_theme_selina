@@ -202,23 +202,44 @@ $(document).ready(function() {
         $(this).attr('fill', '#96B93C');
         var countryCode = $(this).attr('country_code');
 
+        if(countryCode == 'undefined'){
+            countryCode = $(this).parent().attr('country_code');
+        }
+
         if(countryCode !== 'undefined'){
-            var elements  = $("path[country_code='" + countryCode +"']");
-            if(elements.length){
-                elements.each(function(){
+            var groups  = $("g[country_code='" + countryCode +"']");
+            if(groups.length){
+                groups.each(function(){
+                    $(this).attr('fill', '#96B93C');
+                });
+            }
+            var paths  = $("path[country_code='" + countryCode +"']");
+            if(paths.length){
+                paths.each(function(){
                     $(this).attr('fill', '#96B93C');
                 });
             }
         }
     });
+	//#045A6B
     $(".fill_blue").bind("mouseout", function() {
-        $(this).attr('fill', '#045A6B')
+        $(this).attr('fill', '#045A6B');
         var countryCode = $(this).attr('country_code');
 
+        if(countryCode == 'undefined'){
+            countryCode = $(this).parent().attr('country_code');
+        }
+
         if(countryCode !== 'undefined'){
-            var elements  = $("path[country_code='" + countryCode +"']");
-            if(elements.length){
-                elements.each(function(){
+            var groups  = $("g[country_code='" + countryCode +"']");
+            if(groups.length){
+                groups.each(function(){
+                    $(this).attr('fill', '#045A6B');
+                });
+            }
+            var paths  = $("path[country_code='" + countryCode +"']");
+            if(paths.length){
+                paths.each(function(){
                     $(this).attr('fill', '#045A6B');
                 });
             }
@@ -480,6 +501,9 @@ function handleCustomSVGMapMouseMove(event) {
     var tooltip = document.getElementById("tooltip");
     if (!countryCode) {
         countryCode = $(event.target).parent().attr('country_code');
+        tooltip.innerHTML = $(event.target).parent().attr('title');
+    }else{
+        tooltip.innerHTML = $(event.target).attr('title');
     }
 
     switch (countryCode) {
@@ -741,9 +765,16 @@ function handleCustomSVGMapMouseMove(event) {
     var y = event.clientY;
 
     tooltip.style.left = (x - 150) + "px";
-    tooltip.style.top = (y - 20) + "px";
+    tooltip.style.top = (y - 40) + "px";
 
-    tooltip.innerHTML = $(event.target).attr('title');
+    //find rect in group
+    if($(event.target).is('rect') && width > 1024){
+        $(event.target).parent().removeAttr('country_code');
+        $(event.target).parent().removeAttr('title');
+        $(event.target).parent().removeAttr('onclick');
+
+    }
+
     tooltip.classList.add("active");
 
 }
