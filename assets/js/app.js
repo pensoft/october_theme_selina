@@ -46,6 +46,11 @@ $(document).ready(function() {
 
 	var count = $("h1").text().length;
 
+    $('<div class="col-xs-12 col-sm-3 card internal no-border" style="margin-bottom: 15px">\n' +
+        '<a class="folder-background" style="display:flex; background: url(https://project-selina.eu/storage/app/media/pensoft/living-documents.svg) center center no-repeat; background-size: 100px; height: 200px" href="/internal-repository/living-documents" title="Living documents"></a>\n' +
+        '<h3 class="card-header"><a href="/internal-repository/living-documents" title="Working Documents (live)">Working Documents (live)</a></h3>\n' +
+        '</div>').insertAfter($('.card.internal').last());
+
 
 	$('.tabs').each(function(){
 		// For each set of tabs, we want to keep track of

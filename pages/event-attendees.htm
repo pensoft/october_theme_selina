@@ -2,16 +2,16 @@ url = "/planned-events"
 layout = "default"
 title = "Planned Events"
 
-[Calendar]
+[session]
+security = "user"
+redirect = "home"
+
+[calendar]
 default = "true"
 limit = "null"
 category = "null"
 language = "en"
 redirect_to_detailed_page = "false"
-
-[session]
-security = "user"
-redirect = "home"
 ==
 <?php
 use Pensoft\EventReporting\Models\EventsreportingData as Data;
@@ -61,9 +61,9 @@ function onStart(){
         <a class="" href="#listView">List view</a>
     </div>
     <!--tabs content	-->
-
+<p>&nbsp;</p>
     <div class="row" id="calendarView">
-        {% component 'Calendar' %}
+        {% component 'calendar' %}
     </div>
     <div class="row" id="listView">
         <div class="library-items col-xs-12" id="partialLibraries">
