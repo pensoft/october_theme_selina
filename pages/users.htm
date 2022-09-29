@@ -12,7 +12,6 @@ allowedUserGroups[] = "registered"
 allowedUserGroups[] = "guest"
 redirect = "home"
 
-[siteSearchInclude]
 ==
 <?php
 use Rainlab\User\Models\User;
@@ -25,10 +24,10 @@ function onStart(){
 ?>
 ==
 {% component 'session' %}
-{% component 'siteSearchInclude' %}
 <div class="container">
 	{% for user in users %}
 	<div class="row middle-xs userBox">
+        <a id="{{ user.email }}" style="display: block; position: relative; top: -250px; visibility: hidden;"></a>
 		<div class="col-xs-3 col-md-1 userPic">
 			{% if user.avatar %}
 				<img alt="{{ user.name }} {{ user.surname }}" src="{{user.avatar.thumb(70,70,{'mode':'crop'})}}">
