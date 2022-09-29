@@ -22,7 +22,7 @@ function onStart(){
     $this['events'] =
             Entry::orderBy('start', 'desc')
             ->leftJoin('pensoft_eventreporting_data', 'christophheich_calendar_entries.id', '=', 'pensoft_eventreporting_data.id')
-            ->paginate(2);
+            ->paginate(20);
 
     $this['attendees'] = new class {
         public function getIM($id) {
