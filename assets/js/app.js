@@ -51,6 +51,8 @@ $(document).ready(function() {
         '<h3 class="card-header"><a href="/internal-repository/living-documents" title="Working Documents (live)">Working Documents (live)</a></h3>\n' +
         '</div>').insertAfter($('.card.internal').last());
 
+   $('<div class="mark"></div>').insertAfter($('.group-holder input'));
+
 
 	$('.tabs').each(function(){
 		// For each set of tabs, we want to keep track of

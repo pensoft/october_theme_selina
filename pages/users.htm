@@ -1,6 +1,6 @@
-title = "Users"
 url = "/users"
 layout = "default"
+title = "Users"
 is_hidden = 0
 robot_index = "index"
 robot_follow = "follow"
@@ -11,6 +11,8 @@ allowedUserGroups[] = "internal-users"
 allowedUserGroups[] = "registered"
 allowedUserGroups[] = "guest"
 redirect = "home"
+
+[siteSearchInclude]
 ==
 <?php
 use Rainlab\User\Models\User;
@@ -22,7 +24,9 @@ function onStart(){
 }
 ?>
 ==
-<{% component 'session' %}div class="container">
+{% component 'session' %}
+{% component 'siteSearchInclude' %}
+<div class="container">
 	{% for user in users %}
 	<div class="row middle-xs userBox">
 		<div class="col-xs-3 col-md-1 userPic">

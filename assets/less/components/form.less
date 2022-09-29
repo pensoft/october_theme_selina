@@ -59,4 +59,61 @@
         }
     }
 
+    
+
+
+    .field, .group-holder label{
+        position: relative;
+    }
+    /* Hide the default checkbox */
+    input[type="checkbox"] {
+        visibility: hidden;
+        cursor: pointer;
+        margin-right: 10px
+    }
+
+    /* Create a custom checkbox */
+    .mark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        background-color: white;
+        border: 1px solid @default-color;
+    }
+
+    .field:hover input ~ .mark {
+        background-color: @default-color;
+        opacity: 0.3;
+    }
+
+    input:checked ~ .mark {
+        background-color: @default-color!important;
+        background-image: none;
+    }
+
+    /* Create the mark/indicator (hidden when not checked) */
+    .mark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the mark when checked */
+    input:checked ~ .mark:after {
+        display: block;
+    }
+
+    /* Style the mark/indicator */
+    .mark:after {
+        left: 6px;
+        top: 2px;
+        width: 5px;
+        height: 8px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        transform: rotate(45deg);
+    }
+
 }
