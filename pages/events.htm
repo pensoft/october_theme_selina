@@ -13,6 +13,7 @@ language = "en"
 ==
 <?php
 use Pensoft\Calendar\Models\Entry;
+use Pensoft\EventReporting\Models\EventsreportingAttendants as Attendant;
 
 function onStart(){
 
@@ -36,6 +37,16 @@ function onStart(){
 
 
 			)->where('slug', $this->param('slug'))->first();
+
+
+            $this['attendees'] = new class {
+                public function getIM($id) {
+                    return Attendant::where('event_id', $id)
+                        ->join('users', 'users.id', '=', 'pensoft_eventreporting_attendants.user_id')
+                        ->get();
+                }
+            };
+
 
 	}
 
@@ -115,6 +126,20 @@ function onStart(){
                     <div class="content mt-2">
                         {{ entry.description|raw }}
                     </div>
+                    {% if user %}
+                        {% if attendees.getIM(entry.id).count %}
+                            <div>
+                                <span class="text-bold">Attendees:</span>
+
+                                {% for profile in attendees.getIM(entry.id) %}
+                                <span class="text-ligth">{{profile.name}} {{profile.surname}}</span>
+                                {% if not loop.last %},&nbsp;{% endif %}
+                                {% endfor %}
+
+
+                            </div>
+                        {% endif %}
+                    {% endif %}
                     <div class="btn btn-primary share-btn" id="share-{{slug}}">Share</div>
                     <script>
                         createTippy('#share-{{slug}}', {content: '<div class="icons">{% if this.theme.facebook %}<a class="fb-xfbml-parse-ignore pr p-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{page_url}}&amp;src=sdkpreparse" target="_blank" ></a>{% endif %}{% if this.theme.twitter %}<a class="pr p-twitter" href="https://twitter.com/intent/tweet?text={{encoded_title}}{{page_url}}" target="_blank"></a>{% endif %}{% if this.theme.linkedin %}<a class="pr p-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url={{page_url}}" target="_blank"></a>{% endif %}</div>'})
@@ -127,7 +152,15 @@ function onStart(){
                         }
                         document.addEventListener("DOMContentLoaded", ready);
                     </script>
+
+                {% if user  %}
+                        <a href="{{'event-attendance-form'|page}}/{{entry.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px;  font-size: unset;">Add attendance</a>
+                {% endif %}
+
                 </div>
+
+
+
             {% set materials = entry.materials %}
             {% if entry.cover_image or materials %}
             <div class="col-xs-12 col-md-5">

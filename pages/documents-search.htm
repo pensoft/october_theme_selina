@@ -18,7 +18,7 @@ use Pensoft\Internaldocuments\Models\Subfolders;
 use System\Models\File;
 
 function onStart(){
-	$term = Request::get('q');
+	$term = Request::get('query') ? Request::get('query') : Request::get('q');
 	if($term){
 		$foldersData = Subfolders::where('name','iLIKE','%'.$term.'%')->get();
 		$this['foldersData'] = $foldersData;

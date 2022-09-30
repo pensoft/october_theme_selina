@@ -25,6 +25,7 @@ function onStart(){
 ==
 {% component 'session' %}
 <div class="container">
+    <h1 class="page_heading internal">Users</h1>
 	{% for user in users %}
 	<div class="row middle-xs userBox">
         <a id="{{ user.email }}" style="display: block; position: relative; top: -250px; visibility: hidden;"></a>

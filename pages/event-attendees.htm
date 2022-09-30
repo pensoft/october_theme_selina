@@ -11,7 +11,7 @@ default = "true"
 limit = "null"
 category = "null"
 language = "en"
-redirect_to_detailed_page = "false"
+redirect_to_detailed_page = 0
 ==
 <?php
 use Pensoft\EventReporting\Models\EventsreportingData as Data;
@@ -20,9 +20,7 @@ use Pensoft\EventReporting\Models\EventsreportingAttendants as Attendant;
 
 function onStart(){
     $this['events'] =
-            Entry::orderBy('start', 'desc')
-            ->leftJoin('pensoft_eventreporting_data', 'christophheich_calendar_entries.id', '=', 'pensoft_eventreporting_data.id')
-            ->paginate(20);
+            Entry::orderBy('start', 'desc')->paginate(20);
 
     $this['attendees'] = new class {
         public function getIM($id) {
@@ -40,8 +38,8 @@ function onStart(){
 
     <h1 class="page_heading internal">Planned Events</h1>
 
-    <a href="{{'event-attendance-report'|page}}" target="_blank" class="btn btn-primary no-margin">Add event</a> &nbsp; &nbsp;
-    <a href="{{'event-attendance-form'|page}}" target="_blank" class="btn btn-primary no-margin">Add attendance</a>
+    <a href="{{'event-attendance-report'|page}}" class="btn btn-primary no-margin">Add event</a> &nbsp; &nbsp;
+    <a href="{{'event-attendance-form'|page}}" class="btn btn-primary no-margin">Add attendance</a>
 
     <p>&nbsp;</p>
     <div class="tabs">
@@ -113,7 +111,7 @@ function onStart(){
                     <div class="col-md-3 col-xs-12">
                         {% set url = event.url ?  event.url : '/events/' ~ event.slug %}
                         <a href="{{url}}" target="_blank" class="btn btn-primary" style="width: 230px; font-size: unset;">Go to event website</a>
-                        {% if date(event.end) >= date() and event.organiser != null and event.online_hybrid_onsite != null  %}
+                        {% if user  %}
                         <a href="{{'event-attendance-form'|page}}/{{event.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px;  font-size: unset;">Add attendance</a>
                         {% endif %}
                     </div>
