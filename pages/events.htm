@@ -13,6 +13,7 @@ language = "en"
 ==
 <?php
 use Pensoft\Calendar\Models\Entry;
+use Pensoft\EventReporting\Models\EventsreportingData as Data;
 use Pensoft\EventReporting\Models\EventsreportingAttendants as Attendant;
 
 function onStart(){
@@ -46,8 +47,11 @@ function onStart(){
                         ->get();
                 }
             };
-
-
+            $this['internalData'] = new class {
+                public function getIM($id) {
+                    return Data::where('slug', $id)->first();
+                }
+            };
 	}
 
 	$this['entries'] = Entry::orderBy('start', 'desc')->paginate(20);
@@ -139,6 +143,7 @@ function onStart(){
 
                             </div>
                         {% endif %}
+
                     {% endif %}
                     <div class="btn btn-primary share-btn" id="share-{{slug}}">Share</div>
                     <script>
@@ -155,6 +160,9 @@ function onStart(){
 
                 {% if user  %}
                         <a href="{{'event-attendance-form'|page}}/{{entry.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px;  font-size: unset;">Add attendance</a>
+                        {% if internalData.getIM(entry.slug).id %}
+                            <a href="{{'event-attendance-report'|page}}" class="btn btn-primary mb-1 mt-1">Edit</a>
+                        {% endif %}
                 {% endif %}
 
                 </div>

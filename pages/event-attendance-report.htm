@@ -1,4 +1,4 @@
-url = "/event-attendance-planner"
+url = "/event-attendance-planner/:slug?|[a-zA-Z\-0-9]"
 layout = "default"
 title = "Event Planner"
 
@@ -13,6 +13,7 @@ function onStart(){
 		if($this['message']){
 			header('Refresh: 10; URL='/event-attendance-report);
 		}
+		$this['id'] = (int)$this->param('id');
 	}
 ?>
 ==
@@ -20,5 +21,5 @@ function onStart(){
 <div class="container">
 	<h1 class="page_heading internal">Event Planner</h1>
     <a href="{{'event-attendees'|page}}" class="btn btn-primary" style="margin: 20px">&#10094;&nbsp; Back to events</a>
-    {% component 'EventReportingForm' %}
+    {% component 'EventReportingForm' slug=slug %}
 </div>

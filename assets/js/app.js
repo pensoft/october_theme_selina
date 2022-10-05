@@ -24,7 +24,7 @@ $(document).ready(function() {
 	width100.width(innerWidth);
 
 
-	$('body').on('click', '.work_packages .accordion-toggle, .partners_list_container .accordion-toggle', function () {
+	$('body').on('click', '.work_packages .accordion-toggle, .partners_list_container .accordion-toggle, .messages .accordion-toggle', function () {
 	    $('.ui-accordion-header').show();
 		if ($(this).next(".accordion-content").is(':visible')) {
 			$(this).next(".accordion-content").slideUp(300);
@@ -37,7 +37,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$('.work_packages .accordion-content, .partners_list_container .accordion-toggle').each(function( index, value ) {
+	$('.work_packages .accordion-content, .partners_list_container .accordion-toggle, .messages .accordion-toggle').each(function( index, value ) {
 		$(value).find('a').attr( "onclick", "window.open(this.href, '_blank');" )
 	});
 
