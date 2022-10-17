@@ -53,6 +53,22 @@ function onStart(){
                     return Data::where('slug', $id)->first();
                 }
             };
+
+\BennoThommo\Meta\Meta::set('twitter:card', 'summary');
+\BennoThommo\Meta\Meta::set('twitter:title', $this['entry']['title']);
+\BennoThommo\Meta\Meta::set('twitter:description', str_limit(Html::strip($this['entry']['description']), 255));
+\BennoThommo\Meta\Meta::set('og:title', $this['entry']['title']);
+\BennoThommo\Meta\Meta::set('og:description', str_limit(Html::strip($this['entry']['description']), 255) );
+\BennoThommo\Meta\Meta::set('og:type', 'article');
+\BennoThommo\Meta\Meta::set('og:url', $this->pageUrl(''));
+if($this['entry']['cover_image']){
+\BennoThommo\Meta\Meta::set('twitter:image', $this['entry']['cover_image']->getThumb(300, 300, ['mode' => 'crop']));
+
+\BennoThommo\Meta\Meta::set('og:image', $this['entry']['cover_image']->getThumb(600, 314, ['mode' => 'crop']));
+\BennoThommo\Meta\Meta::set('og:image:width', 600);
+\BennoThommo\Meta\Meta::set('og:image:height', 314);
+}
+
 	}
 
 	$this['entries'] = Entry::orderBy('start', 'desc')->paginate(20);
