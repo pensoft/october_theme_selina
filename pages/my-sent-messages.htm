@@ -1,6 +1,6 @@
-title = "My sent messages"
-layout = "default"
 url = "/sent-messages"
+layout = "default"
+title = "My sent messages"
 
 [session]
 security = "user"
@@ -35,7 +35,7 @@ function onStart(){
                     <div class="col-xs-12 col-md-6">
                         <h2>To user(s):</h2>
                         {% for recipient_user in record.user %}
-                        {{recipient_user.name}} {{recipient_user.surname}} - <a class="website" href="mailto:{{recipient_user.email}}">{{recipient_user.email}}</a>
+                        {{recipient_user.name}} {{recipient_user.surname}} - <a class="website" href="mailto:{{recipient_user.email}}">{{recipient_user.email}}</a><br>
                         {% endfor %}
                     </div>
                     {% endif %}
@@ -44,7 +44,7 @@ function onStart(){
                     <div class="col-xs-12 col-md-6">
                         <h2>To group(s):</h2>
                         {% for recipient_group in record.group %}
-                        {{recipient_group.name}} - <a class="website" href="mailto:{{recipient_group.email}}">{{recipient_group.email}}</a>
+                        {{recipient_group.name}} - <a class="website" href="mailto:{{recipient_group.email}}">{{recipient_group.email}}</a><br>
                         {% endfor %}
                     </div>
                     {% endif %}

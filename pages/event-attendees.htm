@@ -11,7 +11,7 @@ default = "true"
 limit = "null"
 category = "null"
 language = "en"
-redirect_to_detailed_page = 0
+redirect_to_detailed_page = 1
 ==
 <?php
 use Pensoft\EventReporting\Models\EventsreportingData as Data;
@@ -109,7 +109,7 @@ function onStart(){
                         </div>
                     </div>
                     <div class="col-md-3 col-xs-12">
-                        {% set url = event.url ?  event.url : '/events/' ~ event.slug %}
+                        {% set url = '/events/' ~ event.slug %}
                         <a href="{{url}}" target="_blank" class="btn btn-primary" style="width: 230px; font-size: unset;">Go to event website</a>
                         {% if user  %}
                         <a href="{{'event-attendance-form'|page}}/{{event.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px;  font-size: unset;">Add attendance</a>

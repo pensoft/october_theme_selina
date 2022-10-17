@@ -10,6 +10,7 @@ default = "true"
 limit = "null"
 category = "null"
 language = "en"
+redirect_to_detailed_page = "false"
 ==
 <?php
 use Pensoft\Calendar\Models\Entry;
@@ -60,8 +61,7 @@ function onStart(){
 }
 ?>
 ==
-
-	{% if not slug %}
+{% if not slug %}
     <div class="container">
         <h1 class="page_heading">Events</h1>
         <div class="tabs">
@@ -127,27 +127,41 @@ function onStart(){
                     </div>
 
 
-                    <div class="content mt-2">
-                        {{ entry.description|raw }}
-                    </div>
-                    {% if user %}
-                        {% if attendees.getIM(entry.id).count %}
-                            <div>
-                                <span class="text-bold">Attendees:</span>
+                    <div class="content mt-2 mb-2">
+                    {{ entry.description|raw }}
+                </div>
+                {% if internalData.getIM(entry.slug).organiser %}
+                <div class="content">
+                    <span class="text-bold">Organiser:</span>
+                    <span class="text-ligth">{{internalData.getIM(entry.slug).organiser}}</span>
+                </div>
+                {% endif %}
+                {% if user %}
+                {% if attendees.getIM(entry.id).count %}
+                <div class="content">
+                    <span class="text-bold">Attendees:</span>
 
-                                {% for profile in attendees.getIM(entry.id) %}
-                                <span class="text-ligth">{{profile.name}} {{profile.surname}}</span>
-                                {% if not loop.last %},&nbsp;{% endif %}
-                                {% endfor %}
+                    {% for profile in attendees.getIM(entry.id) %}
+                    <span class="text-ligth">{{profile.name}} {{profile.surname}}</span>
+                    {% if not loop.last %},&nbsp;{% endif %}
+                    {% endfor %}
 
 
-                            </div>
-                        {% endif %}
+                </div>
+                {% endif %}
 
-                    {% endif %}
+                {% endif %}
+
+
+                {% if entry.url %}
+                <a href="{{entry.url}}" class="btn btn-primary mb-1 mt-1" target="_blank">Go to event website</a>
+                {% endif %}
+                {% set page_url = 'https://project-selina.eu/events/' ~ entry.slug %}
+                {% set encoded_title = entry.title|url_encode %}
+                {% set slug = entry.slug %}
                     <div class="btn btn-primary share-btn" id="share-{{slug}}">Share</div>
                     <script>
-                        createTippy('#share-{{slug}}', {content: '<div class="icons">{% if this.theme.facebook %}<a class="fb-xfbml-parse-ignore pr p-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{page_url}}&amp;src=sdkpreparse" target="_blank" ></a>{% endif %}{% if this.theme.twitter %}<a class="pr p-twitter" href="https://twitter.com/intent/tweet?text={{encoded_title}}{{page_url}}" target="_blank"></a>{% endif %}{% if this.theme.linkedin %}<a class="pr p-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url={{page_url}}" target="_blank"></a>{% endif %}</div>'})
+                        createTippy('#share-{{slug}}', {content: '<div class="icons">{% if this.theme.facebook %}<a class="fb-xfbml-parse-ignore pr p-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{page_url}}&amp;src=sdkpreparse" target="_blank" ></a>{% endif %}{% if this.theme.twitter %}<a class="pr p-twitter" href="https://twitter.com/intent/tweet?text={{encoded_title}} {{page_url}}" target="_blank"></a>{% endif %}{% if this.theme.linkedin %}<a class="pr p-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url={{page_url}}" target="_blank"></a>{% endif %}</div>'})
 
                         var documentHasScroll = function() {
                             return window.innerHeight <= document.body.offsetHeight;
@@ -199,4 +213,3 @@ function onStart(){
     </div>
 
 {% endif %}
-
