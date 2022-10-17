@@ -54,6 +54,10 @@ $(document).ready(function() {
    $('<div class="mark"></div>').insertAfter($('.group-holder input'));
 
 
+
+
+
+
 	$('.tabs').each(function(){
 		// For each set of tabs, we want to keep track of
 		// which tab is active and its associated content
@@ -784,6 +788,43 @@ function handleCustomSVGMapMouseMove(event) {
 
     tooltip.classList.add("active");
 
+}
+
+
+function initMailingTooltip(){
+    var searchStr = '';
+    $('.group-holder').eq(0).find('.inputWithTooltip span').each(function(i, obj) {
+        $('<img src="/storage/app/media/CMS_icons_groups.svg" style="max-width: 16px; margin-left: 5px;" class="icon mailing_list_tooltip_'+i+'" />').insertAfter(this);
+        searchStr = $.trim($(obj).text());
+        //groups
+        $.request('onFetchMailingList', {
+            update: { 'mailing_list': '#mailing_list_tooltip_content_'+i,
+            },
+            data: {
+                search_str: searchStr
+            },
+        }).then(response => {
+            $('<script>createTippy(\'.row:nth-of-type(3) .row:nth-of-type(2) .mailing_list_tooltip_' + i + '\', {' +
+                'placement: \'right\',\n' +
+                'content: \'' + response.mailing_list + '\'})</script>').insertAfter(this);
+        });
+    });
+    $('.group-holder').eq(1).find('.inputWithTooltip span').each(function(i, obj) {
+        $('<img src="/storage/app/media/CMS_icons_individuals.svg" style="max-width: 16px; margin-left: 5px;" class="icon mailing_list_tooltip_individuals_'+i+'" />').insertAfter(this);
+        searchStr = $.trim($(obj).text());
+        //individuals
+        $.request('onFetchSingleMail', {
+            update: { 'individual_email': '#individual_tooltip_content_'+i,
+            },
+            data: {
+                search_str: searchStr
+            },
+        }).then(response => {
+            $('<script>createTippy(\'.row:nth-of-type(4) .row:nth-of-type(2) .mailing_list_tooltip_individuals_' + i + '\', {' +
+                'placement: \'right\',\n' +
+                'content: \'' + response.individual_email + '\'})</script>').insertAfter(this);
+        });
+    });
 }
 
 
