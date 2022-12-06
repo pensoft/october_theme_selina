@@ -32,14 +32,14 @@ no_records_message = "No records found"
 
 		{{ form_ajax( 'LibraryPage::onFilterRecords',
 		{update: { '@libraries': '#partialLibraries' }}) }}
-		<input type="hidden" name="Filter[type]" value="2">
+		<input type="hidden" name="Filter[type]" value="3">
 		<a>{{this.theme.site_name}} publications</a>
 		{{ form_close() }}
 
 
 		{{ form_ajax( 'LibraryPage::onFilterRecords',
 		{update: { '@libraries': '#partialLibraries' }}) }}
-		<input type="hidden" name="Filter[type]" value="3">
+		<input type="hidden" name="Filter[type]" value="2">
 		<a>Relevant publications</a>
 		{{ form_close() }}
 

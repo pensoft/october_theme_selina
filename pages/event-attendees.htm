@@ -77,8 +77,8 @@ function onStart(){
                             </div>
                             {% endif %}
                             <div>
-                                <span class="text-bold">REST-COAST organised or relevant:</span>
-                                {% set arrayOrganised = {'1': 'organised', '2': 'relevant'} %}
+                                <span class="text-bold">SELINA organised/involved/relevant:</span>
+                                {% set arrayOrganised = {'1': 'organised', '2': 'involved', '3': 'relevant'} %}
                                 <span class="text-ligth">{{arrayOrganised[event.identifier]}}</span>
                             </div>
                             <div>
@@ -88,7 +88,7 @@ function onStart(){
                             {% if event.online_hybrid_onsite %}
                             <div>
                                 <span class="text-bold">Online, hybrid or on-site:</span>
-                                {% set onlineHybridOnsite = {'1': 'online', '2': 'hybrid', '2': 'on-site'} %}
+                                {% set onlineHybridOnsite = {'1': 'online', '2': 'hybrid', '3': 'on-site'} %}
                                 <span class="text-ligth">{{onlineHybridOnsite[event.online_hybrid_onsite]}}</span>
                             </div>
                             {% endif %}
