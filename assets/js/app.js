@@ -833,20 +833,6 @@ function fetchSingleMail(i, searchStr){
         $('.single_mailing_list').hide();
         $('.single_mailing_list_'+i).show();
     }
-
-
-    // //individuals
-    // $.request('onFetchSingleMail', {
-    //     update: { 'individual_email': '#individual_tooltip_content_'+i,
-    //     },
-    //     data: {
-    //         search_str: searchStr
-    //     },
-    // }).then(response => {
-    //     $('<script>createTippy(\'.row:nth-of-type(4) .row:nth-of-type(2) .mailing_list_tooltip_individuals_' + i + '\', {' +
-    //         'placement: \'right\',\n' +
-    //         'content: \'' + response.individual_email + '\'})</script>').insertAfter($(this).parent());
-    // });
 }
 
 function initMailingTooltip(){
@@ -866,8 +852,8 @@ function initMailingTooltip(){
         $('<div class="single_mailing_list single_mailing_list_' + i + '" style="display: none;"></div>').insertAfter($(this).parent());
     });
 
-    $('.group-holder').eq(0).prepend( "<p style='margin-left: 10px; width: 100%;'>Prior to sending group emails, please make sure that all individuals you want to contact have been included in the respective group by hovering over the group icon.</p><p></p>" );
-    $('.group-holder').eq(1).prepend( "<p style='margin-left: 10px; width: 100%;'>To see each person’s email, hover over the account icon.</p><p></p>" );
+    $('.group-holder').eq(0).prepend( "<p style='margin-left: 10px; width: 100%;'>Prior to sending group emails, please make sure that all individuals you want to contact have been included in the respective group by clicking on the group icon.</p><p></p>" );
+    $('.group-holder').eq(1).prepend( "<p style='margin-left: 10px; width: 100%;'>To see each person’s email, click on the account icon.</p><p></p>" );
 
 }
 

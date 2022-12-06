@@ -28,6 +28,7 @@ function onFetchMailingList(){
             ->leftJoin('users', 'pensoft_mailing_groups_users.user_id', '=', 'users.id')
             ->whereRaw('users.email ILIKE \''.post('search_str').'\' OR pensoft_mailing_groups.name ILIKE \''.post('search_str').'\'')
             ->select('users.*')
+            ->orderBy('users.email', 'asc')
             ->get();
     }
 }
