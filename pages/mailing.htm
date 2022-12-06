@@ -1,11 +1,12 @@
-title = "Mails"
 url = "/mails"
 layout = "default"
+title = "Mails"
 is_hidden = 0
 robot_index = "index"
 robot_follow = "follow"
 
 [MailingForm]
+unique_emails = 1
 
 [session]
 security = "user"
@@ -36,7 +37,6 @@ function onFetchSingleMail(){
         $this['item']  = DB::table('users')->whereRaw('(TRIM(CONCAT(users.name, \' \', users.surname)) = \''.post('search_str').'\') OR users.email ILIKE \''.post('search_str').'\' ')->first();
     }
 }
-
 ?>
 ==
 <div class="container">

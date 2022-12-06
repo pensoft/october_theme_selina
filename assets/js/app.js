@@ -790,12 +790,15 @@ function handleCustomSVGMapMouseMove(event) {
 
 }
 
+function hideMe(elem){
+    $(elem).parent().hide();
+}
 
-function initMailingTooltip(){
-    var searchStr = '';
-    $('.group-holder').eq(0).find('.inputWithTooltip span').each(function(i, obj) {
-        $('<img src="/storage/app/media/CMS_icons_groups.svg" style="max-width: 16px; margin-left: 5px;" class="icon mailing_list_tooltip_'+i+'" />').insertAfter(this);
-        searchStr = $.trim($(obj).text());
+function fetchMails(i, searchStr){
+    // $('.group_mailing_list').hide();
+    if($('.group_mailing_list_'+i).is(":visible")){
+        $('.group_mailing_list_'+i).hide();
+    }else{
         //groups
         $.request('onFetchMailingList', {
             update: { 'mailing_list': '#mailing_list_tooltip_content_'+i,
@@ -804,10 +807,23 @@ function initMailingTooltip(){
                 search_str: searchStr
             },
         }).then(response => {
-            $('<script>createTippy(\'.row:nth-of-type(3) .row:nth-of-type(2) .mailing_list_tooltip_' + i + '\', {' +
-                'placement: \'right\',\n' +
-                'content: \'' + response.mailing_list + '\'})</script>').insertAfter(this);
+            $('.group_mailing_list_'+i).html('<a class="close-btn" onclick="hideMe(this)">X</a>' + response.mailing_list);
         });
+        $('.group_mailing_list').hide();
+        $('.group_mailing_list_'+i).show();
+    }
+
+}
+
+function initMailingTooltip(){
+    var searchStr = '';
+    $('.group-holder').eq(0).find('.inputWithTooltip span').each(function(i, obj) {
+        searchStr = $.trim($(obj).text());
+        $(this).parent().css('display', 'inline-grid');
+        $('<img src="/storage/app/media/CMS_icons_groups.svg" style="max-width: 16px; margin-left: 5px;" class="icon mailing_list_tooltip_'+i+'" onclick="fetchMails('+i+', \'' + searchStr + '\')" />').insertAfter($(this).parent());
+        $('<div class="group_mailing_list group_mailing_list_' + i + '" style="display: none;"></div>').insertAfter($(this).parent());
+
+
     });
     $('.group-holder').eq(1).find('.inputWithTooltip span').each(function(i, obj) {
         $('<img src="/storage/app/media/CMS_icons_individuals.svg" style="max-width: 16px; margin-left: 5px;" class="icon mailing_list_tooltip_individuals_'+i+'" />').insertAfter(this);
