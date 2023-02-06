@@ -139,10 +139,7 @@ if($this['entry']['cover_image']){
 
                     <div class="news-title">
                         <h1 class="single-new-title">{{ entry.title }}</h1>
-
                     </div>
-
-
                     <div class="content mt-2 mb-2">
                     {{ entry.description|raw }}
                 </div>
@@ -152,6 +149,13 @@ if($this['entry']['cover_image']){
                     <span class="text-ligth">{{internalData.getIM(entry.slug).organiser}}</span>
                 </div>
                 {% endif %}
+                {% set arrayOrganised = {'1': 'organised', '2': 'involved', '3': 'relevant'} %}
+                <div class="content">
+                    <br>
+                    <span class="text-bold">SELINA {{arrayOrganised[entry.identifier]}}</span>
+                    <br><br>
+                </div>
+
                 {% if user %}
                 {% if attendees.getIM(entry.id).count %}
                 <div class="content">
