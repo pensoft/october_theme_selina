@@ -27,17 +27,22 @@ $this['advisory_board'] = Profiles::where('category_id', 3)->get();
         {% for profile in advisory_board %}
         <div class="col-md-4 col-xs-8 accordion-border" style="cursor: unset;">
             <div class="accordion-content">
-                {% if profile.avatar %}<img alt="{{ profile.names }}" src="{{ profile.avatar.getThumb(211, 211, { mode : 'crop' } )}}">{% endif %}
+                <div class="row">
+                <div class="col-xs-12">
+                {% if profile.avatar %}<img alt="{{ profile.names }}" src="{{ profile.avatar.getThumb(211, 211, { mode : 'crop' } )}}" style="float:left;">{% endif %}
                 <div class="advisory-content">
                     {% if profile.names %}<div class="advisory-head">{{profile.names}}</div>{% endif %}
                     {% if profile.address %} <p>{{profile.address}}</p> {% endif %}
-                    <!-- {% if profile.email %} <a class="email" href="mailto::">{{profile.email}}</a> {% endif %}
-                    {% if profile.content %} <p>{{profile.content}}</p> {% endif %}
-                    {% if profile.country_id %} <p>{{profile.country_id}}</p> {% endif %} -->
+                    <!-- {% if profile.email %} <a class="email" href="mailto::">{{profile.email}}</a> {% endif %}-->
+                    
+                    <!--{% if profile.country_id %} <p>{{profile.country_id}}</p> {% endif %} -->
+                </div>
+                </div>
+                <div class="col-xs-12">{% if profile.content %} <p>{{profile.content|raw}}</p> {% endif %}</div>
+                
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
-
