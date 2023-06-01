@@ -48,7 +48,7 @@ return Redirect::to('/media-center/newsletters');
 ?>
 ==
 <div class="container">
-	<h1 class="page_heading">Media center</h1>
+	<h1 class="page_heading">Newsletters</h1>
 	<div class="row">
 		{% set records = mediaNewslettersList %}
 		{% set displayColumn = mediaNewslettersList.displayColumn %}
@@ -63,9 +63,9 @@ return Redirect::to('/media-center/newsletters');
 		{% if record.newsletter_image %}
 		<div class="col-md-2 col-xs-12">
 			<div class="card-container text-center">
-				<span class="card_image_container" style="background: url({{record.newsletter_image.thumb(auto,550,{'mode':'crop'})}}) center center no-repeat;" title="{{record.name}}"></span>
+				<span class="card_image_container" style="background: url({{record.newsletter_image.thumb(250,192,{'mode':'crop'})}}) center center no-repeat;" title="{{record.name}}"></span>
 				<span class="card_title" style="min-height: 100px;">{{record.name}}, {{record.date |date('F Y')}}</span>
-				<br><br><a href="{{ record.file.path }}#{{record.file.file_name}}" target="_blank" title="{{record.name}}" class="btn btn-primary">Download</a>
+				<br><br><a href="{{ record.url}}" target="_blank" title="{{record.name}}" class="btn btn-primary">Read the newsletter</a>
 			</div>
 		</div>
 

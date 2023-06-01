@@ -51,6 +51,12 @@ $(document).ready(function() {
         '<h3 class="card-header"><a href="/internal-repository/living-documents" title="Working Documents (live)">Working Documents (live)</a></h3>\n' +
         '</div>').insertAfter($('.card.internal').last());
 
+   $('#delete_result_101 .accordion-content.folders').html('<ul style="margin-top: 20px; margin-left: 17px; list-style-type: none; font-size: 1.1em; font-weight: bold;">\n' +
+    '<li><a href="https://docs.google.com/forms/d/e/1FAIpQLSd1Y7jaxo3_MS41Oak91Y1xqq4nZD-90a2-Qg2mAvepavq4WA/viewform" target="_blank" style="padding: 10px; background: #EAF0F2; margin-bottom: 20px; display: block;">SELINA Communication Activities Form</a></li>\n' +
+    '<li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdskVqnjciIuujcgb93Aoh6_x1fXNy0-Fja55VpGLoL12EVXg/viewform" target="_blank" style="padding: 10px; background: #EAF0F2; margin-bottom: 20px; display: block;">SELINA Dissemination Activities Form</a></li>\n' +
+    '<li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeRtXDOpHZBorq6nbLGF7bWRzXXwmwGEqZP2Pd4NcQFOzquPQ/viewform" target="_blank" style="padding: 10px; background: #EAF0F2; margin-bottom: 20px; display: block;">SELINA Datasets Form</a></li>\n' +
+    '<li><a href="https://docs.google.com/forms/d/e/1FAIpQLScZSyG5UiA--GzcRU1uIwN3Yo-ke5VjFd1MtaK1zvxL7pQlxw/viewform" target="_blank" style="padding: 10px; background: #EAF0F2; margin-bottom: 20px; display: block;">SELINA Publications Form</a></li></ul>');
+
    $('<div class="mark"></div>').insertAfter($('.group-holder input'));
 
 
@@ -87,7 +93,12 @@ $(document).ready(function() {
 
 		// Bind the click event handler
 		$(this).find("a").click(function (e) {
-			if($(this).hasClass('active')) {
+            if($(this)[0].innerText == 'Relevant publications' || $(this)[0].innerText == 'SELINA publications'){
+                $('.row.center-xs.mb-1:has(form)').hide();
+            }else{
+                $('.row.center-xs.mb-1:has(form)').show();
+            }
+			if($(this).hasClass('active') && $content.length) {
 				$content.slideDown({
 					scrollTop: $content.offset().top - $('header').height()
 				}, speed);
@@ -121,9 +132,12 @@ $(document).ready(function() {
 
 			// Make the tab active.
 			$active.addClass('active');
-			$content.slideDown({
-				scrollTop: $content.offset().top - $('header').height()
-			}, speed);
+            if($content.length){
+                $content.slideDown({
+    				scrollTop: $content.offset().top - $('header').height()
+    			}, speed);
+            }
+			
 			// var screenSize = getScreenSize();
 			// if (screenSize.width < 800) {
 			// 	// scroll to element
@@ -171,7 +185,7 @@ $(document).ready(function() {
 	$('.coordinator_image').attr('data-aos', 'fade-up');
 
 
-	$('.partners .partner_description, .partners .list-item-body').each(function(){
+	$('.partners .partner_description, .partners .list-item-body, .press-releases .press-item .body').each(function(){
 		var countParagraphs = $(this).find('p').length;
 		if(countParagraphs > 1) {
 			$(this).find('p').first().append('<div class="dorsal">Read more</div>');
@@ -205,6 +219,11 @@ $(document).ready(function() {
             setboxHeight();
         });
     }
+
+
+	$(window).on("hashchange", function() {
+		onHashChange();
+	});
 
 
 
@@ -257,9 +276,29 @@ $(document).ready(function() {
         }
     });
 
+    $('.library .publications').text('deliverables');
 
 });
 
+
+function onHashChange(){
+	$("path").removeClass('active_path');
+	$(".accordion-content").hide();
+
+	var link = window.location.hash;
+    var anchorId = link.substr(link.indexOf("#") + 1);
+    if($("#"+anchorId).offset()) {
+        $('html, body').animate({
+            scrollTop: $("#" + anchorId).offset().top - 150
+        }, 500);
+        var toggler = $("#"+anchorId).parent().parent();
+        console.log(toggler);
+        if (!toggler.next(".accordion-content").is(':visible')) {
+            toggler.trigger('click');
+        }
+
+    }
+}
 
 
 function setboxHeight() {

@@ -132,14 +132,14 @@ function onPartners(){
             <div class="accordion-border">
                 <div class="row middle-xs between-xs accordion-toggle">
                     {% if partner.cover %}
-                    <div class="col-xs-2 start-xs title_container">
+                    <div class="col-lg-2 col-xs-12 start-lg center-xs title_container">
                         <img alt="{{ partner.instituion }}" src="{{partner.cover.getThumb(260,auto, { mode : 'crop' } )}}">
                     </div>
                     {% endif %}
-                    <div class="col-xs-8 start-xs title_container">
+                    <div class="col-lg-8 col-xs-8 start-lg center-xs title_container">
                         {{ partner.instituion }}
                     </div>
-                    <div class="col-xs end-xs plusminus"><span class="plus"></span></div>
+                    <div class="col-lg col-xs end-xs plusminus"><span class="plus"></span></div>
                 </div>
                 <div class="row accordion-content" style="display: none;">
                     <div class="col-xs-12">{{partner.content|raw}}</div>
