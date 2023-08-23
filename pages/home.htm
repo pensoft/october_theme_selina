@@ -8,16 +8,16 @@ robot_index = "index"
 robot_follow = "follow"
 
 [article_highlights]
-maxItems = 4
+maxItems = 10
 title = "Latest News"
 baseUrl = "/news"
-templates = "template4"
+templates = "template5"
 thumb_width = 380
 thumb_height = 380
 
 [Timeline]
 limit = 3
-upcoming = 0
+upcoming = 1
 marked_for_display = 1
 templates = "template3"
 
@@ -74,11 +74,14 @@ description_limit = 0
 
 <!-- latest from news -->
 <div class="container-fluid bg-secondary">
-	{% component 'article_highlights' %}
+    <div class="container article_highlights_container">
+        {% component 'article_highlights' %}
+        <a href="{{'news'|page}}" class="btn btn-primary">All news</a>
+    </div>
 </div>
 <div class="container-fluid">
 	<div class="container">
-		<h1 class="base_heading">Latest Events</h1>
+		<h1 class="base_heading">Upcoming events</h1>
         <div class="timeline-container">
             {% component 'Timeline' %}
         </div>

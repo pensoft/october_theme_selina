@@ -49,7 +49,7 @@ $(document).ready(function() {
     $('<div class="col-xs-12 col-sm-3 card internal no-border" style="margin-bottom: 15px">\n' +
         '<a class="folder-background" style="display:flex; background: url(https://project-selina.eu/storage/app/media/pensoft/living-documents.svg) center center no-repeat; background-size: 100px; height: 200px" href="/internal-repository/living-documents" title="Living documents"></a>\n' +
         '<h3 class="card-header"><a href="/internal-repository/living-documents" title="Working Documents (live)">Working Documents (live)</a></h3>\n' +
-        '</div>').insertAfter($('.card.internal').last());
+        '</div>').insertAfter($('.card.internal:nth-child(7)'));
 
    $('#delete_result_101 .accordion-content.folders').html('<ul style="margin-top: 20px; margin-left: 17px; list-style-type: none; font-size: 1.1em; font-weight: bold;">\n' +
     '<li><a href="https://docs.google.com/forms/d/e/1FAIpQLSd1Y7jaxo3_MS41Oak91Y1xqq4nZD-90a2-Qg2mAvepavq4WA/viewform" target="_blank" style="padding: 10px; background: #EAF0F2; margin-bottom: 20px; display: block;">SELINA Communication Activities Form</a></li>\n' +
@@ -456,8 +456,8 @@ function init() {
         } else {
             if (typeof cardCarousel === 'function') {
                 cardCarousel({
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
                     autoplay: true,
                     autoplaySpeed: 6000,
                     prevArrow: '<i class="slick-prev pr p-back"/>',
@@ -471,8 +471,8 @@ function init() {
         if (!isBreakpointLarge()) {
             if (typeof cardCarousel === 'function') {
                 cardCarousel({
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
                     autoplay: true,
                     autoplaySpeed: 6000,
                     prevArrow: '<i class="slick-prev pr p-back"/>',
@@ -513,7 +513,7 @@ function onMapCustomPartners(pCode) {
         },
     }).then(response => {
         $('html, body').animate({
-            scrollTop: $("#mycomponentpartners").offset().top - 100
+            scrollTop: $("#mycomponentpartners").offset().top - 200
         }, 1000);
         var tooltip = document.getElementById("tooltip");
         tooltip.classList.remove("active");
