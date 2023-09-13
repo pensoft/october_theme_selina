@@ -21,26 +21,64 @@ use System\Models\File;
 function onStart(){
 
 if(get('download')){
-$file = File::find((int)get('download'));
-$file_name = $file->getLocalPath();
-$ext= $file->getExtension();
-$recordName = $file->file_name ? $file->file_name : 'REST-COAST_file.'.$ext;
+$fileItems = explode(',', get('download'));
 
+if(count($fileItems) > 1){
 
-if (file_exists($file_name)) {
-header('Content-Description: File Transfer');
-header('Content-Type: application/octet-stream');
-header("Content-Type: application/force-download");
-header('Content-Disposition: atntachment; filename='.$recordName);
-header('Content-Transfer-Encoding: binary');
-header('Expires: 0');
-header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-header('Pragma: public');
-header('Content-Length: ' . filesize($file_name));
-ob_clean();
-flush();
-readfile($file_name);
+$files = File::find($fileItems);
+$zip_file = tempnam(sys_get_temp_dir(), "SELINA_images_archives");
+$zip = new \ZipArchive();
+$zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+foreach ($files as $item) {
+$fileId = $item['id'];
+$file = File::find($fileId);
+$filePath = $file->getLocalPath();
+$filename = $item['file_name'];
+$i = 1;
+if ($filename == basename($filePath)) {
+$filename = $i . '-' . basename($filePath);
+$i++;
+} else {
+$filename = basename($filePath);
+$i = 1;
+}
+$zip->addFile(
+$filePath,
+$filename
+);
+}
+$zip->close();
+header("Content-type: application/zip");
+header("Content-Disposition: attachment; filename=SELINA_images_archives.zip");
+header("Pragma: no-cache");
+header("Expires: 0");
+readfile($zip_file);
 exit();
+
+
+
+}else{
+
+    $file = File::find(get('download'));
+    $file_name = $file->getLocalPath();
+    $ext= $file->getExtension();
+    $recordName = $file->file_name ? $file->file_name : 'REST-COAST_file.'.$ext;
+
+    if (file_exists($file_name)) {
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header("Content-Type: application/force-download");
+        header('Content-Disposition: atntachment; filename='.$recordName);
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($file_name));
+        ob_clean();
+        flush();
+        readfile($file_name);
+        exit();
+    }
 }
 return Redirect::back();
 }
