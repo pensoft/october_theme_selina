@@ -190,7 +190,18 @@
       });
       .breakpoint-small-down({
           width: auto;
+          margin: 0 auto 20px auto;
+          float: unset!important;
+          display: block;
       });
+    }
+
+    .advisory-content{
+        display: inline-block;
+        .breakpoint-small-down({
+            display: flex;
+            flex-direction: column;
+        });
     }
 
     .advisory-content .advisory-head{
@@ -204,6 +215,7 @@
         .breakpoint-large-down({
             text-align: center;
         });
+        
     }
 
     .advisory-content p{
