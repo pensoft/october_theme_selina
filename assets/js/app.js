@@ -22,8 +22,21 @@ $(document).ready(function() {
 	var innerWidth = $('body').innerWidth();
 	headerNavbar.width(innerWidth);
 	width100.width(innerWidth);
-
-
+    
+    $('body').on('click', '.members-toggle', function () {
+        var contentSection = $(this).closest('.accordion-content').find('.members-content');
+        var currentState = $(this).attr('data-state');
+    
+        if (currentState === 'show') {
+            contentSection.slideDown(300);
+            $(this).text('Hide members').attr('data-state', 'hide');
+        } else {
+            contentSection.slideUp(300);
+            $(this).text('Show members').attr('data-state', 'show');
+        }
+    });
+    
+    
 	$('body').on('click', '.work_packages .accordion-toggle, .partners_list_container .accordion-toggle, .messages .accordion-toggle', function () {
 	    $('.ui-accordion-header').show();
 		if ($(this).next(".accordion-content").is(':visible')) {
@@ -253,6 +266,7 @@ $(document).ready(function() {
             }
         }
     });
+    
 	//#045A6B
     $(".fill_blue").bind("mouseout", function() {
         $(this).attr('fill', '#045A6B');

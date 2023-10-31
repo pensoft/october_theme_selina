@@ -25,11 +25,32 @@ function onStart(){
     $this['attendees'] = new class {
         public function getIM($id) {
             return Attendant::where('event_id', $id)
-->join('users', 'users.id', '=', 'pensoft_eventreporting_attendants.user_id')
-->get();
+                    ->join('users', 'users.id', '=', 'pensoft_eventreporting_attendants.user_id')
+                    ->get();
         }
     };
 
+    $this['user_is_attending'] = new class {
+        public function checkIfUserIsAttending($eventId, $userId) {
+            return Attendant::where('event_id', $eventId)
+                    ->join('users', 'users.id', '=', 'pensoft_eventreporting_attendants.user_id')
+                    ->where('users.id', $userId)
+                    ->first();
+        }
+    };
+
+}
+
+function onRemoveAttendance(){
+    $event_id = (int)post('event_id');
+    $user_id = (int)post('user_id');
+    if($event_id && $user_id){
+
+        $attendant = Attendant::where('event_id', $event_id)->where('user_id', $user_id)->first();
+
+        $attendant->delete();
+        return Redirect::to('/planned-evens#listView');
+    }
 }
 ?>
 ==
@@ -112,7 +133,11 @@ function onStart(){
                         {% set url = '/events/' ~ event.slug %}
                         <a href="{{url}}" target="_blank" class="btn btn-primary" style="width: 230px; font-size: unset;">Go to event website</a>
                         {% if user  %}
-                        <a href="{{'event-attendance-form'|page}}/{{event.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px;  font-size: unset;">Add attendance</a>
+                            {% if(user_is_attending.checkIfUserIsAttending(event.id, user.id).id) %}
+                                <a data-request="onRemoveAttendance" data-request-confirm="Are you sure?" data-request-data="user_id: {{user.id}}, event_id: {{event.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px;  font-size: unset;">Remove attendance</a>
+                            {% else %}
+                                <a href="{{'event-attendance-form'|page}}/{{event.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px;  font-size: unset;">Add attendance</a>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>

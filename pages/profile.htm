@@ -11,6 +11,22 @@ paramCode = "code"
 forceSecure = 0
 requirePassword = 0
 ==
+<?php
+use System\Models\File;
+
+function onStart(){
+
+}
+
+public function onRemoveAttachmentHandler(){
+    if (($fileId = post('file_id')) && ($file = File::find($fileId))) {
+        $file = File::find((int)post('file_id'));
+        $file->delete();
+        return Redirect::to('/profile');
+    }
+}
+?>
+==
 <div class="container">
     <h1 class="page_heading internal">Profile</h1>
     <div class="row">

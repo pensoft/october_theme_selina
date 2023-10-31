@@ -73,8 +73,31 @@ if($this['entry']['cover_image']){
 
 	$this['entries'] = Entry::orderBy('start', 'desc')->paginate(20);
 
-		$this['slug'] = $this->param('slug');
+	$this['slug'] = $this->param('slug');
+
+    $this['user_is_attending'] = new class {
+        public function checkIfUserIsAttending($eventId, $userId) {
+            return Attendant::where('event_id', $eventId)
+            ->join('users', 'users.id', '=', 'pensoft_eventreporting_attendants.user_id')
+            ->where('users.id', $userId)
+            ->first();
+        }
+    };
+
 }
+
+function onRemoveAttendance(){
+    $event_id = (int)post('event_id');
+    $user_id = (int)post('user_id');
+    if($event_id && $user_id){
+
+        $attendant = Attendant::where('event_id', $event_id)->where('user_id', $user_id)->first();
+
+        $attendant->delete();
+        return Redirect::refresh();
+    }
+}
+
 ?>
 ==
 {% if not slug %}
@@ -83,13 +106,13 @@ if($this['entry']['cover_image']){
         <div class="tabs">
             <a class="" href="#listView">List view</a>
             <a class="" href="#calendarView">Calendar view</a>
-            
+
         </div>
     </div>
 	<!--tabs content	-->
     <div class="container-fluid bg-secondary">
         <div class="container">
-            
+
             <div class="row" id="listView">
                 <div class="events_list_container">
                     {% for entry in entries %}
@@ -101,7 +124,7 @@ if($this['entry']['cover_image']){
                             <div class="col-md-8 start-md col-xs-12 center-xs mt-1 mb-1"><a class="button" href="{{ url }}" target="_blank">{{entry.title}}</a></div>
                             <div class="col-md-2 end-md col-xs-12 center-xs">{{entry.start|date('l')}}</div>
                         </div>
-                        
+
                     </div>
 
                     {% endfor %}
@@ -193,10 +216,15 @@ if($this['entry']['cover_image']){
                     </script>
 
                 {% if user  %}
-                        <a href="{{'event-attendance-form'|page}}/{{entry.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px;  font-size: unset;">Add attendance</a>
+                        {% if(user_is_attending.checkIfUserIsAttending(entry.id, user.id).id) %}
+                            <a data-request="onRemoveAttendance" data-request-confirm="Are you sure?" data-request-data="user_id: {{user.id}}, event_id: {{entry.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px;  font-size: unset;">Remove attendance</a>
+                        {% else %}
+                                <a href="{{'event-attendance-form'|page}}/{{entry.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px;  font-size: unset;">Add attendance</a>
+                        {% endif %}
                         {% if internalData.getIM(entry.slug).id %}
                             <a href="{{'event-attendance-report'|page}}" class="btn btn-primary mb-1 mt-1">Edit</a>
                         {% endif %}
+
                 {% endif %}
 
                 </div>
