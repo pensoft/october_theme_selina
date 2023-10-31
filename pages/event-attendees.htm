@@ -49,7 +49,7 @@ function onRemoveAttendance(){
         $attendant = Attendant::where('event_id', $event_id)->where('user_id', $user_id)->first();
 
         $attendant->delete();
-        return Redirect::to('/planned-evens#listView');
+        return Redirect::refresh();
     }
 }
 ?>
