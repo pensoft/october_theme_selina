@@ -20,14 +20,14 @@ description_limit = 0
 ==
 <?php
 use Pensoft\Partners\Models\Partners;
-use Pensoft\Cardprofiles\Models\Profiles as Profiles;
+use Rainlab\User\Models\User as Profiles;
 
 function onStart(){
 	$this['partners'] =  Partners::get();
 
     $this['partner_members'] = new class {
         public function getProfiles($partnerId) {
-            return Profiles::where('category_id', 2)->where('partner_id', $partnerId)->get();
+            return Profiles::where('is_visible', 1)->where('partner_id', $partnerId)->get();
         }
     };
 
@@ -41,7 +41,7 @@ function onPartners(){
 
     $this['partner_members'] = new class {
         public function getProfiles($partnerId) {
-            return Profiles::where('category_id', 2)->where('partner_id', $partnerId)->get();
+            return Profiles::where('is_visible', 1)->where('partner_id', $partnerId)->get();
         }
     };
 }
@@ -50,121 +50,220 @@ function onPartners(){
 <div class="container">
     <h1 class="page_heading">Partners</h1>
     <div class="tabs">
-        <a class="" href="#mapView" style="background-size: 27px 21px;">Map view</a>
+        <a class="" href="#mapView">Map view</a>
         <a class="" href="#listView">List view</a>
 
     </div>
 </div>
-<!--tabs content	-->
 
+<!--tabs content-->
+<div id="mapView" class="mapView">
 
-        <div id="mapView" class="mapView">
-            <span class="tooltiptext" id="tooltip">Bulgaria</span>
-            <div class="container-fluid partners_map_container" style="background: #eaf0f2;">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-xs-12 consortium">
-                        {% component 'jumbotron' %}
-                        </div>
-                        
-                    </div>
+    <span class="tooltiptext" id="tooltip">Bulgaria</span>
+    <div class="container-fluid partners_map_container" style="background: #eaf0f2;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-xs-12 consortium">
+                    {% component 'jumbotron' %}
                 </div>
-                <div class="partners_map">{% partial 'components/svg' %}</div>
             </div>
+        </div>
+        <div class="partners_map">{% partial 'components/svg' %}</div>
+    </div>
 
+    <div class="container partners-map-container">
+        <div id="mycomponentpartners" class="row">
+            {% set leftPartners = [] %}
+            {% set rightPartners = [] %}
+            {% for key, partner in partners %}
+                {% if key is odd %}
+                    {% set leftPartners = leftPartners|merge([partner]) %}
+                {% else %}
+                    {% set rightPartners = rightPartners|merge([partner]) %}
+                {% endif %}
+            {% endfor %}
 
-
-            <div class="container partners-map-container">
-                <div id="mycomponentpartners" class="row">
-                    {% for partner in partners %}
-                    <div class="col-lg-6 col-xs-12 partner-item-map-view">
-                        <div class="row middle-xs between-xs accordion-toggle">
+            <div class="col-md-6 col-xs-12">
+                {% for partner in rightPartners %}
+                    <div class="partner-item-map-view">
+                        <div class="row accordion-toggle">
                             {% if partner.cover %}
-                            <div class="col-md-2 col-xs-12 start-md center-xs title_container">
-                                <img alt="{{ partner.instituion }}" src="{{partner.cover.getThumb(178,auto, { mode : 'crop' } )}}">
-                            </div>
+                                <div class="col-md-4 col-xs-12 start-md center-xs title_container">
+                                    <img alt="{{ partner.instituion }}" src="{{partner.cover.getThumb(178,auto, { mode : 'crop' } )}}">
+                                </div>
                             {% endif %}
-                            <div class="col-md-10 col-xs-12 start-md center-xs title_container">
+                            <div class="col-md-8 col-xs-12 start-md center-xs title_container">
                                 {{ partner.instituion }}
                             </div>
                         </div>
-                        <div class="row accordion-content">
-                            <div class="col-xs-12">{{partner.content|raw}}</div>
+                        <div class="accordion-content">
+                            <div class="row">
+                                <div class="col-xs-12">{{partner.content|raw}}</div>
+                                <div class="col-xs-12">
+                                    <a class="website" href="{{partner.instituion_url}}" target="_blank">{{partner.instituion_url}}</a>
+                                </div>
+                                {% if partner.add_description %}
+                                    <div class="col-xs-12 role">
+                                        <h2>Role in the project</h2>
+                                        {{partner.add_description|raw}}
+                                    </div>
+                                {% endif %}
+                            </div>
                             {% if partner_members.getProfiles(partner.id).count > 0 %}
-                            <div class="col-xs-12 col-md-6 start-md center-xs">
-                                <h2>Contact</h2>
-                                {% for profile in partner_members.getProfiles(partner.id) %}
-                                    <b>{{profile.names}}</b>{% if profile.position %}, {{profile.position}}{% endif %}{% if profile.department %}, {{profile.department}}{% endif %}
-                                    {% if profile.email %}
-                                    <br><a class="email" href="mailto:{{profile.email}}">{{profile.email}}</a>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                            {% endif %}
-
-                            {% if partner.instituion_url %}
-                            <div class="col-xs-12 col-md-6 start-md center-xs">
-                                <h2>Website</h2>
-                                <a class="website" href="{{partner.instituion_url}}" target="_blank">{{partner.instituion_url}}</a>
-                            </div>
-                            {% endif %}
-
-                            {% if partner.add_description %}
-                            <div class="col-xs-12 role">
-                                <h2>Role in the project</h2>
-                                {{partner.add_description|raw}}
-                            </div>
+                                <div class="col-xs-12 text-center show-hide">
+                                    <a class="members-toggle" style="cursor: pointer;" data-state="show">Show members</a>
+                                </div>
+                                <div class="members-content justify-content-centerb-2" style="display: none;">
+                                    <div class="row">
+                                        <h2 class="col-12 text-center">Contact</h2>
+                                        {% for profile in partner_members.getProfiles(partner.id) %}
+                                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 text-center member-cover mb-1">
+                                                <div class="avatar-container">
+                                                    {% if profile.avatar %}
+                                                        <img class="img-fluid" src="{{ profile.avatar.getThumb(96,96, { mode : 'crop' } ) }}" alt="{{ profile.name }}">
+                                                    {% else %}
+                                                        <img class="img-fluid" src="{{ 'default-partners-avatar.svg'|media }}" alt="Default Avatar">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="member-details">
+                                                    <div class="partners-name">{{ profile.name }} {{ profile.surname }}</div>
+                                                    <div class="partners-position">{{ profile.position }}</div>
+                                                    <div class="partners-email-container">
+                                                        <a class="email" href="mailto:{{ profile.email }}">{{ profile.email }}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="partner-seperator mt-2"></div>
+                                </div>
                             {% endif %}
                         </div>
                     </div>
-                    {% endfor %}
-
-                </div>
+                {% endfor %}
             </div>
 
-
+            <div class="col-md-6 col-xs-12">
+                {% for partner in leftPartners %}
+                    <div class="partner-item-map-view">
+                        <div class="row accordion-toggle">
+                            {% if partner.cover %}
+                                <div class="col-md-4 col-xs-12 start-md center-xs title_container">
+                                    <img alt="{{ partner.instituion }}" src="{{partner.cover.getThumb(178,auto, { mode : 'crop' } )}}">
+                                </div>
+                            {% endif %}
+                            <div class="col-md-8 col-xs-12 start-md center-xs title_container">
+                                {{ partner.instituion }}
+                            </div>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="row">
+                                <div class="col-xs-12">{{partner.content|raw}}</div>
+                                <div class="col-xs-12">
+                                    <a class="website" href="{{partner.instituion_url}}" target="_blank">{{partner.instituion_url}}</a>
+                                </div>
+                                {% if partner.add_description %}
+                                    <div class="col-xs-12 role">
+                                        <h2>Role in the project</h2>
+                                        {{partner.add_description|raw}}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            {% if partner_members.getProfiles(partner.id).count > 0 %}
+                                <div class="col-xs-12 text-center show-hide">
+                                    <a class="members-toggle" style="cursor: pointer;" data-state="show">Show members</a>
+                                </div>
+                                <div class="members-content justify-content-centerb-2" style="display: none;">
+                                    <div class="row">
+                                        <h2 class="col-12 text-center">Contact</h2>
+                                        {% for profile in partner_members.getProfiles(partner.id) %}
+                                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 text-center member-cover mb-1">
+                                                <div class="avatar-container">
+                                                    {% if profile.avatar %}
+                                                        <img class="img-fluid" src="{{ profile.avatar.getThumb(96,96, { mode : 'crop' } ) }}" alt="{{ profile.name }}">
+                                                    {% else %}
+                                                        <img class="img-fluid" src="{{ 'default-partners-avatar.svg'|media }}" alt="Default Avatar">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="member-details">
+                                                    <div class="partners-name">{{ profile.name }} {{ profile.surname }}</div>
+                                                    <div class="partners-position">{{ profile.position }}</div>
+                                                    <div class="partners-email-container">
+                                                        <a class="email" href="mailto:{{ profile.email }}">{{ profile.email }}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="partner-seperator mt-2"></div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
+    </div>
+</div>
 
-        <div id="listView">
+<div id="listView">
     <div class="container">
         <div class="partners_list_container">
             {% for partner in partners %}
             <div class="accordion-border">
                 <div class="row middle-xs between-xs accordion-toggle">
                     {% if partner.cover %}
-                    <div class="col-lg-2 col-xs-12 start-lg center-xs title_container">
+                    <div class="col-md-2 col-xs-12 start-md center-xs title_container">
                         <img alt="{{ partner.instituion }}" src="{{partner.cover.getThumb(260,auto, { mode : 'crop' } )}}">
                     </div>
                     {% endif %}
-                    <div class="col-lg-8 col-xs-8 start-lg center-xs title_container">
+                    <div class="col-md-8 col-xs-8 start-md center-xs title_container">
                         {{ partner.instituion }}
                     </div>
                     <div class="col-lg col-xs end-xs plusminus"><span class="plus"></span></div>
                 </div>
                 <div class="row accordion-content" style="display: none;">
                     <div class="col-xs-12">{{partner.content|raw}}</div>
-                        {% if partner_members.getProfiles(partner.id).count > 0 %}
-                        <div class="col-xs-12 col-md-6 start-md center-xs">
-                            <h2>Contact</h2>
-                            {% for profile in partner_members.getProfiles(partner.id) %}
-                            <b>{{profile.names}}</b>{% if profile.position %}, {{profile.position}}{% endif %}{% if profile.department %}, {{profile.department}}{% endif %}
-                            {% if profile.email %}
-                            <br><a class="email" href="mailto:{{profile.email}}">{{profile.email}}</a>
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-                        {% endif %}
-
-                    <div class="col-xs-12 col-md-6">
+                    <div class="col-xs-12 col-md-6 text-left center-xs">
                         <h2>Website</h2>
                         <a class="website" href="{{partner.instituion_url}}" target="_blank">{{partner.instituion_url}}</a>
                     </div>
                     <div class="col-xs-12 role">
                         <h2>Role in the project</h2>
-                        {{partner.add_description|raw}}</div>
+                        {{partner.add_description|raw}}
+                    </div>
+                    {% if partner_members.getProfiles(partner.id).count > 0 %}
+                    <div class="col-xs-12 text-center show-hide">
+                        <a class="members-toggle" style="cursor: pointer;" data-state="show">Show members</a>
+                    </div>
+                    {% for profile in partner_members.getProfiles(partner.id) %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 text-center">
+                    <div class="members-content" style="display: none;">
+                        <div class="member-cover">
+                            <div class="avatar-container-list mx-auto">
+                                {% if profile.avatar %}
+                                <img src="{{ profile.avatar.getThumb(169,169    , { mode : 'crop' } ) }}" alt="{{ profile.name }}" class="img-responsive">
+                                {% else %}
+                                <img class="img-fluid" src="{{ 'default-partners-avatar.svg'|media }}" alt="Default Avatar">
+                                {% endif %}
+                            </div>
+                            <div class="member-details">
+                                <div class="partners-name">{{profile.name}} {{profile.surname}}</div>
+                                <div class="partners-position">{{profile.position}}</div>
+                                <div class="partners-email-container">
+                                    <a href="mailto:{{ profile.email }}">{{ profile.email }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
 </div>
+
+
