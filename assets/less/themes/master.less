@@ -836,11 +836,15 @@ footer .align-items-center{
         box-shadow: none;
         background: white;
         padding: 80px 50px;
+        .breakpoint-large-down({
+            padding: 20px;
+        });
 
         img{
             width: auto;
             max-height: 90px;
             margin-bottom: 20px;
+            max-width: 100%;
         }
 
         .close{
@@ -867,6 +871,7 @@ footer .align-items-center{
             &.p-newsletter{
                 width: fit-content;
                 font-family: 'Aller';
+                font-size: 20px!important;
             }
         }
 
@@ -896,7 +901,7 @@ footer .align-items-center{
         color: @date-text-color;
     }
 
-    .container{
+    .main_container{
         padding: 0 20px 50px 20px !important;
     }
 }
