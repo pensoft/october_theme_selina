@@ -14,7 +14,7 @@ description_limit = 0
 use Pensoft\Synergies\Models\Synergy;
 
 function onStart(){
-    $this['items'] = Synergy::get();
+    $this['items'] = Synergy::orderBy('name')->get();
 }
 ?>
 ==
@@ -26,7 +26,7 @@ function onStart(){
     <div class="row">
         {% for record in items %}
         <div class="col-md-4 col-xs-12 synergy_item">
-            <div class="row">
+            <div class="row start-md center-xs">
                 <a data-toggle="modal" href="#content{{record.id}}">
 
                     {% if record.logo %}
@@ -53,18 +53,23 @@ function onStart(){
                         <p><a href="{{record.url}}" target="_blank" class="read_more">Project website &#10140;</a></p>
                         <p>{{record.description|raw}}</p>
 
-                        <br><br><h3>Follow the project on social media</h3>
-                        {% for social_item in record.social_media %}
-                            <a href="{{social_item.link}}" target="_blank" class="btn p-primary pr p-{{social_item.media}} big"></a>
-                        {% endfor %}
+                        {% if record.social_media %}
+                            <br><br><h3>Follow the project on social media</h3>
+                            {% for social_item in record.social_media %}
+                                <a href="{{social_item.link}}" target="_blank" class="btn p-primary pr p-{{social_item.media}} big"></a>
+                            {% endfor %}
+                        {% endif %}
+
                         {% if record.newsletter %}
                             <br><a href="{{record.newsletter}}" target="_blank" class="btn p-primary pr p-newsletter">Subscribe to newsletter</a>
                         {% endif %}
 
-                        <br><br><h3 style="margin-bottom: 10px;">Related news:</h3>
-                        {% for article in record.articles %}
-                            <a href="{{'news'|page}}/{{article.slug}}" target="_blank" class="related_news">{{article.title}}</a>
-                        {% endfor %}
+                        {% if record.articles.count > 0 %}
+                            <br><br><h3 style="margin-bottom: 10px;">Related news:</h3>
+                            {% for article in record.articles %}
+                                <a href="{{'news'|page}}/{{article.slug}}" target="_blank" class="related_news">{{article.title}}</a>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
