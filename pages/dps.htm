@@ -1,0 +1,83 @@
+title = "DPs"
+layout = "default"
+url = "/dps"
+
+[siteSearchInclude]
+
+[jumbotron]
+jumbotron = "synergies"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[demoList]
+
+==
+
+<?php
+use Pensoft\Workshops\Models\Workshop;
+use Carbon\Carbon;
+
+    function onStart(){
+        $this['workshops'] = Workshop::orderBy('date', 'asc')->get();
+        $this['ongoing_entries'] = Workshop::where('date', '>=', Carbon::now())->orderBy('date', 'asc')->get();
+    }
+?>
+==
+{% component 'siteSearchInclude' %}
+
+<div class="container">
+	<h1 class="page_heading ml-1 mb-4">Demonstration projects</h1>
+    {% component 'jumbotron' %}
+</div>
+
+<div class="container-fluid bg-secondary">
+    <div class="container">
+        {% if workshops.count() %}
+        <!-- events timeline -->
+        <div class="container-fluid events_timeline_background">
+            <div class="container" style="padding-bottom: 0">
+                <div class="timeline timeline--loaded timeline--horizontal" style="opacity: 1;">
+                    <div class="timeline__wrap">
+                        <div class="timeline__items">
+                            {% for entry in workshops %}
+                            {% if entry.date %}
+                            <div class="timeline__item">
+                                <div class="timeline__content index_{{entry.id}}">
+                                    <div class="date_and_place">
+                                        <span class="event_date">
+                                            {{entry.date | date('F Y')}}
+                                        </span>
+                                    </div>
+                                    <div class="title_and_desc">
+                                        <span class="timeline-body">{{entry.title}}</span>
+                                        <span class="timeline-desc"><a href="{{entry.url}}" target="_blank">Learn more</a></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <button class="timeline-nav-button timeline-nav-button--prev" disabled="" style="top: 265px;">Previous</button><button class="timeline-nav-button timeline-nav-button--next" style="top: 265px;">Next</button><span class="timeline-divider" style="top: 265px;"></span></div>
+            </div>
+            <script type="text/javascript">
+                timeline(document.querySelectorAll('.timeline'), {
+                    forceVerticalMode: 700,
+                    mode: 'horizontal',
+                    verticalStartPosition: 'left',
+                    visibleItems: 7,
+                    startIndex: {{ workshops.count - ongoing_entries.count }}
+                });
+            </script>
+
+        </div>
+    {% endif %}
+    </div>
+</div>
+
+<div class="container">
+    {% component 'demoList' %}
+ </div>

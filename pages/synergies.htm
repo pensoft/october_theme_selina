@@ -53,6 +53,10 @@ function onStart(){
                         <p><a href="{{record.url}}" target="_blank" class="read_more">Project website &#10140;</a></p>
                         <p>{{record.description|raw}}</p>
 
+                        {% if record.newsletter %}
+                        <br><br><a href="{{record.newsletter}}" target="_blank" class="btn p-primary pr p-newsletter">Subscribe to newsletter</a>
+                        {% endif %}
+
                         {% if record.social_media %}
                             <br><br><h3>Follow the project on social media</h3>
                             {% for social_item in record.social_media %}
@@ -60,9 +64,7 @@ function onStart(){
                             {% endfor %}
                         {% endif %}
 
-                        {% if record.newsletter %}
-                            <br><a href="{{record.newsletter}}" target="_blank" class="btn p-primary pr p-newsletter">Subscribe to newsletter</a>
-                        {% endif %}
+
 
                         {% if record.articles.count > 0 %}
                             <br><br><h3 style="margin-bottom: 10px;">Related news:</h3>

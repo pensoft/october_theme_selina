@@ -1,0 +1,23 @@
+url = "/dp/:slug"
+layout = "default"
+title = "Demonstration Projects"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[siteSearchInclude]
+
+[demoItem]
+slug = "{{ :slug }}"
+==
+{% component 'siteSearchInclude' %}
+
+<div class="container">
+    <h1 class="page_heading ml-1 mb-4">Demonstration projects</h1>
+   {% component 'demoItem' %}
+   <div class="container">
+    <!-- <div class="container align-center text-center">
+        <a class="btn btn-primary" onclick="window.history.back()">Go Back</a>
+     </div> -->
+</div>
+</div>
