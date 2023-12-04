@@ -1,19 +1,17 @@
-title = "DPs"
-layout = "default"
 url = "/dps"
+layout = "default"
+title = "Demonstration projects"
 
 [siteSearchInclude]
 
 [jumbotron]
-jumbotron = "synergies"
+jumbotron = "demonstration-projects-intro"
 background = "transperant"
 templates = "template3"
 description_limit = 0
 
 [demoList]
-
 ==
-
 <?php
 use Pensoft\Workshops\Models\Workshop;
 use Carbon\Carbon;
@@ -26,7 +24,7 @@ use Carbon\Carbon;
 ==
 {% component 'siteSearchInclude' %}
 
-<div class="container">
+<div class="container main_container">
 	<h1 class="page_heading ml-1 mb-4">Demonstration projects</h1>
     {% component 'jumbotron' %}
 </div>
