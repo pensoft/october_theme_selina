@@ -120,7 +120,7 @@ function onPartners(){
                                             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 text-center member-cover mb-1">
                                                 <div class="avatar-container">
                                                     {% if profile.avatar %}
-                                                        <img class="img-fluid" src="{{ profile.avatar.getThumb(96,96, { mode : 'crop' } ) }}" alt="{{ profile.name }}">
+                                                        <img class="img-fluid" src="{{ profile.avatar.getThumb(111,111, { mode : 'crop' } ) }}" alt="{{ profile.name }}">
                                                     {% else %}
                                                         <img class="img-fluid" src="{{ 'default-partners-avatar.svg'|media }}" alt="Default Avatar">
                                                     {% endif %}
@@ -129,7 +129,7 @@ function onPartners(){
                                                     <div class="partners-name">{{ profile.name }} {{ profile.surname }}</div>
                                                     <div class="partners-position">{{ profile.position }}</div>
                                                     <div class="partners-email-container">
-                                                        <a class="email" href="mailto:{{ profile.email }}">{{ profile.email }}</a>
+                                                        <a class="email" href="mailto:{{ profile.email }}">Contact</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -180,7 +180,7 @@ function onPartners(){
                                             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 text-center member-cover mb-1">
                                                 <div class="avatar-container">
                                                     {% if profile.avatar %}
-                                                        <img class="img-fluid" src="{{ profile.avatar.getThumb(96,96, { mode : 'crop' } ) }}" alt="{{ profile.name }}">
+                                                        <img class="img-fluid" src="{{ profile.avatar.getThumb(111,111, { mode : 'crop' } ) }}" alt="{{ profile.name }}">
                                                     {% else %}
                                                         <img class="img-fluid" src="{{ 'default-partners-avatar.svg'|media }}" alt="Default Avatar">
                                                     {% endif %}
@@ -189,7 +189,7 @@ function onPartners(){
                                                     <div class="partners-name">{{ profile.name }} {{ profile.surname }}</div>
                                                     <div class="partners-position">{{ profile.position }}</div>
                                                     <div class="partners-email-container">
-                                                        <a class="email" href="mailto:{{ profile.email }}">{{ profile.email }}</a>
+                                                        <a class="email" href="mailto:{{ profile.email }}">Contact</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -251,7 +251,7 @@ function onPartners(){
                                 <div class="partners-name">{{profile.name}} {{profile.surname}}</div>
                                 <div class="partners-position">{{profile.position}}</div>
                                 <div class="partners-email-container">
-                                    <a href="mailto:{{ profile.email }}">{{ profile.email }}</a>
+                                    <a href="mailto:{{ profile.email }}">Contact</a>
                                 </div>
                             </div>
                         </div>
@@ -265,5 +265,3 @@ function onPartners(){
         </div>
     </div>
 </div>
-
-
