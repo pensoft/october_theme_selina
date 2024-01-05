@@ -25,16 +25,16 @@ use Carbon\Carbon;
 {% component 'siteSearchInclude' %}
 
 <div class="container main_container">
-	<h1 class="page_heading ml-1 mb-4">Demonstration projects</h1>
+	<h1 class="page_heading mb-4">Demonstration projects</h1>
     {% component 'jumbotron' %}
 </div>
 
-<div class="container-fluid bg-secondary">
-    <div class="container">
+<div class="container-fluid timeline-bg">
+    <div class="workshops-content">
         {% if workshops.count() %}
         <!-- events timeline -->
-        <div class="container-fluid events_timeline_background">
-            <div class="container" style="padding-bottom: 0">
+        <div class="events_timeline_background">
+            <div class="container tl-container">
                 <div class="timeline timeline--loaded timeline--horizontal" style="opacity: 1;">
                     <div class="timeline__wrap">
                         <div class="timeline__items">
@@ -48,10 +48,24 @@ use Carbon\Carbon;
                                         </span>
                                     </div>
                                     <div class="title_and_desc">
-                                        <span class="timeline-body">{{entry.title}}</span>
-                                        <span class="timeline-desc"><a href="{{entry.url}}" target="_blank">Learn more</a></span>
+                                        <div class="card__front">
+                                            <span class="timeline-body">{{entry.title}}</span> 
+                                        </div>
+                                        <div class="card__back">
+                                            <div class="col-xs-12 card__content">
+                                                <div class="timeline__description">
+                                                    {% if entry.description %}
+                                                    {{ entry.description | striptags | e }}
+                                                    {% endif %}
+                                                </div>
+                                                <div class="timeline-desc">
+                                                    {% if entry.url %}
+                                                    <a href="{{entry.url}}">Learn more</a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-
                                 </div>
                             </div>
                             {% endif %}
@@ -63,11 +77,11 @@ use Carbon\Carbon;
             </div>
             <script type="text/javascript">
                 timeline(document.querySelectorAll('.timeline'), {
-                    forceVerticalMode: 700,
+                    forceVerticalMode: 1024,
                     mode: 'horizontal',
                     verticalStartPosition: 'left',
                     visibleItems: 7,
-                    startIndex: {{ workshops.count - ongoing_entries.count }}
+                    startIndex: {{ workshops.count - ongoing_entries.count - 1}}
                 });
             </script>
 
@@ -78,4 +92,4 @@ use Carbon\Carbon;
 
 <div class="container">
     {% component 'demoList' %}
- </div>
+</div>
