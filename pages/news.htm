@@ -2,8 +2,11 @@ url = "/news/:id?|[a-zA-Z\-0-9]"
 layout = "default"
 title = "News"
 is_hidden = 0
+meta_title = "News page meta title"
+meta_description = "News page meta description"
 robot_index = "index"
 robot_follow = "follow"
+seo_keywords = "meta, key1, test2, bla, etc"
 ==
 <?php
 use Pensoft\Articles\Models\Article;
@@ -20,6 +23,23 @@ if($this['article']){
 
     $this['is_detail_page'] = $this['article'] ? true : false;
     $this['allow_share'] = $this['article']['allow_share'] == 'yes' ? true : false;
+    if($this['is_detail_page']){
+        $seoTitle = $this['article']['title'];
+        $seoKeywords = $this['article']['meta_keywords'] ?: $this['article']['keywords'];
+        $seoDescription = str_limit(Html::strip($this['article']['content']), 255);
+
+        if (class_exists('\BennoThommo\Meta\Meta')) {
+            if($seoTitle) {
+                \BennoThommo\Meta\Meta::set('title', $seoTitle);
+            }
+            if($seoKeywords) {
+                \BennoThommo\Meta\Meta::set('keywords', $seoKeywords);
+            }
+            if($seoDescription) {
+                \BennoThommo\Meta\Meta::set('description', $seoDescription);
+            }
+        }
+    }
     if($this['is_detail_page'] and $this['allow_share']){
         $this['page_url'] = $this->pageUrl('');
         $this['encoded_title'] = urlencode($this['article']['title']);
@@ -42,7 +62,6 @@ if($this['article']){
     }
 
 }
-
 if($this['is_detail_page']){
 $related = array();
 if($this['article']['slug']){
