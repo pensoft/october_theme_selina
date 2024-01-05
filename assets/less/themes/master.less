@@ -66,13 +66,13 @@ h1, h2{
     text-transform: uppercase;
 
     .breakpoint-laptop-down({
-        font-size: 55px;
+        font-size: 45px;
     });
 
   .breakpoint-small-down({
     text-align: center;
       white-space: nowrap;
-    font-size: 32px;
+    font-size: 25px;
       line-height: 6em;
     margin-left: 0!important;
   });
@@ -904,5 +904,100 @@ footer .align-items-center{
     .container:not(.main_container){
         padding: 0 20px 50px 20px !important;
     }
+}
+
+
+.youtube_tutorial_container{
+    width: 100%;
+    height: 400px;
+    max-height: 400px;
+    /* text-align: center; */
+    position: relative;
+    display: flex!important;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 40px;
+    .breakpoint-laptop-down({
+       height: 320px;
+        max-height: 320px;
+    });
+    .breakpoint-large-down({
+        height: 200px;
+        max-height: 200px;
+    });
+
+    &::before{
+        position: absolute;
+        height: 100%;
+        content: ' ';
+        background: url(../../../../storage/app/media/birds-left.png) left center no-repeat;
+        background-size: contain;
+        width: 155px;
+        left: 16%;
+        .breakpoint-laptop-down({
+           width: 122px;
+            left: 11%;
+        });
+        .breakpoint-large-down({
+            display: none;
+        });
+    }
+
+    &::after{
+        position: absolute;
+        height: 100%;
+        content: ' ';
+        background: url(../../../../storage/app/media/birds-right.png) right center no-repeat;
+        background-size: contain;
+        width: 155px;
+        right: 16%;
+        .breakpoint-laptop-down({
+           width: 122px;
+            right: 11%;
+        });
+        .breakpoint-large-down({
+            display: none;
+        });
+    }
+}
+
+.youtube-video{
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 45%;
+    height: auto;
+    img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 84px;
+        height: 94px;
+        cursor: pointer;
+    }
+
+    .iframe-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+    }
+    iframe{
+        border-radius: 10px;
+    }
+
+    .breakpoint-large-down({
+        width: 100%;
+        height: auto;
+    });
 }
 

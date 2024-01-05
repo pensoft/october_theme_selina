@@ -280,8 +280,8 @@ function timeline(collection, options) {
             nextArrow.className = 'timeline-nav-button timeline-nav-button--next';
             prevArrow.textContent = 'Previous';
             nextArrow.textContent = 'Next';
-            prevArrow.style.top = `${topPosition + 80}px`;
-            nextArrow.style.top = `${topPosition + 80}px`;
+            prevArrow.style.top = `${topPosition}px`;
+            nextArrow.style.top = `${topPosition}px`;
             if (currentIndex === 0) {
                 prevArrow.disabled = true;
             } else if (currentIndex === (tl.items.length - tl.settings.visibleItems)) {
@@ -301,7 +301,7 @@ function timeline(collection, options) {
         const topPosition = tl.items[0].offsetHeight;
         const horizontalDivider = document.createElement('span');
         horizontalDivider.className = 'timeline-divider';
-        horizontalDivider.style.top = `${topPosition + 80}px`;
+        horizontalDivider.style.top = `${topPosition}px`;
         tl.timelineEl.appendChild(horizontalDivider);
     }
 
@@ -365,7 +365,7 @@ function timeline(collection, options) {
             prevArrow.textContent = 'Previous';
             nextArrow.textContent = 'Next';
             prevArrow.style.top = `${topPosition - 170}px`;
-            nextArrow.style.top = `${topPosition + 538}px`;
+            nextArrow.style.top = `${topPosition + 570}px`;
 
             if (currentIndex === 0) {
                 prevArrow.disabled = true;
@@ -400,7 +400,6 @@ function timeline(collection, options) {
         // const maxIndex = tl.items.length - tl.settings.visibleItems;
         const maxIndex = tl.items.length - 3;
         const moveItems = parseInt(tl.settings.moveItems, 10);
-
 
         [].forEach.call(navArrows, (arrow) => {
             arrow.addEventListener('click', function(e) {
@@ -512,3 +511,10 @@ if (window.jQuery) {
         };
     })(window.jQuery);
 }
+
+$(document).ready(function() {
+    $('.timeline--mobile .title_and_desc').on('click', function() {
+        $(this).find('.card__front').toggle();
+        $(this).find('.card__back').toggle();
+    });
+});

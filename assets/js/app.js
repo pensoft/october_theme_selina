@@ -203,8 +203,8 @@ $(document).ready(function() {
 	$('.partners .partner_description, .partners .list-item-body, .press-releases .press-item .body').each(function(){
 		var countParagraphs = $(this).find('p').length;
 		if(countParagraphs > 1) {
-			$(this).find('p').first().append('<div class="dorsal">Read more</div>');
-			$(this).find('p:not(:first)').wrapAll("<div class='toogle-contact-paragraphs'></div>")
+			$(this).find('p, ul').first().append('<div class="dorsal">Read more</div>');
+			$(this).find('p:not(:first), ul').wrapAll("<div class='toogle-contact-paragraphs'></div>")
 		}
 	});
 
@@ -497,6 +497,34 @@ function init() {
 		requestFormLibrary()
 		// requestFormPartners()
         // keepFooter(documentHasScroll());
+
+        var youtubeVideos = document.querySelectorAll(".youtube-video");
+
+        youtubeVideos.forEach(function (video) {
+            video.addEventListener("click", function () {
+                // video.style.paddingBottom = '56.25%';
+                var videoId = this.getAttribute("data-id");
+                var iframe = document.createElement("iframe");
+
+                iframe.setAttribute("src",
+                    (videoId.indexOf("?") !== -1 ?
+                        ("https://www.youtube.com/embed/" + videoId) :
+                        ("https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0"))
+                );
+                iframe.setAttribute("frameborder", "0");
+                iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
+                iframe.setAttribute("allowfullscreen", "");
+                iframe.setAttribute("width", "100%");
+                iframe.setAttribute("height", "100%");
+
+                var iframeContainer = this.querySelector(".iframe-container");
+                iframeContainer.innerHTML = "";
+                iframeContainer.appendChild(iframe);
+                iframeContainer.style.display = "block";
+                this.querySelector("img").style.display = "none";
+                this.querySelector(".play-button").style.display = "none";
+            });
+        });
 
     });
     // appendProfile()
