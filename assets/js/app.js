@@ -72,10 +72,43 @@ $(document).ready(function() {
 
    $('<div class="mark"></div>').insertAfter($('.group-holder input'));
 
+    /*
+    * Mobile menu customization 
+    **/
+   // Show menu on click
+    $('#menuToggle').click(function() {
+        $('#menu').css('visibility', 'visible');
+    });
 
+    // handle submenu behaviour
+    $('#menu .dropdown-toggle').click(function() {
+        var $submenu = $(this).next('.dropdown-menu');
+        var $parentItem = $(this).parent('.dropdown.nav-item');
 
+        $('#menu .dropdown-menu').css('transition', 'all 0.6s ease-in-out');
 
+        if ($parentItem.hasClass('open')) {
+        // Close the submenu
+        $submenu.css('max-height', '0');
+        $submenu.css('opacity', '0');
+        $submenu.css('visibility', 'hidden');
+        $parentItem.removeClass('open');
+        } else {
+        // Close all other submenus
+        $('.dropdown-menu').css('max-height', '0');
+        $('.dropdown-menu').css('opacity', '0');
+        $('.dropdown-menu').css('visibility', 'hidden');
+        $('.dropdown.nav-item').removeClass('open');
 
+        // Open the clicked submenu
+        $submenu.css('max-height', '500px');
+        $submenu.css('opacity', '1');
+        $submenu.css('visibility', 'visible');
+        $parentItem.addClass('open');
+        }
+
+        return false;
+    });
 
 	$('.tabs').each(function(){
 		// For each set of tabs, we want to keep track of
@@ -198,7 +231,6 @@ $(document).ready(function() {
 	$('.broshure_and_poster img').attr('data-aos', 'fade-up');
 	$('.card_image_container').attr('data-aos', 'fade-up');
 	$('.coordinator_image').attr('data-aos', 'fade-up');
-
 
 	$('.partners .partner_description, .partners .list-item-body, .press-releases .press-item .body').each(function(){
 		var countParagraphs = $(this).find('p').length;

@@ -94,7 +94,6 @@
                     //overflow: hidden;
                     max-width: 100%;
                     font-weight: normal;
-
                     &:hover {
                         color: @navbar-font-color-hover;
                         //font-weight: bold;
@@ -112,7 +111,6 @@
 
                 background-color: inherit;
                 &.dropdown {
-
                     .dropdown-menu {
                         position: relative;
                         z-index: @zindex-dropdown;
@@ -283,8 +281,8 @@ nav .pr.p-search.large.search-btn{
   #menuToggle input
   {
     display: flex;
-    width: 40px;
-    height: 32px;
+    // width: 40px;
+    // height: 32px;
     position: absolute;
     cursor: pointer;
     opacity: 0;
@@ -340,11 +338,12 @@ nav .pr.p-search.large.search-btn{
 
   #menu
   {
+    visibility: hidden;
     position: absolute;
     width: 100vw;
     height: 100vh;
     margin: -45px 0 0 -100vw;
-    padding: 50px 0 0 61px;
+    padding: 120px 0 0 61px;
     background-color: @dark-color;
     color: @white-color!important;
     font-size: 28px!important;
@@ -353,31 +352,166 @@ nav .pr.p-search.large.search-btn{
     transform: translate(100%, 0);
     transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
     font-family: Aller;
-    text-align: center;
+    // text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    text-align: start;
+
+    .breakpoint-huge-down({
+      padding: 40px 0 0 61px;
+    });
+
     .breakpoint-large-down({
       padding: 150px 0 0 61px!important;
     });
+
     .breakpoint-small-down({
-      padding: 50px 0 0 61px!important;
+      padding: 120px 0 0 61px;
     });
+
   }
 
   #menu li
   {
-    padding: 24px  0 0 0;
-    text-align: center;
+    padding: 2px 20px;
+    text-align: start;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.8rem;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    width: 100vw;
+
+    // remove border for last item and login btn
+    &:last-child, &:nth-last-child(2){
+      border: unset;
+    }
+
+    // remove border for submenu
+    .dropdown-menu{
+      li {
+        border: none !important;
+      }
+    }
+
     .breakpoint-large-down({
-      padding: 18px  0 0 0;
-    })
+      padding: 5px 20px;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+    });
+
   }
 
   #menu li a{
     color: @white-color;
-    font-size: 22px;
+    font-size: 20px;
+    width: 100%;
+    height: 100%;
   }
 
-  #menu li.sign-in a{
-    color: @date-text-color!important;
+// target active tab and change color
+  #menu .nav-item.active{
+      a{
+        color: @date-text-color;
+      }
+      
+      // target active tab's submenu
+      .dropdown-menu a{
+        color: unset;
+      }
+  }
+
+  #menu .sign-in {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    a{
+      margin-top: 14px;
+      width: unset;
+      padding: 10px 40px;
+      background-color:  @date-text-color !important;
+      color: @white-color !important;
+    }
+  }
+  
+
+  // center the nav items li
+  #menu .nav-item {
+    display: flex;
+    align-items: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  // li that have submenu
+  #menu .nav-item{ 
+      a.dropdown-toggle:after {
+        content: '';
+        background: url("../../assets/images/nav-menu-arrow.svg") center no-repeat;
+        background-size: 14px;
+        height: 14px;
+        width: 14px;
+        position: absolute;
+        right: 13%;
+        transition: all 0.6s ease-in-out;
+      }
+  }
+
+  // // li that have no submenu
+  // #menu .nav-item:not(.dropdown){
+  //   a{
+  //     &:after {
+  //       content: '';
+  //       background: url("../../assets/images/link-goto.svg") center no-repeat;
+  //       background-size: 14px;
+  //       height: 14px;
+  //       width: 14px;
+  //       position: absolute;
+  //       right: 16%;
+  //       transition: all 0.6s ease-in-out;
+  //     }
+  //   }
+  // }
+
+  // remove the icon from submenu and login
+  #menu .dropdown-menu, .sign-in{
+    a:after {
+      display: none;
+    }
+  }
+
+  // hide submenu by default
+  #menu .dropdown-menu {
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;    
+  }
+
+  // show submenu on click
+  #menu .dropdown.nav-item.open .dropdown-menu {
+    margin-top: 20px; //add margin
+    max-height: 500px;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  //rotate arrow when click
+  #menu .dropdown.nav-item.open{
+    .dropdown-toggle{
+      // color: @white-color !important;
+      &:after {
+        transform: rotate(180deg);
+      }
+    }
   }
 
   #menuToggle input:checked ~ ul
@@ -389,21 +523,32 @@ nav .pr.p-search.large.search-btn{
     display: none;
   }
 
+
   #menuToggle .dropdown-menu{
     list-style-type: none!important;
     font-size: 0.8em;
     margin-top: 10px;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
     li{
       padding-right: 0!important;
       padding-top: 0!important;
     }
+
   }
+
+  // Add padding to submenu
+  #menuToggle .dropdown-menu .nav-item{
+    padding: 0 20px;
+  }
+
 
   #menuToggle .dropdown  span{
-    display: none;
+    display: none;  
   }
-
 
 }
 

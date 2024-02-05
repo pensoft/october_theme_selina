@@ -98,6 +98,7 @@ function timeline(collection, options) {
         );
     }
 
+    
     // Helper function to add transform styles
     function addTransforms(el, transform) {
         el.style.webkitTransform = transform;
@@ -215,8 +216,8 @@ function timeline(collection, options) {
     }
 
     // Set height and widths of timeline elements and viewport
-    function setHeightandWidths(tl) {
-        // Set widths of items and viewport
+    function setHeightandWidths(tl) {  
+
         function setWidths() {
             tl.itemWidth = tl.wrap.offsetWidth / tl.settings.visibleItems;
             tl.items.forEach((item) => {
@@ -355,50 +356,75 @@ function timeline(collection, options) {
     }
 
     function addVerticalNavigation(tl) {
-        if (tl.items.length > 3) {
+        if (tl.items.length > tl.settings.visibleItems) {
             const prevArrow = document.createElement('button');
             const nextArrow = document.createElement('button');
-            const topPosition = tl.items[0].offsetHeight;
+
+            // container that holds the vertical timeline
+            const tlContainer = tl.timelineEl.querySelector('.timeline__wrap');
+
+            const topPosition = 0; //top
+            const bottomPosition = tlContainer.offsetHeight; //bottom of the container
 
             prevArrow.className = 'timeline-nav-button timeline-nav-button--prev';
             nextArrow.className = 'timeline-nav-button timeline-nav-button--next';
             prevArrow.textContent = 'Previous';
             nextArrow.textContent = 'Next';
-            prevArrow.style.top = `${topPosition - 170}px`;
-            nextArrow.style.top = `${topPosition + 570}px`;
+            
+            prevArrow.style.top = `${topPosition}px`;
+            nextArrow.style.top = `${bottomPosition}px`;
 
             if (currentIndex === 0) {
                 prevArrow.disabled = true;
-            } else if (currentIndex === (tl.items.length - 3)) {
+            } else if (currentIndex === (tl.items.length - tl.settings.visibleItems)) {
                 nextArrow.disabled = true;
             }
+
             tl.timelineEl.appendChild(prevArrow);
             tl.timelineEl.appendChild(nextArrow);
         }
     }
 
-
     function timelinePositionVertical(tl) {
-        let totalHeight = 0;
-
-        for (let i = 0; i < currentIndex; i++) {
-            totalHeight += tl.items[i].offsetHeight;
+        // get the container
+        let tlContainer = tl.timelineEl.querySelector('.timeline__wrap');
+        
+        if (tlContainer) {
+            let totalVisibleHeight = 0;
+            for (let i = currentIndex; i < currentIndex + tl.settings.visibleItems; i++) {
+                if (i < tl.items.length) {
+                    totalVisibleHeight += tl.items[i].offsetHeight;
+                }
+            }
+    
+            tlContainer.style.height = totalVisibleHeight + 'px';
+    
+            // relocate the next arrow when we extend container's height
+            const nextArrow = tl.timelineEl.querySelector('.timeline-nav-button--next');
+            if (nextArrow) {
+                nextArrow.style.top = totalVisibleHeight + 'px';
+            }
+    
+            let totalHeight = 0;
+            for (let i = 0; i < currentIndex; i++) {
+                totalHeight += tl.items[i].offsetHeight;
+            }
+    
+            const str = `translate3d(0, -${totalHeight}px, 0)`;
+            addTransforms(tl.scroller, str);
         }
 
-        const str = `translate3d(0, -${totalHeight}px, 0)`;
-        addTransforms(tl.scroller, str);
     }
-
-
-
+    
 
     // Make the vertical timeline slide
     function slideTimelineVertical(tl) {
         const navArrows = tl.timelineEl.querySelectorAll('.timeline-nav-button');
         const arrowPrev = tl.timelineEl.querySelector('.timeline-nav-button--prev');
         const arrowNext = tl.timelineEl.querySelector('.timeline-nav-button--next');
-        // const maxIndex = tl.items.length - tl.settings.visibleItems;
-        const maxIndex = tl.items.length - 3;
+        
+        const maxIndex = tl.items.length - tl.settings.visibleItems;
+        
         const moveItems = parseInt(tl.settings.moveItems, 10);
 
         [].forEach.call(navArrows, (arrow) => {
@@ -442,8 +468,14 @@ function timeline(collection, options) {
             currentIndex = tl.settings.startIndex;
         }
 
-        tl.timelineEl.classList.add('timeline--mobile');
+        // Set only 3 visible items for vertical
+        tl.settings.visibleItems = 2;
 
+        // // Set the same amount for moveItems on click to be same as visible items
+        // tl.settings.moveItems = tl.settings.visibleItems;
+
+        tl.timelineEl.classList.add('timeline--mobile');
+        
         timelinePositionVertical(tl);
         addVerticalNavigation(tl);
         addVerticalDivider(tl);
@@ -512,9 +544,10 @@ if (window.jQuery) {
     })(window.jQuery);
 }
 
-$(document).ready(function() {
-    $('.timeline--mobile .title_and_desc').on('click', function() {
-        $(this).find('.card__front').toggle();
-        $(this).find('.card__back').toggle();
-    });
-});
+
+// $(document).ready(function() {
+//     $('.timeline--mobile .title_and_desc').on('click', function() {
+//         $(this).find('.card__front').toggle('slow');
+//         $(this).find('.card__back').toggle('slow');
+//     });
+// });

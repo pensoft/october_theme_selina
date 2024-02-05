@@ -1,3 +1,13 @@
+.demo-project-container{
+    .breakpoint-large-down({
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+    });
+}
+
 .dp-detailed{
     font: 20px Aller;
     text-align: left;
@@ -35,7 +45,29 @@
     .dp-content{
         padding-bottom: 52px;
     }
-
+    
+    .dp-video {
+        iframe {
+            width: 560px;
+            height: 315px;
+        }
+    
+        .breakpoint-large-down({
+            position: relative;
+            padding-bottom: 56.25%; // 16:9 aspect ratio
+            height: 0;
+            overflow: hidden;
+            iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+        });
+    }
+    
+    
     .dp-partners {
         .db-row{
             width: 90%;
@@ -85,10 +117,10 @@
     margin-right: 10px;
     .breakpoint-small-down({
         margin-right: 0px;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
     });
 }
-
+  
 .record-filters{
     display: flex;
     justify-content: flex-end;
@@ -106,13 +138,20 @@
     }
     
       select{
-        font: normal normal 300 20px/26px Roboto !important;
+        font-style: 'Roboto';
+        font-size: 20px;
+        line-height: 1.6em;
+        padding: 0 10px;
         height: 50px;
         width: 250px;
         color: #707070 !important;
         opacity: 0.55;
         background: #FFFFFF 0% 0% no-repeat padding-box;
         border: 1px solid #AFB8BC;
+
+        .breakpoint-large-down({
+            width: 100%;
+        });
     }
     
       .form-control {
@@ -129,8 +168,11 @@
 
 .dp-records {
     .breakpoint-huge-down({
-        padding-top: 20px;
-    })
+        margin-top: 20px;
+    });
+    .breakpoint-large-down({
+        margin-top: 100px; 
+    });
 }
 
 .dp-card {
@@ -138,12 +180,13 @@
     box-shadow: 0px 0px 15px #00000029;
     margin-bottom: 40px;
     letter-spacing: 0px;
-    
+
     .dp-card-img{
         padding: 32px;
         img{
-            width: 280px;
-            height: 196px;
+            object-fit: cover;
+            width: 300px;
+            height: 207px;
         }
         .breakpoint-huge-down({
             padding-top: 32px;
@@ -161,7 +204,9 @@
     }
 
     .card-title{
-        font: normal normal bold 27px/42px Aller;
+        font-size: 27px;
+        line-height: 1.3em;
+        font-weight: bold;
         padding-top: 32px;
         padding-bottom: 40px;
 
@@ -169,10 +214,31 @@
             color: #96B93C;
             text-align: start;
         }
+
+        .breakpoint-large-down({
+            padding-top: 14px;
+            padding-bottom: 16px;
+    
+        });
+    }
+
+    .dp-card-body{
+        padding: 20px;
+        .breakpoint-large-down({
+            padding: 10px;
+            .dp-links{
+                .col-xs-12:first-child{
+                    margin-bottom: 2px;
+                }
+            }
+        });
     }
 
     .read-more{
-        font: normal normal bold 23px/33px Roboto;
+        font-family: 'Roboto';
+        font-size: 23px;
+        font-weight: bold;
+        line-height: 1.6em; 
         color: #045A6B;
         position: relative;
         &::after {
@@ -187,10 +253,17 @@
             background-size: contain;
             background-repeat: no-repeat;
         }
+        &:hover{
+            opacity: 0.6;
+        }
     }
 
     .dp-card-country{
-        font: normal normal bold 24px/42px Aller;
+        // font: normal normal bold 24px/42px Aller;
+        font-family: 'Aller' !important;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 1.6em; 
         display: flex;
         align-items: center;
         justify-content: center;
@@ -205,6 +278,21 @@
             border-radius: 0px;
         });
     }
+    .breakpoint-large-down({
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        .dp-card-img{
+            order: 2;
+        }
+        .dp-card-body{
+            order: 3;
+        }
+        .dp-card-country{
+            order: 1;
+        }
+    });
 
     @media (min-width: 992px) and (max-width: 1023px){
         .dp-card {
