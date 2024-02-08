@@ -110,6 +110,42 @@ $(document).ready(function() {
         return false;
     });
 
+    /* 
+    * DP section 
+    **/
+   // Show the video popup
+   window.showVideoPopup = function(url) {
+    $('#videoIframe').attr('src', url + "?autoplay=1");
+    $('body').addClass('modal-open');
+    $('#videoPopupModal').fadeIn('slow');
+};
+
+    // Close the video popup
+    window.closeVideoPopup = function() {
+        $('#videoPopupModal').fadeOut(); // Use fadeOut for smooth disappearance
+        $('#videoIframe').attr('src', '');
+        $('body').removeClass('modal-open');
+    };
+
+    // Close the popup when clicking on the blurred background
+    $('#videoPopupModal').click(function(event) {
+        if (event.target.id === "videoPopupModal") {
+            closeVideoPopup();
+        }
+    });
+
+    // Prevent closing the modal when clicking on the modal content itself
+    $('.modal-content').click(function(event) {
+        event.stopPropagation(); // This stops the click from propagating to the parent
+    });
+
+    // Close the popup when the Escape key is pressed
+    $(document).keyup(function(e) {
+        if (e.key === "Escape") { // Escape key maps to keycode `27`
+            closeVideoPopup();
+        }
+    });
+
 	$('.tabs').each(function(){
 		// For each set of tabs, we want to keep track of
 		// which tab is active and its associated content
@@ -217,6 +253,8 @@ $(document).ready(function() {
 	$('.about h1.display-1').attr('data-aos', 'fade-up');
 	$('h2.underline').attr('data-aos', 'fade-up');
 	$('.news_column').attr('data-aos', 'fade-up');
+    $('.dp-card').attr('data-aos', 'fade-up');
+    $('.record-filters').attr('data-aos', 'fade-left')
 	// $('.timeline-item').attr('data-aos', 'fade-up');
 
 	// about page
