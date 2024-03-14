@@ -134,10 +134,10 @@ $(document).ready(function() {
         }
     });
 
-    // Prevent closing the modal when clicking on the modal content itself
-    $('.modal-content').click(function(event) {
-        event.stopPropagation(); // This stops the click from propagating to the parent
-    });
+    // // Prevent closing the modal when clicking on the modal content itself
+    // $('.modal-content').click(function(event) {
+    //     event.stopPropagation(); // This stops the click from propagating to the parent
+    // });
 
     // Close the popup when the Escape key is pressed
     $(document).keyup(function(e) {
