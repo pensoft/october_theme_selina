@@ -50,6 +50,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-PWW5NKQ');</script>
 <!-- End Google Tag Manager -->
 
+    <!-- <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+        }
+    </script> -->
+
+
     {% if this.page.id == 'news' and is_detail_page %}
         {% component 'metaList' includePageMeta=false %}
     {% else %}
@@ -94,7 +103,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         page_id=this.page.id
         %}
     </header>
-
     <!-- Content -->
     <section id="layout-content" class="{{this.page.id}}" {% if user and this.page.id != 'home' %} style="margin-top: 150px;" {% endif %}>
         {% page %}
