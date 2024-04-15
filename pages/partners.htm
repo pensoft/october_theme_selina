@@ -73,20 +73,12 @@ return Profiles::where('is_visible', 1)->where('partner_id', $partnerId)->get();
 
     <div class="container partners-map-container">
         <div id="mycomponentpartners" class="row">
-            {% set leftPartners = [] %}
-            {% set rightPartners = [] %}
-            {% for key, partner in partners %}
-                {% if key is odd %}
-                    {% set leftPartners = leftPartners|merge([partner]) %}
-                {% else %}
-                    {% set rightPartners = rightPartners|merge([partner]) %}
-                {% endif %}
-            {% endfor %}
-
-            <div class="col-md-6 col-xs-12">
-                {% for partner in rightPartners %}
+                   
+            
+                {% for partner in partners %}
+                <div class="col-md-6 col-xs-12 mb-4 mt-4">
                     <div class="partner-item-map-view">
-                        <div class="row accordion-toggle">
+                        <div class="row accordion-toggle middle-xs mb-2">
                             {% if partner.cover %}
                                 <div class="col-md-4 col-xs-12 start-md center-xs title_container">
                                     <img alt="{{ partner.instituion }}" src="{{partner.cover.getThumb(178,auto, { mode : 'crop' } )}}">
@@ -140,68 +132,11 @@ return Profiles::where('is_visible', 1)->where('partner_id', $partnerId)->get();
                             {% endif %}
                         </div>
                     </div>
+                </div>
                 {% endfor %}
-            </div>
+            
 
-            <div class="col-md-6 col-xs-12">
-                {% for partner in leftPartners %}
-                    <div class="partner-item-map-view">
-                        <div class="row accordion-toggle">
-                            {% if partner.cover %}
-                                <div class="col-md-4 col-xs-12 start-md center-xs title_container">
-                                    <img alt="{{ partner.instituion }}" src="{{partner.cover.getThumb(178,auto, { mode : 'crop' } )}}">
-                                </div>
-                            {% endif %}
-                            <div class="col-md-8 col-xs-12 start-md center-xs title_container">
-                                {{ partner.instituion }}
-                            </div>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="row">
-                                <div class="col-xs-12">{{partner.content|raw}}</div>
-                                <div class="col-xs-12">
-                                    <a class="website" href="{{partner.instituion_url}}" target="_blank">{{partner.instituion_url}}</a>
-                                </div>
-                                {% if partner.add_description %}
-                                    <div class="col-xs-12 role">
-                                        <h2>Role in the project</h2>
-                                        {{partner.add_description|raw}}
-                                    </div>
-                                {% endif %}
-                            </div>
-                            {% if partner_members.getProfiles(partner.id).count > 0 %}
-                                <div class="col-xs-12 text-center show-hide">
-                                    <a class="members-toggle" style="cursor: pointer;" data-state="show">Show members</a>
-                                </div>
-                                <div class="members-content justify-content-centerb-2" style="display: none;">
-                                    <div class="row">
-                                        <h2 class="col-12 text-center">Contact</h2>
-                                        {% for profile in partner_members.getProfiles(partner.id) %}
-                                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 text-center member-cover mb-1">
-                                                <div class="avatar-container">
-                                                    {% if profile.avatar %}
-                                                        <img class="img-fluid" src="{{ profile.avatar.getThumb(111,111, { mode : 'crop' } ) }}" alt="{{ profile.name }}">
-                                                    {% else %}
-                                                        <img class="img-fluid" src="{{ 'default-partners-avatar.svg'|media }}" alt="Default Avatar">
-                                                    {% endif %}
-                                                </div>
-                                                <div class="member-details">
-                                                    <div class="partners-name">{{ profile.name }} {{ profile.surname }}</div>
-                                                    <div class="partners-position">{{ profile.position }}</div>
-                                                    <div class="partners-email-container">
-                                                        <a class="email" href="mailto:{{ profile.email }}">Contact</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        {% endfor %}
-                                    </div>
-                                    <div class="partner-seperator mt-2"></div>
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
+            
         </div>
     </div>
 </div>
