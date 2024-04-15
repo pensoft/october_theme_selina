@@ -25,9 +25,9 @@
 
 .card_image_container{
   display: block;
-  background-size: 141px!important;
-  height: 141px;
-  width: 141px;
+  // background-size: 141px!important;
+  height: 200px;
+  width: 250px;
   margin-left: auto;
   margin-right: auto;
     margin-top: 0px;
@@ -41,7 +41,27 @@
         box-shadow: 0 10px 20px rgba(4, 90, 107, 0.5);
     }
 }
+.card_image_container_newsletter{
+  width: 440px;
+  height: 220px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    box-shadow: none;
+    transition: all .3s ease-in-out!important;
 
+    &:hover{
+        margin-top: -20px;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 20px rgba(4, 90, 107, 0.5);
+    }
+    .breakpoint-large-down({
+      width: 100%;
+      height: auto;
+    })
+}
 
 .newsletters,
 .logo,
@@ -49,18 +69,12 @@
   .card_image_container{
     display: flex;
     background-size: cover;
-    // width: 250px;
     margin: 27px auto;
     border: none;
     &:hover{
       opacity: 0.7!important;
         box-shadow: none;
     }
-    // .breakpoint-small-down({
-    //   width: 220px!important;
-    //   height: 220px!important;
-    //   background-size: unset!important;
-    // });
   }
 }
 

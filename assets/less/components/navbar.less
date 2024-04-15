@@ -1,4 +1,13 @@
 
+.breakpoint-large-down({
+  body > .skiptranslate {
+    display: none !important;
+  }
+  body{
+    top: 0 !important;
+  }
+});
+
 .navbar {
     position: relative;
     width: 100vw;
@@ -107,8 +116,8 @@
             width: 100%;
             max-width: fit-content;
             flex-grow: 1;
-            padding-left: 0.5rem;
-            padding-right: 0.5rem;
+            padding-left: 0.3rem;
+            padding-right: 0.3rem;
             justify-content: space-around;
             background-color: inherit;
             flex-direction: column;
@@ -120,8 +129,8 @@
 
             .nav-item {
 
-                padding-left: 0.5rem;
-                padding-right: 0.5rem;
+                padding-left: 0.3rem;
+                padding-right: 0.3rem;
                 padding-top: 0.6rem;
                 padding-bottom: 0.6rem;
                 z-index: @zindex-dropdown;
@@ -164,7 +173,7 @@
                         background-color: #a1bb35;
                         display: block;
                         padding-left: 0;
-                        width: 270px;
+                        width: 300px;
                         max-width: 100%;
                     }
                 }

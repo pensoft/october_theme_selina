@@ -231,18 +231,21 @@
                 flex-direction: column;
                 transform-style: preserve-3d;
                 transition: transform 1s;
+                transform: rotateY(0deg);
 
-                &:hover{
-                    transform: rotateY(180deg);
-    
-                    .card__front {
-                        visibility: hidden;
-                    }
-                
-                    .card__back {
-                        visibility: visible;
-                    }
+                .card__front, .card__back {
+                    backface-visibility: hidden;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
                 }
+                
+                .card__back {
+                    transform: rotateY(180deg);
+                    display: none;
+                }
+            
                 p{
                     margin-bottom: 0;
                     color: @white-color!important;

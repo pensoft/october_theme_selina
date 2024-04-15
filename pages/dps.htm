@@ -29,6 +29,7 @@ use Carbon\Carbon;
     {% component 'jumbotron' %}
 </div>
 
+
 <div class="container-fluid timeline-bg">
     <div class="workshops-content">
         {% if workshops.count() %}
@@ -93,3 +94,45 @@ use Carbon\Carbon;
 <div class="container demo-project-container">
     {% component 'demoList' %}
 </div>
+
+<script>
+let currentActive = null;
+
+document.querySelectorAll('.timeline--horizontal .title_and_desc').forEach(element => {
+    element.addEventListener('mouseenter', function() {
+        if (currentActive && currentActive !== element) {
+            resetCard(currentActive);
+        }
+        if (!currentActive || currentActive !== element) {
+            activateCard(element);
+            currentActive = element;
+        }
+    });
+});
+
+function activateCard(card) {
+    card.style.transform = 'rotateY(180deg)';
+    card.querySelector('.card__front').style.opacity = 0;
+    card.querySelector('.card__front').style.visibility = 'hidden';
+    setTimeout(() => {
+        card.querySelector('.card__back').style.display = 'flex';
+        card.querySelector('.card__back').style.opacity = 1;
+        card.querySelector('.card__back').style.visibility = 'visible';
+    }, 300);
+}
+
+function resetCard(card) {
+    card.style.transform = 'rotateY(0deg)';
+    card.querySelector('.card__back').style.opacity = 0;
+    card.querySelector('.card__back').style.visibility = 'hidden';
+    setTimeout(() => {
+        card.querySelector('.card__back').style.display = 'none';
+        card.querySelector('.card__front').style.display = 'flex';
+        card.querySelector('.card__front').style.opacity = 1;
+        card.querySelector('.card__front').style.visibility = 'visible';
+    }, 0);
+    currentActive = null;
+}
+
+
+</script>

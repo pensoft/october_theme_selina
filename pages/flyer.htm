@@ -50,7 +50,7 @@ return Redirect::to('/media-center/flyer');
 ==
 <div class="container">
 	<h1 class="page_heading">Promotional materials</h1>
-	<div class="row center-md around-xs">
+	<div class="row">
 		{% set records = mediaFlyersList %}
 		{% set displayColumn = mediaFlyersList.displayColumn %}
 		{% set noRecordsMessage = mediaFlyersList.noRecordsMessage %}
@@ -62,15 +62,27 @@ return Redirect::to('/media-center/flyer');
 		{# Use spaceless tag to remove spaces inside the A tag. #}
 		{% spaceless %}
 		{% if record.flyer_image %}
-		<div class="col-md-4 col-xs-12">
+		<div class="col-md-4 col-xs-12 mb-2">
 			<div class="card-container text-center">
+
+				<a href="{{ record.file.path }}#{{record.file.file_name}}" target="_blank" title="{{record.name}}">
+					<div class="card_image_container">
+						<img src="{{ record.flyer_image.thumb(250, 200, {'mode': 'crop'})}}" alt="{{record.name}}">
+					</div>
+				</a>
+				<span class="card_title">{{record.name}}</span>
+				<br><br><a href="{{ ''| page }}?{{queries}}&download={{record.file.id}}&file_name={{record.file.file_name|replace({' ': '_'})}}" title="{{record.name}}" class="btn btn-primary">Download</a>
+	
+			</div>
+
+			<!-- <div class="card-container text-center">
                 <a href="{{ record.file.path }}#{{record.file.file_name}}" target="_blank" title="{{record.name}}">
                     <span class="card_image_container" style="background: url({{record.flyer_image.thumb(141,141,{'mode':'crop'})}}) center center no-repeat; background-color: #dedde1;" title="{{record.name}}"></span>
                 </a>
 
 				<span class="card_title">{{record.name}}</span><br>
                 <br><a href="{{ ''| page }}?{{queries}}&download={{record.file.id}}&file_name={{record.file.file_name|replace({' ': '_'})}}" title="{{record.name}}" class="btn btn-primary">Download</a>
-			</div>
+			</div> -->
 		</div>
 
 

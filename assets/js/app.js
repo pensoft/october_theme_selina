@@ -146,7 +146,7 @@ $(document).ready(function() {
         }
     });
 
-	$('.tabs').each(function(){
+	$('.tabs:not(#mylibraryForm)').each(function() {
 		// For each set of tabs, we want to keep track of
 		// which tab is active and its associated content
 		var $active, $content, $links = $(this).find('a');
@@ -440,14 +440,14 @@ function appendSearchAndSocialMedia(){
 }
 
 
-// function appendTranslate() {
-//     var screnWidth = $(window).width();
-//     if(screnWidth < 1025) {
-//         var translateElement = $('#google_translate_element');
-//         var menu = $('#menuToggle');
-//         menu.find('>ul').append(translateElement);
-//     }
-// }
+function appendTranslate() {
+    var screnWidth = $(window).width();
+    if(screnWidth < 1025) {
+        var translateElement = $('#google_translate_element');
+        var menu = $('#menuToggle');
+        menu.find('>ul').append(translateElement);
+    }
+}
 
 function redirectAndRefresh(url){
 	$(".tabs a").each(function() {
@@ -563,7 +563,7 @@ function init() {
         }
 		// appendSearchAndSocialMedia()
 		requestFormLibrary()
-        // appendTranslate()
+        appendTranslate()
 		// requestFormPartners()
         // keepFooter(documentHasScroll());
 
