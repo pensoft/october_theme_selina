@@ -9,6 +9,7 @@ robot_follow = "follow"
 seo_keywords = "meta, key1, test2, bla, etc"
 ==
 <?php
+use Pensoft\Articles\Models\Category;
 use Pensoft\Articles\Models\Article;
 
 function urlencode($string){
@@ -16,7 +17,36 @@ function urlencode($string){
 }
 function onStart()
 {
-$this['records'] = Article::news()->where('published_at', '<=', 'now()')->where('published', 'true')->orderBy('published_at', 'DESC')->paginate(15, ['*'], 'p');
+	$this['article'] = Pensoft\Articles\Models\Article::where('slug', $this->param('id'))->first();
+    $this['categories'] = Category::orderBy('sort_order')->orderBy('created_at', 'desc')->get();
+	
+    $categoryId = input('categoryId', 'all');
+
+    if ($categoryId !== 'all' && !is_numeric($categoryId)) {
+        return redirect('news');
+    }
+	
+    $this['categoryId'] = $categoryId;
+
+    if ($categoryId === 'all') {
+        $records = Article::news()->where('published_at', '<=', 'now')
+                                  ->where('published', 'true')
+                                  ->orderBy('published_at', 'DESC')
+                                  ->paginate(12);
+    } else {
+        $records = Article::news()->whereHas('categories', function ($query) use ($categoryId) {
+                     $query->where('id', $categoryId);
+                 })->where('published_at', '<=', 'now')
+                   ->where('published', 'true')
+                   ->orderBy('published_at', 'DESC')
+                   ->paginate(12);
+    }
+
+    if ($categoryId !== 'all') {
+        $records->appends(['categoryId' => $categoryId]);
+    }
+
+    $this['records'] = $records;
 
     $this['article'] = Pensoft\Articles\Models\Article::where('slug', $this->param('id'))->where('published', 'true')->first();
 if($this['article']){
@@ -126,36 +156,22 @@ $this['related'] = $related;
         createTippy('#share-{{article.slug}}', {content: '<div class="icons">{% if this.theme.facebook %}<a class="fb-xfbml-parse-ignore pr p-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{page_url}}&amp;src=sdkpreparse" target="_blank" ></a>{% endif %}{% if this.theme.twitter %}<a class="pr p-twitter small" href="http://twitter.com/share?text={{article.title|url_encode}}&url={{page_url}}" target="_blank"></a>{% endif %}{% if this.theme.linkedin %}<a class="pr p-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url={{page_url}}" target="_blank"></a>{% endif %}</div>'})
 	</script>
 	{% else %}
-
-	<div class="row">
-            {% for record in records %}
-            {% spaceless %}
-            <div class="col-xs-12 news-item">
-                <div class="row news_column">
-                    <a href="{{'news'|page}}/{{record.slug}}">
-                    {% if record.cover %}
-                        <div class="news-image col-xs-12 center-xs">
-                            <img class="news-img-top" src="{{record.cover.getThumb(379, 305, {'mode': 'crop'})}}">
-                        </div>
-                    {% endif %}
-                    <div class="news-container col-xs-12">
-                        <div class="text-published">{{record.published_at | date('d F Y') }}</div>
-                        <div class="news-title">
-                            <h3 class="card-title">{{record.title}}</h3>
-                        </div>
-
-                        <div class="body">{{ record.content|length > 450 ? record.content|striptags|slice(0, 450)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : record.content|striptags|replace({"&nbsp;": " ", ".": ". "})  }}</div>
-                    </div>
-                    </a>
-                </div>
-
-            </div>
-
-            {% endspaceless %}
-            {% else %}
-            No news
+    
+    <div class="category-tabs-container mb-2">
+        {% if categories.count > 0 %}
+        <div class="row category-tabs" id="category-tabs">
+            <a href="{{ 'news'|page }}" class="{{ 'all' == categoryId ? 'active' : '' }}">All News</a>
+            {% for category in categories %}
+            <a href="{{ 'news'|page }}?categoryId={{ category.id }}" class="{{ category.id == categoryId ? 'active' : '' }}">{{ category.name }}</a>
             {% endfor %}
-	</div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="newslist-records" id="newslist-records">
+        {% partial 'components/newslist-records' %}
+    </div>
+
     <div class="row container">
         {{ records.render|raw }}
     </div>

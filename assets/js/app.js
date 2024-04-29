@@ -227,7 +227,11 @@ $(document).ready(function() {
 		});
 	});
 
-
+    // News category tabs
+    $('.category-tabs-container a').click(function() {
+        $('.category-tabs-container a').removeClass('active');
+        $(this).addClass('active');
+    });
 
 	$('.numbers').attr('data-aos', 'fade-up');
 	$('.mission .container').attr('data-aos', 'fade-up');
