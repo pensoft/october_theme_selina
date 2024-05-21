@@ -146,6 +146,44 @@ $(document).ready(function() {
         }
     });
 
+    $('.dp-icon').hover(
+        function() {
+            var tooltip = $(this).attr('data-tooltip');
+            $('<div class="tooltip"></div>')
+                .text(tooltip)
+                .appendTo('body')
+                .fadeIn('slow');
+        },
+        function() {
+            $('.tooltip').remove();
+        }
+    ).mousemove(function(e) {
+        var mousex = e.pageX + 20; // Get X coordinates
+        var mousey = e.pageY + 10; // Get Y coordinates
+        $('.tooltip')
+            .css({ top: mousey, left: mousex })
+    });
+    
+    // Use session storage to handle smooth scroll on tab change
+    $('.tab').on('click', function(event) {
+        event.preventDefault();
+        const targetUrl = $(this).attr('href');
+
+        sessionStorage.setItem('scrollToRecords', 'true');
+
+        window.location.href = targetUrl;
+    });
+
+    if (sessionStorage.getItem('scrollToRecords') === 'true') {
+        const PADDING = 20; //Add small paddding
+        $('html, body').animate({
+            scrollTop: $('#category-tabs').offset().top - ($('#headernavbar').height() + PADDING )
+        }, 'slow');
+
+        sessionStorage.removeItem('scrollToRecords');
+    }
+
+    
 	$('.tabs:not(#mylibraryForm)').each(function() {
 		// For each set of tabs, we want to keep track of
 		// which tab is active and its associated content
@@ -233,6 +271,11 @@ $(document).ready(function() {
         $(this).addClass('active');
     });
 
+    $('.dp-tabs-container a').click(function() {
+        $('.category-tabs-container a').removeClass('active');
+        $(this).addClass('active');
+    });
+
 	$('.numbers').attr('data-aos', 'fade-up');
 	$('.mission .container').attr('data-aos', 'fade-up');
 	$('.vision .container').attr('data-aos', 'fade-up');
@@ -244,8 +287,8 @@ $(document).ready(function() {
 	$('.about h1.display-1').attr('data-aos', 'fade-up');
 	$('h2.underline').attr('data-aos', 'fade-up');
 	$('.news_column').attr('data-aos', 'fade-up');
-    $('.dp-card').attr('data-aos', 'fade-up');
-    $('.record-filters').attr('data-aos', 'fade-left')
+    // $('.dp-card').attr('data-aos', 'fade-up');
+    // $('.record-filters').attr('data-aos', 'fade-left')
 	// $('.timeline-item').attr('data-aos', 'fade-up');
 
 	// about page

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="83" height="83" viewBox="0 0 83 83">
+  <defs>
+    <filter id="Rectangle_4297" x="0" y="0" width="83" height="83" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="7.5" result="blur"/>
+      <feFlood flood-opacity="0.322"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_16225" data-name="Group 16225" transform="translate(-461.5 -1535.5)">
+    <g transform="matrix(1, 0, 0, 1, 461.5, 1535.5)" filter="url(#Rectangle_4297)">
+      <rect id="Rectangle_4297-2" data-name="Rectangle 4297" width="38" height="38" transform="translate(22.5 22.5)" fill="#045a6b" opacity="0.787"/>
+    </g>
+    <path id="Icon_material-remove-red-eye" data-name="Icon material-remove-red-eye" d="M11.83,6.75A11.106,11.106,0,0,0,1.5,13.793a11.1,11.1,0,0,0,20.659,0A11.106,11.106,0,0,0,11.83,6.75Zm0,11.738a4.7,4.7,0,1,1,4.7-4.7A4.7,4.7,0,0,1,11.83,18.488Zm0-7.513a2.817,2.817,0,1,0,2.817,2.817A2.813,2.813,0,0,0,11.83,10.976Z" transform="translate(491.5 1563.25)" fill="#96b93c"/>
+  </g>
+</svg>
