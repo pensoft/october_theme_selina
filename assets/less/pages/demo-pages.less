@@ -226,6 +226,18 @@
         padding: 50px 180px 50px 25px;
         position: relative;
         overflow: hidden;
+        li{
+            color: @white-color !important;
+        }
+        li::marker {
+            color: #99B83B;
+        }
+        a{
+            color: #99B83B !important;
+            &:hover{
+                opacity: 0.65;
+            }
+        }
         .breakpoint-large-down({
             padding: 8px 4px;
         });
@@ -287,8 +299,9 @@
         &:after{
             position: absolute;
             content: '';
-            background-size: cover;
-            width: 400px;
+            background-size: contain !important;
+            background-position: top center !important;
+            width: 260px;
             height: 100%;
             right: 0;
             // top: 0;
@@ -299,33 +312,68 @@
 
         &.europe::after{
             background: url("../../assets/images/europe-map.svg") top center no-repeat;
+            width: 370px;
         }
         &.italy::after{
             background: url("../../assets/images/italy-map.svg") top center no-repeat;
+                background-position: center !important;
+                width: 280px;
+                height: 100%;
+                right: 20px;
+                top: 10px;
         }
         &.finland::after{
             background: url("../../assets/images/finland-map.svg") top center no-repeat;
+                width: 275px;
+                height: 75%;
         }
         &.latvia::after{
             background: url("../../assets/images/latvia-map.svg") top center no-repeat;
+            width: 280px;
+            height: 75%;
+            right: 0;
         }
         &.lithuania::after{
             background: url("../../assets/images/lithuania-map.svg") top center no-repeat;
         }
         &.malta::after{
             background: url("../../assets/images/malta-map.svg") top center no-repeat;
+            width: 300px;
+            height: 100%;
+            right: 20px;
         }
         &.netherlands::after{
             background: url("../../assets/images/netherlands-map.svg") top center no-repeat;
+            width: 300px;
+            height: 70%;
         }
         &.norway::after{
             background: url("../../assets/images/norway-map.svg") top center no-repeat;
+            width: 300px;
+            height: 72%;
         }
         &.spain::after{
             background: url("../../assets/images/spain-map.svg") top center no-repeat;
         }
         &.switzerland::after{
             background: url("../../assets/images/switzerland-map.svg") top center no-repeat;
+            background-position: center !important;
+            width: 260px;
+            height: 70%;
+            right: 10px;
+
+        }
+        &.bulgaria::after{
+            background: url("../../assets/images/bulgaria-map.svg") top center no-repeat;
+            background-position: center !important;
+            width: 260px;
+            height: 70%;
+            right: 20px;
+
+        }
+        &.belgium::after{
+            background: url("../../assets/images/belgium-map.svg") top center no-repeat;
+            right: 20px;
         }
 
     }
@@ -517,6 +565,12 @@
             }
             &:hover{
                 opacity: 0.65;
+            }
+            &:first-child{
+                margin-right: 80px !important;
+                .breakpoint-large-down({
+                    margin-right: 40px !important;
+                })
             }
         }        
     }

@@ -110,6 +110,32 @@ $(document).ready(function() {
         return false;
     });
 
+    $('.announcements-home .container').children().unwrap();
+    $('.announcements-home .container-fluid').children().unwrap();
+
+    // $('.announcement-carousel').slick({
+    //     slidesToShow: 1,
+    //     slidesToScroll: 1,
+    //     autoplay: true,
+    //     centerMode: true,
+    //     centerPadding: '0%',
+    //     infinite: true,
+    //     prevArrow: $('.announcements-prev'),
+    //     nextArrow: $('.announcements-next'),
+    //     responsive: [
+    //         {
+    //             breakpoint: 700,
+    //             settings: {
+    //                 centerMode: true,
+    //                 centerPadding: '0%',
+    //                 dots: true,
+    //                 slidesToShow: 1,
+    //                 slidesToScroll: 1
+    //             }
+    //         }
+    //     ]
+    // });
+
     /* 
     * DP section 
     **/

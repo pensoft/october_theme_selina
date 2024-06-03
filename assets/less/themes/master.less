@@ -148,14 +148,16 @@ h1, h2{
 
 
 
-
     &.home {
         .header-image-bar {
           height: calc(~"100vh - 110px");
           margin-top: 110px;
           position: relative;
-            top: 0;
-
+          top: 0;
+          background-size: cover; /* Ensure the image covers the container */
+          background-position: center;
+          overflow: hidden;
+          animation: scale 35s linear infinite;
             .breakpoint-large-down({
               height: 100vh;
               margin-top: 0;
@@ -191,6 +193,121 @@ h1, h2{
 #layout-content {
     padding-bottom: 345px;
 }
+// .full {
+//   position: absolute;
+//   width: 100%;
+//   height: auto;
+//   top: 0;
+//   bottom: 0;
+//   left: 0;
+//   right: 0;
+//   margin: auto;
+//   display: block;
+// }
+
+// .zoom {
+//   animation: scale 40s linear infinite;
+// }
+  
+// @keyframes scale {
+//   50% {
+//     -webkit-transform:scale(1.2);
+//     -moz-transform:scale(1.2);
+//     -ms-transform:scale(1.2);
+//     -o-transform:scale(1.2);
+//     transform:scale(1.2);
+//   }
+// }
+
+
+.announcements-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .announcement-carousel{
+    position: absolute;
+    padding: 20px 40px;
+    background-color: #003040;
+    width: 50%;
+    overflow: hidden;
+    .breakpoint-huge-down({
+      margin-top: 60px;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      width: 80%;
+    });
+    .breakpoint-large-down({
+      margin-top: 0px;
+      position: relative;
+      min-height: unset;
+      width: 100%;
+      padding: 15px 10px;
+
+    });
+    .announcement{
+      display: flex;
+      justify-content: center;
+    }
+    .announcement-content{
+      display: flex;
+      .breakpoint-large-down({
+        display: block;
+      });
+    }
+    .announcement-caption{
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      font-size: 22px;
+      line-height: 1.6em;
+      font-family: 'Roboto';
+    }
+    .announcement-caption p{
+      color: @white-color !important; 
+    }
+    .announcement-caption a{
+      color: #96B93C !important; 
+      &:hover{
+        opacity: 0.5;
+      }
+    }
+
+    .announcement-img{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img{
+        width: 280px;
+        height: auto;
+      }
+      .breakpoint-small-down({
+        display: none;
+      });
+    }
+
+    // .announcement-img{
+    //   position: relative;
+    //   &:after{
+    //     position: absolute;
+    //     content: "";
+    //     background: url(../../assets/images/illustration.svg) center no-repeat;
+    //     background-size: cover;
+    //     width: 100%;
+    //     height: auto;
+    //     .breakpoint-large-down({
+    //       display: none;
+    //     });
+    //   }
+      // .breakpoint-small-down({
+      //   display: none;
+      // });
+    // }
+  }
+
+}
+
 
 .partners_background{
   //background: url(../../assets/images/map.jpg) top right no-repeat;
@@ -1052,4 +1169,15 @@ footer .align-items-center{
         padding-left: 20px;
         list-style: auto;
     }
+}
+
+
+@keyframes scale {
+  50% {
+    -webkit-transform:scale(1.2);
+    -moz-transform:scale(1.2);
+    -ms-transform:scale(1.2);
+    -o-transform:scale(1.2);
+    transform:scale(1.2);
+  }
 }
