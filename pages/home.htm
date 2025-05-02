@@ -14,6 +14,7 @@ baseUrl = "/news"
 templates = "template5"
 thumb_width = 380
 thumb_height = 380
+title_max_length = 150
 
 [Timeline]
 limit = 3
@@ -49,10 +50,9 @@ background = "#ffffff"
 templates = "template1"
 description_limit = 0
 ==
-
 <!-- 3 blocks -->
-<div class="container-fluid mt-5">
-	<div class="container">
+<div class="container-fluid">
+	<div class="container" style="padding: 0;">
 		<div class="row between-md around-xs">
 			<div class="col-sm-4 col-xs-12 vision">
 				{% component 'vision' %}

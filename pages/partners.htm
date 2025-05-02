@@ -27,7 +27,7 @@ function onStart(){
 
     $this['partner_members'] = new class {
         public function getProfiles($partnerId) {
-            return Profiles::where('is_visible', 1)->where('partner_id', $partnerId)->get();
+            return Profiles::where('is_visible', 1)->where('partner_id', $partnerId)->orderBy('name')->get();
 }
 };
 
