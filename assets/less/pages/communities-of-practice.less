@@ -1,0 +1,284 @@
+.communities-of-practice {
+    font-family: 'Roboto';
+
+    .no-padding-margin-right {
+        padding-right: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .intro-cop-container{
+        max-width: 1900px;
+
+        .partners_map{
+            width: 100%;
+        }
+        .container{
+            padding: 0;
+            margin: 0;
+        }
+    }
+
+    .intro-cop {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: start;
+        flex-direction: column;
+
+        .cop-btn{
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            &:hover{
+                background-color: #96B93C;
+                color: #fff;
+                border-color: #96B93C;
+            }
+        }
+
+        h2{
+            text-align: start !important;
+            font-size: 40px;
+            color: #2F2F2F;
+        }
+    }
+
+    .objectives{
+        h2{
+            text-align: start !important;
+            font-size: 40px;
+            color: #2F2F2F;
+            text-transform: uppercase;
+        }
+
+        h3{
+            text-align: start !important;
+            font-size: 24px !important;
+            color: #003040;
+            padding: 10px 0;
+        }
+
+        p{
+            font-size: 18px;
+            color: #2F2F2F;
+        }
+        
+        ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 20px;
+            
+            li {
+                position: relative;
+                padding-left: 60px;
+                margin-bottom: 20px;
+                min-height: 45px;
+                display: flex;
+                align-items: center;
+                font-size: 18px;
+                color: #2F2F2F;
+                
+                &::before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 45px;
+                    height: 45px;
+                    background: url("../../assets/images/goal-cop.svg") no-repeat center center;
+                    background-size: contain;
+                }
+            }
+        }
+    }
+}
+
+.all-communities-list{
+    h2{
+        text-align: start !important;
+        font-size: 40px;
+        color: #2F2F2F;
+    }
+    
+    .community-card{
+        margin-right: 20px;
+        .breakpoint-large-down({
+            margin-right: 0;
+            margin-bottom: 40px;
+        });
+    } 
+
+    img{
+        width: 226px;
+        height: 312px;;
+        object-fit: cover;
+        .breakpoint-large-down({
+            width: 100%;
+            height: 100%;
+        });
+    }
+}
+
+.community{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    p, h3{
+        color: #fff !important;
+    }
+
+    h3{
+        font-size: 24px !important;
+        text-align: start !important;
+    }
+
+    .community-card{
+        background: transparent linear-gradient(106deg, #045a6b 0%, #045667 47%, #003040 100%) 0% 0% no-repeat padding-box;
+        width: 80%;
+        margin-bottom: 40px;
+        padding: 40px;
+        .breakpoint-large-down({
+            width: 100%;
+            padding: 20px;
+        });
+    }
+
+    img{
+        width: 226px;
+        height: 312px;;
+        object-fit: cover;
+        .breakpoint-large-down({
+            margin-bottom: 20px;
+            width: 100%;
+            height: 100%;
+        });
+    }
+}
+
+// PDF link styles
+.pdf-link {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    
+    img {
+        transition: transform 0.3s ease;
+    }
+    
+    &:hover {
+        .pdf-indicator {
+            opacity: 1;
+        }
+        
+        .view-overlay {
+            opacity: 1;
+        }
+        
+        img {
+            transform: scale(1.03);
+        }
+    }
+}
+
+// View overlay in the center
+.view-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    opacity: 0;
+    background-color: rgba(0, 48, 64, 0.75); // Dark blue overlay
+    
+    .view-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .eye-icon {
+        display: block;
+        width: 70px;
+        height: 70px;
+        background: url("../../assets/images/view-pdf.svg") no-repeat center center;
+        background-size: contain;
+        // Only show the eye part of the icon
+        background-position: center 45%;
+        background-size: 200%;
+        margin-bottom: 15px;
+    }
+    
+    .view-text {
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+    
+    // Responsive adjustments
+    .breakpoint-large-down({
+        .eye-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 10px;
+        }
+        
+        .view-text {
+            font-size: 16px;
+        }
+    });
+    
+    .breakpoint-small-down({
+        .eye-icon {
+            width: 45px;
+            height: 45px;
+            margin-bottom: 8px;
+        }
+        
+        .view-text {
+            font-size: 14px;
+        }
+    });
+}
+
+// PDF indicator styles
+.pdf-indicator {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(150, 185, 60, 0.95);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    opacity: 0.9;
+    
+    // Responsive adjustments
+    .breakpoint-large-down({
+        font-size: 12px;
+        padding: 4px 8px;
+        bottom: 8px;
+        right: 8px;
+    });
+    
+    .breakpoint-small-down({
+        font-size: 10px;
+        padding: 3px 6px;
+        bottom: 6px;
+        right: 6px;
+    });
+    
+    span {
+        display: flex;
+        align-items: center;
+    }
+}

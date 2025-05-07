@@ -483,6 +483,7 @@ function appendProfile() {
         headerNavbarNav.find('>ul').append(li);
     });
 }
+
 function appendSignIn(){
     $(document).on('signin', function (e) {
         var headerNavbarLogin = $('#headerNavbarNav');
@@ -537,6 +538,12 @@ function isBreakpointLarge() {
 function showSearchForm(){
 	$('#layout-header').toggleClass('full-width');
 	$('#search').toggle();
+}
+
+function scrollToFactsheets() {
+    $('html, body').animate({
+        scrollTop: $("#mycomponentpartners").offset().top - 150
+    }, 1000);
 }
 
 function requestFormLibrary() {
@@ -688,24 +695,40 @@ function createCustomTippy(element, options) {
 }
 
 function onMapCustomPartners(pCode) {
+    // Determine if we're on the communities or partners page
+    var isCommunitiesPage = $('.communities-of-practice, .communities-map-container').length > 0;
+    
+    // Set the correct update target based on the page
+    var updateObj = {};
+    if (isCommunitiesPage) {
+        updateObj['communitieslist'] = '#mycomponentpartners';
+    } else {
+        updateObj['components/partners_list'] = '#mycomponentpartners';
+    }
+    
     $.request('onPartners', {
-        update: { 'components/partners_list': '#mycomponentpartners',
-        },
+        update: updateObj,
         data: {
             code: pCode
-        },
+        }
     }).then(response => {
         $('html, body').animate({
             scrollTop: $("#mycomponentpartners").offset().top - 200
         }, 1000);
+        
         var tooltip = document.getElementById("tooltip");
         tooltip.classList.remove("active");
-        //
-        // var x = event.clientX;
-        // var y = event.clientY;
-        //
-        // tooltip.style.left = (x + 20) + "px";
-        // tooltip.style.top = (y - 20) + "px";
+
+        // Set up accordion behavior
+        // $('#mycomponentpartners').on('click', '.accordion-toggle', function () {
+        //     if ($(this).next(".accordion-content").is(':visible')) {
+        //         $(this).next(".accordion-content").slideUp(300);
+        //         $(this).children(".plusminus").html('<span class="plus"></span>');
+        //     } else {
+        //         $(this).next(".accordion-content").slideDown(300);
+        //         $(this).children(".plusminus").html('<span class="minus"></span>');
+        //     }
+        // });
 
         $('.partners .partner_description').each(function(){
             var countParagraphs = $(this).find('p').length;
@@ -724,9 +747,7 @@ function onMapCustomPartners(pCode) {
                     link.text('Read more');
                 }
             });
-
         });
-
     });
 }
 
@@ -1077,7 +1098,7 @@ function initMailingTooltip(){
     });
 
     $('.group-holder').eq(0).prepend( "<p style='margin-left: 10px; width: 100%;'>Prior to sending group emails, please make sure that all individuals you want to contact have been included in the respective group by clicking on the group icon.</p><p></p>" );
-    $('.group-holder').eq(1).prepend( "<p style='margin-left: 10px; width: 100%;'>To see each person’s email, click on the account icon.</p><p></p>" );
+    $('.group-holder').eq(1).prepend( "<p style='margin-left: 10px; width: 100%;'>To see each person's email, click on the account icon.</p><p></p>" );
 
 }
 

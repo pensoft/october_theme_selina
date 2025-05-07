@@ -1,0 +1,62 @@
+{% if communities %}
+    {% if display_all %}
+    <div class="all-communities-list">
+        <h2>All factsheets</h2>
+        <div class="row">
+            {% for community in communities %}
+            {% if community.cover %}
+            <div class="col-md-2 col-xs-12 start-md center-xs community-card">
+                <a href="{{ community.file.path }}" target="_blank" class="pdf-link" title="Click to view PDF factsheet">
+                    <img alt="{{ community.title }}" src="{{community.cover.path}}">
+                    <div class="view-overlay">
+                        <div class="view-content">
+                            <span class="eye-icon"></span>
+                            <span class="view-text">Click to view</span>
+                        </div>
+                    </div>
+                    <div class="pdf-indicator"><span>PDF</span></div>
+                </a>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    {% for community in communities %}
+    <div class="community">
+        <div class="row community-card">
+            <div class="col-md-3 col-xs-12">
+                {% if community.cover %}
+                <a href="{{ community.file.path }}" target="_blank" class="pdf-link" title="Click to view PDF factsheet">
+                    <img alt="{{ community.title }}" src="{{community.cover.path}}">
+                    <div class="view-overlay">
+                        <div class="view-content">
+                            <span class="eye-icon"></span>
+                            <span class="view-text">Click to view</span>
+                        </div>
+                    </div>
+                    <div class="pdf-indicator"><span>PDF</span></div>
+                </a>
+                {% endif %}
+            </div>
+            <div class="col-md-9 col-xs-12">
+                <div class="col-xs-12">
+                    <h3>{{ community.title }}</h3>
+                </div>
+                <div class="col-xs-12">
+                    {{ community.description|raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+{% else %}
+    <div class="col-xs-12 text-center">
+        {% if country_code is defined %}
+            <p>No communities of practice found for country code: {{ country_code }}</p>
+        {% else %}
+            <p>No communities of practice found.</p>
+        {% endif %}
+    </div>
+{% endif %}

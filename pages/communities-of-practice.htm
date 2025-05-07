@@ -1,0 +1,85 @@
+url = "/communities-of-practice"
+layout = "default"
+title = "Communities of Practice"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[jumbotron cop-map-intro]
+jumbotron = "cop-map-intro"
+title = 0
+background = "transperant"
+templates = "template1"
+description_limit = 0
+
+[jumbotron cop-objectives]
+jumbotron = "cop-objectives"
+title = 0
+background = "transperant"
+templates = "template1"
+description_limit = 0
+
+==
+<?php
+use Pensoft\CommunitiesPractice\Models\CommunitiesPractice;
+
+function onStart(){
+	$this['communities'] =  CommunitiesPractice::get();
+	$this['display_all'] = true;
+}
+
+
+function onPartners(){
+    if(post('code')){
+        $this['communities'] = CommunitiesPractice::whereRaw('country_code ILIKE \'%'.post('code').'%\'')->get();
+        $this['display_all'] = false;
+        return [
+            'communitieslist' => $this->renderPartial('communitieslist', [
+                'communities' => $this['communities'],
+                'display_all' => false
+            ])
+        ];
+    }
+}
+
+function onShowAllFactsheets(){
+    $this['communities'] = CommunitiesPractice::get();
+    $this['display_all'] = true;
+    return [
+        'communitieslist' => $this->renderPartial('communitieslist', [
+            'communities' => $this['communities'],
+            'display_all' => true
+        ])
+    ];
+}
+==
+
+<span class="tooltiptext" id="tooltip"></span>
+<div class="container-fluid communities-of-practice" style="background: #eaf0f2;">
+    <div class="container no-padding-margin-right intro-cop-container">
+        <div class="row">
+            <div class="col-md-6 col-xs-12 intro-cop">
+                <div class="intro-cop-content">
+                    {% component 'cop-map-intro' %}
+
+                    <a class="btn btn-primary cop-btn" href="javascript:void(0)" data-request="onShowAllFactsheets" data-request-update="{'communitieslist': '#mycomponentpartners'}" data-request-success="scrollToFactsheets()">See all fact sheets</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12 no-padding-margin-right">
+                <div class="partners_map">{% partial 'components/svg' %}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="objectives">
+        {% component 'cop-objectives' %}
+    </div>
+
+    <div class="communities-map-container">
+        <div id="mycomponentpartners" class="container">
+            {% partial "communitieslist" communities=communities display_all=display_all %}
+        </div>
+    </div>
+</div>
