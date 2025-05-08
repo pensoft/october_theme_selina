@@ -10,7 +10,10 @@
         max-width: 1900px;
 
         .partners_map{
-            width: 100%;
+            max-width: 100% !important;
+            .breakpoint-large-down({
+                max-width: 100% !important;
+            });
         }
         .container{
             padding: 0;

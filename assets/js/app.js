@@ -424,6 +424,12 @@ $(document).ready(function() {
 
     $('.library .publications').text('deliverables');
 
+    // Add mouseout event handler to the partners map container
+    $('.partners_map').on('mouseleave', hideTooltip);
+    
+    // Hide tooltip on scroll
+    $(window).on('scroll', hideTooltip);
+
 });
 
 
@@ -695,6 +701,9 @@ function createCustomTippy(element, options) {
 }
 
 function onMapCustomPartners(pCode) {
+    // Hide tooltip immediately
+    hideTooltip();
+    
     // Determine if we're on the communities or partners page
     var isCommunitiesPage = $('.communities-of-practice, .communities-map-container').length > 0;
     
@@ -1102,5 +1111,9 @@ function initMailingTooltip(){
 
 }
 
+function hideTooltip() {
+    var tooltip = document.getElementById("tooltip");
+    tooltip.classList.remove("active");
+}
 
 init()
