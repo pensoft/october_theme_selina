@@ -5,7 +5,7 @@
         <div class="row">
             {% for community in communities %}
             {% if community.cover %}
-            <div class="col-md-2 col-xs-12 start-md center-xs community-card">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 start-md center-xs community-card">
                 <a href="{{ community.file.path }}" target="_blank" class="pdf-link" title="Click to view PDF factsheet">
                     <img alt="{{ community.title }}" src="{{community.cover.path}}">
                     <div class="view-overlay">

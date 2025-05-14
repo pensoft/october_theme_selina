@@ -102,12 +102,20 @@
     
     .community-card{
         margin-right: 20px;
+        margin-bottom: 40px;
         .breakpoint-large-down({
             margin-right: 0;
             margin-bottom: 40px;
         });
     } 
 
+    @media screen and (min-width: 1025px) and (max-width: 1280px) {
+        .community-card {
+            flex-basis: 21.666667%;
+            max-width: 21.666667%;
+        }
+    }
+    
     img{
         width: 226px;
         height: 312px;;
