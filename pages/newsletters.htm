@@ -47,43 +47,41 @@ return Redirect::to('/media-center/newsletters');
 }
 ?>
 ==
-<div class="container">
-	<h1 class="page_heading">Newsletters</h1>
-	<div class="row">
-		{% set records = mediaNewslettersList %}
-		{% set displayColumn = mediaNewslettersList.displayColumn %}
-		{% set noRecordsMessage = mediaNewslettersList.noRecordsMessage %}
-		{% set detailsPage = mediaNewslettersList.detailsPage %}
-		{% set detailsKeyColumn = mediaNewslettersList.detailsKeyColumn %}
-		{% set detailsUrlParameter = mediaNewslettersList.detailsUrlParameter %}
+<main id="main-content" role="main">
+    <div class="container">
+        <h1 class="page_heading">Newsletters</h1>
+        <div class="row">
+            {% set records = mediaNewslettersList %}
+            {% set displayColumn = mediaNewslettersList.displayColumn %}
+            {% set noRecordsMessage = mediaNewslettersList.noRecordsMessage %}
+            {% set detailsPage = mediaNewslettersList.detailsPage %}
+            {% set detailsKeyColumn = mediaNewslettersList.detailsKeyColumn %}
+            {% set detailsUrlParameter = mediaNewslettersList.detailsUrlParameter %}
 
-		{% for record in records %}
-		{# Use spaceless tag to remove spaces inside the A tag. #}
-		{% spaceless %}
-		{% if record.newsletter_image %}
-		<div class="col-md-4 col-xs-12 mb-4">
-			<div class="card-container text-center">
-				<a href="{{ record.file.path }}#{{record.file.file_name}}" target="_blank" title="{{record.name}}">
-					<div class="card_image_container_newsletter">
-						<img src="{{ record.newsletter_image.thumb(440, 220, {'mode': 'crop'})}}" alt="{{record.name}}" style="width: auto;">
-					</div>
-				</a>
-				<br>
-				<span class="card_title mb-2">{{record.name}}</span><br>
-				<a href="{{ record.url}}" target="_blank" title="{{record.name}}" class="btn btn-primary">Read the newsletter</a>
+            {% for record in records %}
+            {# Use spaceless tag to remove spaces inside the A tag. #}
+            {% spaceless %}
+            {% if record.newsletter_image %}
+            <article class="col-md-4 col-xs-12 mb-4">
+                <div class="card-container text-center">
+                    <a href="{{ record.file.path }}#{{record.file.file_name}}" target="_blank" rel="noopener noreferrer" aria-label="View {{record.name}} newsletter PDF (opens in new window)">
+                        <div class="card_image_container_newsletter">
+                            <img src="{{ record.newsletter_image.thumb(440, 220, {'mode': 'crop'})}}" alt="{{record.name}} newsletter cover" style="width: auto;">
+                        </div>
+                    </a>
+                    <h2 class="card_title mb-2">{{record.name}}</h2>
+                    <a href="{{ record.url}}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" aria-label="Read {{record.name}} newsletter (opens in new window)">Read the newsletter</a>
 
-			</div>
-			<!-- <div class="card-container text-center">
-				<span class="card_image_container" style="background: url({{record.newsletter_image.thumb(141,141,{'mode':'crop'})}}) center center no-repeat;" title="{{record.name}}"></span>
-				<span class="card_title" style="min-height: 100px;">{{record.name}}, {{record.date |date('F Y')}}</span>
-				<br><br><a href="{{ record.url}}" target="_blank" title="{{record.name}}" class="btn btn-primary">Read the newsletter</a>
-			</div> -->
-		</div>
-		{% endif %}
+                </div>
+            </article>
+            {% endif %}
 
-		{% endspaceless %}
-		{% else %}
-		{{ noRecordsMessage }}
-		{% endfor %}
-	</div>
-</div>
+            {% endspaceless %}
+            {% else %}
+            <div class="col-xs-12 text-center" role="status">
+                <p>{{ noRecordsMessage }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>

@@ -19,80 +19,101 @@ jumbotron = "home-announcements"
 title = 0
 templates = "template1"
 ==
-{% if user %}
-<nav class="fixed navbar-loggedin-user ">
-	<div class="navbar-collapse collapse row middle-xs">
-		<div class="col-xs-12 col-md-9">{% component 'login' %}</div>
-		<div class="col-xs-2 end-xs  col-md-3 hidden-xs">
-			{% if user.avatar %}
-			<a href="/profile" class="profile_name"><span>{{ user.name }} {{ user.surname }} &nbsp; &nbsp; </span><img alt="{{ user.name }} {{ user.surname }}" src="{{user.avatar.getThumb(30,30, { mode : 'crop' } )}}" style="border-radius: 50%; margin-right:20px;" align="right"> </a>
-			{% else %}
+<!-- Skip to main content link for keyboard navigation -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
-			<a href="/profile" class="profile_name"><span>{{ user.name }} {{ user.surname }} &nbsp; &nbsp; </span><img alt="{{ user.name }} {{ user.surname }}" src="{{ 'CMS_icons_avatar_white.svg'|media }}" width="30" height="30" style="margin-right:20px;" align="right"></a>
-			{% endif %}
-		</div>
+{% if user %}
+<nav class="fixed navbar-loggedin-user" aria-label="User account navigation">
+    <div class="navbar-collapse collapse row middle-xs">
+        <div class="col-xs-12 col-md-9">{% component 'login' %}</div>
+        <div class="col-xs-2 end-xs col-md-3 hidden-xs">
+            {% if user.avatar %}
+            <a href="/profile" class="profile_name" aria-label="View profile for {{ user.name }} {{ user.surname }}">
+                <span aria-hidden="true">{{ user.name }} {{ user.surname }} &nbsp; &nbsp; </span>
+                <img alt="" src="{{user.avatar.getThumb(30,30, { mode : 'crop' } )}}" style="border-radius: 50%; margin-right:20px;" align="right" role="presentation">
+            </a>
+            {% else %}
+            <a href="/profile" class="profile_name" aria-label="View profile for {{ user.name }} {{ user.surname }}">
+                <span aria-hidden="true">{{ user.name }} {{ user.surname }} &nbsp; &nbsp; </span>
+                <img alt="" src="{{ 'CMS_icons_avatar_white.svg'|media }}" width="30" height="30" style="margin-right:20px;" align="right" role="presentation">
+            </a>
+            {% endif %}
+        </div>
+    </div>
 </nav>
 {% endif %}
-<nav class="pr-1 pl-1 navbar fixed " id="headernavbar" {% if user %} style="margin-top:69px;"{% endif %}>
-	<div id="google_translate_element"></div>
-	<div id="menuToggle">
-		<input type="checkbox" />
-		<span></span>
-		<span></span>
-		<span></span>
-		{% component 'menu' %}
-	</div>
-	<a href="{{'home'|page}}" class="navbar-brand" style="background-image: url('{{ this.theme.site_logo.getPath() }}'); background-position: center; background-size: contain;">
 
+<nav class="pr-1 pl-1 navbar fixed" id="headernavbar" aria-label="Main navigation" {% if user %} style="margin-top:69px;"{% endif %}>
+    <div id="google_translate_element" role="region" aria-label="Language translation"></div>
+
+    <div id="menuToggle">
+        <input type="checkbox" id="menu-toggle-checkbox" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu" />
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <div id="mobile-menu">
+            {% component 'menu' %}
+        </div>
+    </div>
+
+    <a href="{{'home'|page}}" class="navbar-brand" aria-label="{{site_name}} - Home" style="background-image: url('{{ this.theme.site_logo.getPath() }}'); background-position: center; background-size: contain;">
+        <span class="sr-only">{{site_name}} Home</span>
     </a>
-        <div class="navbar-collapse collapse end-xs" id="headerNavbarNav" style="display: none;">
-			{% component 'menu' %}
-			<div id="headerNavbarLogin">
-				<ul class="navbar-nav" style="padding: 0; margin: 0;">
 
-				</ul>
-			</div>
-		</div>
-		<a class="pr p-search medium search-btn" onclick="showSearchForm();"></a>
+    <div class="navbar-collapse collapse end-xs" id="headerNavbarNav" style="display: none;">
+        {% component 'menu' %}
+        <div id="headerNavbarLogin">
+            <ul class="navbar-nav" style="padding: 0; margin: 0;" role="list">
+            </ul>
+        </div>
+    </div>
 
-		<div id="search" class="search" style="display: none;">
-			<form class="input-group align-items-start" action="{{ url('search')}}" method="get">
-				<input class="form-control search_input" style="color: #000;" name="q" type="text" autocomplete="on" placeholder="Search">
-				<button class="btn btn-link pr p-search big text-grey-search-btn" type="submit"></button>
-			</form>
-		</div>
+    <a class="pr p-search medium search-btn" onclick="showSearchForm();" aria-label="Open search" aria-expanded="false" aria-controls="search"></a>
 
+    <div id="search" class="search" style="display: none;" role="search" aria-label="Site search">
+        <form class="input-group align-items-start" action="{{ url('search')}}" method="get">
+            <label for="search-input" class="sr-only">Search</label>
+            <input class="form-control search_input" id="search-input" style="color: #000;" name="q" type="text" autocomplete="on" placeholder="Search" aria-label="Search query">
+            <button class="btn btn-link pr p-search big text-grey-search-btn" type="submit" aria-label="Submit search">
+                <span class="sr-only">Search</span>
+            </button>
+        </form>
+    </div>
 </nav>
-<div id="google_translate_element"></div>
 
+<div id="google_translate_element" role="region" aria-label="Language translation"></div>
 
 {% if this.theme.header_image %}
-<div class="header-image {{page_id}} {% if user %}logged-in-header{% endif %}">
+<div class="header-image {{page_id}} {% if user %}logged-in-header{% endif %}" role="banner">
     {%if this.page.header_image %}
-        <div class="header-image-bar" style="background-image: url('{{this.page.header_image|media}}'); background-position: top center;"></div>
+    <div class="header-image-bar" style="background-image: url('{{this.page.header_image|media}}'); background-position: top center;" role="img" aria-label="Header banner image"></div>
     {%else%}
-		<div class="header-image-bar" style="background-image: url('{{this.theme.header_image.getPath()}}'); background-position: center;"></div>
+    <div class="header-image-bar" style="background-image: url('{{this.theme.header_image.getPath()}}'); background-position: center;" role="img" aria-label="Header banner image"></div>
     {%endif%}
     <div class="jumbotron">
-        <h1  data-aos="fade-up" class="underline white  {% if page_id == 'home'%}home-page-header{% endif %}">{%if page_title%} {{page_title}} {%else%} {{site_name}} {%endif%}</h1>
+        <h1 data-aos="fade-up" class="underline white {% if page_id == 'home'%}home-page-header{% endif %}">
+            {%if page_title%} {{page_title}} {%else%} {{site_name}} {%endif%}
+        </h1>
         {% if page_id == 'home' and tag_line %}
-            <p data-aos="fade-up">{{tag_line|raw}}</p>
+        <p data-aos="fade-up">{{tag_line|raw}}</p>
         {% endif %}
     </div>
 </div>
 
 {% if page_id == 'home' %}
-<div class="announcements-home">
-	{% component 'home-announcements' %}
+<div class="announcements-home" role="region" aria-label="Home announcements">
+    {% component 'home-announcements' %}
 </div>
 {% endif %}
-
 {% endif %}
 
+<main id="main-content" role="main">
+    <!-- Your main content goes here -->
+</main>
 
 {% if user %}
-    <script>$(document).trigger('profile')</script>
-    <script>$(document).trigger('signout')</script>
+<script>$(document).trigger('profile')</script>
+<script>$(document).trigger('signout')</script>
 {% else %}
-    <script>$(document).trigger('signin')</script>
+<script>$(document).trigger('signin')</script>
 {% endif %}

@@ -52,101 +52,121 @@ description_limit = 0
 ==
 <!-- 3 blocks -->
 <div class="container-fluid">
-	<div class="container" style="padding: 0;">
-		<div class="row between-md around-xs">
-			<div class="col-sm-4 col-xs-12 vision">
-				{% component 'vision' %}
-			</div>
-			<div class="col-sm-4 col-xs-12 mission">
-				{% component 'mission' %}
-			</div>
-			<div class="col-sm-4 col-xs-12 goals">
-				{% component 'goals' %}
-			</div>
-		</div>
-	</div>
+    <div class="container" style="padding: 0;">
+        <div class="row between-md around-xs" role="region" aria-label="Vision, Mission and Goals">
+            <div class="col-sm-4 col-xs-12 vision">
+                {% component 'vision' %}
+            </div>
+            <div class="col-sm-4 col-xs-12 mission">
+                {% component 'mission' %}
+            </div>
+            <div class="col-sm-4 col-xs-12 goals">
+                {% component 'goals' %}
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- numbers -->
-<div class="numbers_container">
-	{% component 'numbers' %}
+<div class="numbers_container" role="region" aria-label="Statistics">
+    {% component 'numbers' %}
 </div>
 
 
 <!-- latest from news -->
-<div class="container-fluid bg-secondary">
+<section class="container-fluid bg-secondary" aria-labelledby="latest-news-heading">
     <div class="container article_highlights_container">
         {% component 'article_highlights' %}
         <a href="{{'news'|page}}" class="btn btn-primary">All news</a>
     </div>
-</div>
-<div class="container-fluid">
-	<div class="container">
-		<h1 class="base_heading">Upcoming events</h1>
+</section>
+
+<section class="container-fluid" aria-labelledby="upcoming-events-heading">
+    <div class="container">
+        <h2 id="upcoming-events-heading" class="base_heading">Upcoming events</h2>
         <div class="timeline-container">
             {% component 'Timeline' %}
         </div>
-	</div>
-</div>
-<div class="container-fluid bg-secondary">
-	<div class="container">
-	<div class="row d-flex justify-content-evenly">
-		<div class="col-sm-4 col-xs-12">
-			<h1>Latest updates</h1>
-			{% if this.theme.facebook %}
-			<div class="fb-page"
-				data-href="{{this.theme.facebook_url}}"
-				data-tabs="timeline"
-				data-width="500"
-				data-height="300"
-				data-small-header="false"
-				data-adapt-container-width="true"
-				data-hide-cover="false"
-				data-show-facepile="false">
-				<blockquote cite="{{this.theme.facebook_url}}" class="fb-xfbml-parse-ignore">
-					<a href="{{this.theme.facebook_url}}">{{this.theme.name}}</a>
-				</blockquote>
-			</div>
-			{% endif %}
-		</div>
-		<div class="col-sm-6 col-xs-12 social-media-container">
-			<h1 class="base_heading">Follow {{ this.theme.site_name }}</h1>
-			<div class="subscribe-container">
-				<div class="row subscribe-items">
-					{% if this.theme.twitter %}
-					<a href="{{this.theme.twitter_url}}" target="_blank" class="btn p-primary pr p-twitter large"></a>
-					{% endif %}
-					{% if this.theme.facebook %}
-					<a href="{{this.theme.facebook_url}}" target="_blank" class="btn pr p-primary p-facebook large"></a>
-					{% endif %}
-					{% if this.theme.linkedin %}
-					<a href="{{this.theme.linkedin_url}}" target="_blank" class="btn pr p-primary p-linkedin large"></a>
-					{% endif %}
-					{% if this.theme.youtube %}
-					<a href="{{this.theme.youtube_url}}" target="_blank" class="btn pr p-primary p-youtube large"></a>
-					{% endif %}
-					{% if this.theme.instagram %}
-					<a href="{{this.theme.instagram_url}}" target="_blank" class="btn pr p-primary p-instagram large"></a>
-					{% endif %}
-					{% if this.theme.researchgate %}
-					<a href="{{this.theme.researchgate_url}}" target="_blank" class="btn pr p-primary p-researchgate large"></a>
-					{% endif %}
-					{% if this.theme.bluesky %}
-					<a href="{{this.theme.bluesky_url}}" target="_blank" class="btn pr p-primary p-bluesky large"></a>
-					{% endif %}
-					{% if this.theme.threads %}
-					<a href="{{this.theme.threads_url}}" target="_blank" class="btn pr p-primary p-threads large"></a>
-					{% endif %}
-				</div>
-                <div class="row subscribe-items">
-                    <div class="col-xs-12">
-                        {%if this.theme.subscribe%}
-                        <a href="{{this.theme.subscribe}}" target="_blank" class="btn p-primary middle subscribe-btn">Subscribe to our newsletter</a>
-                        {%endif%}
-                    </div>
+    </div>
+</section>
+
+<section class="container-fluid bg-secondary" aria-labelledby="social-updates-section">
+    <div class="container">
+        <div class="row d-flex justify-content-evenly">
+            <div class="col-sm-4 col-xs-12">
+                <h2 id="latest-updates-heading">Latest updates</h2>
+                {% if this.theme.facebook %}
+                <div class="fb-page"
+                     data-href="{{this.theme.facebook_url}}"
+                     data-tabs="timeline"
+                     data-width="500"
+                     data-height="300"
+                     data-small-header="false"
+                     data-adapt-container-width="true"
+                     data-hide-cover="false"
+                     data-show-facepile="false"
+                     role="region"
+                     aria-label="Facebook feed">
+                    <blockquote cite="{{this.theme.facebook_url}}" class="fb-xfbml-parse-ignore">
+                        <a href="{{this.theme.facebook_url}}">{{this.theme.name}}</a>
+                    </blockquote>
                 </div>
-			</div>
-		</div>
-	</div>
-	</div>
-</div>
+                {% endif %}
+            </div>
+            <div class="col-sm-6 col-xs-12 social-media-container">
+                <h2 id="social-updates-section" class="base_heading">Follow {{ this.theme.site_name }}</h2>
+                <nav class="subscribe-container" aria-label="Social media links">
+                    <div class="row subscribe-items">
+                        {% if this.theme.twitter %}
+                        <a href="{{this.theme.twitter_url}}" target="_blank" rel="noopener noreferrer" class="btn p-primary pr p-twitter large" aria-label="Follow us on Twitter (opens in new window)">
+                            <span class="sr-only">Twitter</span>
+                        </a>
+                        {% endif %}
+                        {% if this.theme.facebook %}
+                        <a href="{{this.theme.facebook_url}}" target="_blank" rel="noopener noreferrer" class="btn pr p-primary p-facebook large" aria-label="Follow us on Facebook (opens in new window)">
+                            <span class="sr-only">Facebook</span>
+                        </a>
+                        {% endif %}
+                        {% if this.theme.linkedin %}
+                        <a href="{{this.theme.linkedin_url}}" target="_blank" rel="noopener noreferrer" class="btn pr p-primary p-linkedin large" aria-label="Follow us on LinkedIn (opens in new window)">
+                            <span class="sr-only">LinkedIn</span>
+                        </a>
+                        {% endif %}
+                        {% if this.theme.youtube %}
+                        <a href="{{this.theme.youtube_url}}" target="_blank" rel="noopener noreferrer" class="btn pr p-primary p-youtube large" aria-label="Follow us on YouTube (opens in new window)">
+                            <span class="sr-only">YouTube</span>
+                        </a>
+                        {% endif %}
+                        {% if this.theme.instagram %}
+                        <a href="{{this.theme.instagram_url}}" target="_blank" rel="noopener noreferrer" class="btn pr p-primary p-instagram large" aria-label="Follow us on Instagram (opens in new window)">
+                            <span class="sr-only">Instagram</span>
+                        </a>
+                        {% endif %}
+                        {% if this.theme.researchgate %}
+                        <a href="{{this.theme.researchgate_url}}" target="_blank" rel="noopener noreferrer" class="btn pr p-primary p-researchgate large" aria-label="Follow us on ResearchGate (opens in new window)">
+                            <span class="sr-only">ResearchGate</span>
+                        </a>
+                        {% endif %}
+                        {% if this.theme.bluesky %}
+                        <a href="{{this.theme.bluesky_url}}" target="_blank" rel="noopener noreferrer" class="btn pr p-primary p-bluesky large" aria-label="Follow us on Bluesky (opens in new window)">
+                            <span class="sr-only">Bluesky</span>
+                        </a>
+                        {% endif %}
+                        {% if this.theme.threads %}
+                        <a href="{{this.theme.threads_url}}" target="_blank" rel="noopener noreferrer" class="btn pr p-primary p-threads large" aria-label="Follow us on Threads (opens in new window)">
+                            <span class="sr-only">Threads</span>
+                        </a>
+                        {% endif %}
+                    </div>
+                    <div class="row subscribe-items">
+                        <div class="col-xs-12">
+                            {% if this.theme.subscribe %}
+                            <a href="{{this.theme.subscribe}}" target="_blank" rel="noopener noreferrer" class="btn p-primary middle subscribe-btn" aria-label="Subscribe to our newsletter (opens in new window)">Subscribe to our newsletter</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>

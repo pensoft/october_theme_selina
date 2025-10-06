@@ -29,94 +29,125 @@ learnMore = "Opt-out here"
 link = "/privacy-policy#cookies"
 theme = "dark-bottom"
 ==
-<div class="container-fluid border-box dark-background">{% component 'cookieConsent' %}
-    <div class="container">
-        <div class="row top-xs between-xs footer-menu-container">
-            <div class="col-xs-12 col-md-2 start-md center-xs col-sm-6 start-sm">
-                <div class="head">About</div>
-                {% component 'about_menu' %}
-            </div>
-            <div class="col-xs-12 col-md-2 start-md center-xs col-sm-6 start-sm">
-                <div class="head">Latest</div>
-                {% component 'latest_menu' %}
-            </div>
-            <div class="col-xs-12 col-md-2 start-md center-xs col-sm-6 start-sm">
-                <div class="head">Resources</div>
-                {% component 'resources_menu' %}
-            </div>
-            <div class="col-xs-12 col-md-2  center-md center-xs col-sm-6 ">
-                {% if (enable_social_media) %}
-                <div class="head centered">Follow {{ this.theme.site_name }}</div>
-                <div class="social-networks contacts col-md-2 col-xs-12 center-md center-xs">
-                    <div class="icons" style="margin-top: 10px;">
-                        {% if enable_twitter and twitter_url %}
-                        <a href="{{twitter_url}}" target="_blank" class="pr p-secondary p-twitter big" target="_blank" style="margin-top: 10px;"></a>
-                        {% endif %}
-                        {% if enable_facebook and facebook_url %}
-                        <a href="{{facebook_url}}" target="_blank" class="pr p-secondary p-facebook big" target="_blank"></a>
-                        {% endif %}
+<footer role="contentinfo">
+    <div class="container-fluid border-box dark-background">{% component 'cookieConsent' %}
+        <div class="container">
+            <div class="row top-xs between-xs footer-menu-container">
+                <div class="col-xs-12 col-md-2 start-md center-xs col-sm-6 start-sm">
+                    <nav aria-labelledby="footer-about-heading">
+                        <h2 id="footer-about-heading" class="head">About</h2>
+                        {% component 'about_menu' %}
+                    </nav>
+                </div>
+                <div class="col-xs-12 col-md-2 start-md center-xs col-sm-6 start-sm">
+                    <nav aria-labelledby="footer-latest-heading">
+                        <h2 id="footer-latest-heading" class="head">Latest</h2>
+                        {% component 'latest_menu' %}
+                    </nav>
+                </div>
+                <div class="col-xs-12 col-md-2 start-md center-xs col-sm-6 start-sm">
+                    <nav aria-labelledby="footer-resources-heading">
+                        <h2 id="footer-resources-heading" class="head">Resources</h2>
+                        {% component 'resources_menu' %}
+                    </nav>
+                </div>
+                <div class="col-xs-12 col-md-2 center-md center-xs col-sm-6">
+                    {% if (enable_social_media) %}
+                    <h2 class="head centered">Follow {{ this.theme.site_name }}</h2>
+                    <div class="social-networks contacts col-md-2 col-xs-12 center-md center-xs" role="navigation" aria-label="Social media links">
+                        <div class="icons" style="margin-top: 10px;">
+                            {% if enable_twitter and twitter_url %}
+                            <a href="{{twitter_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-twitter big" style="margin-top: 10px;" aria-label="Follow us on Twitter (opens in new window)">
+                                <span class="sr-only">Twitter</span>
+                            </a>
+                            {% endif %}
+                            {% if enable_facebook and facebook_url %}
+                            <a href="{{facebook_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-facebook big" aria-label="Follow us on Facebook (opens in new window)">
+                                <span class="sr-only">Facebook</span>
+                            </a>
+                            {% endif %}
+                            {% if enable_linkedin and linkedin_url %}
+                            <a href="{{linkedin_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-linkedin big" aria-label="Follow us on LinkedIn (opens in new window)">
+                                <span class="sr-only">LinkedIn</span>
+                            </a>
+                            {% endif %}
+                            {% if enable_youtube and youtube_url %}
+                            <a href="{{youtube_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-youtube big" style="margin-top: 3px;" aria-label="Follow us on YouTube (opens in new window)">
+                                <span class="sr-only">YouTube</span>
+                            </a>
+                            {% endif %}
+                            {% if enable_instagram and instagram_url %}
+                            <a href="{{instagram_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-instagram big" aria-label="Follow us on Instagram (opens in new window)">
+                                <span class="sr-only">Instagram</span>
+                            </a>
+                            {% endif %}
+                            {% if this.theme.bluesky %}
+                            <a href="{{this.theme.bluesky_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-bluesky big" aria-label="Follow us on Bluesky (opens in new window)">
+                                <span class="sr-only">Bluesky</span>
+                            </a>
+                            {% endif %}
+                            {% if this.theme.threads %}
+                            <a href="{{this.theme.threads_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-threads big" aria-label="Follow us on Threads (opens in new window)">
+                                <span class="sr-only">Threads</span>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-xs-12 col-md-2 center-md center-xs col-sm-6">
+                    <h2 class="head centered">Contact us</h2>
+                    <div class="social-networks contacts col-md-2 col-xs-12 center-md center-xs" role="navigation" aria-label="Contact information">
+                        <div class="icons mt-1">
+                            <a href="{{'contact'|page}}" class="pr p-secondary p-mail big" aria-label="Contact us via email">
+                                <span class="sr-only">Email</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
-                        {% if enable_linkedin and linkedin_url %}
-                        <a  href="{{linkedin_url}}" target="_blank" class="pr p-secondary p-linkedin big" target="_blank"></a>
-                        {% endif %}
-                        {% if enable_youtube and youtube_url %}
-                        <a  href="{{youtube_url}}" target="_blank" class="pr p-secondary p-youtube big" target="_blank" style="margin-top: 3px;"></a>
-                        {% endif %}
-                        {% if enable_instagram and instagram_url %}
-                        <a  href="{{instagram_url}}" target="_blank" class="pr p-secondary p-instagram big" target="_blank"></a>
-                        {% endif %}
-                        {% if this.theme.bluesky %}
-                        <a href="{{this.theme.bluesky_url}}" target="_blank" class="pr p-secondary p-bluesky big"></a>
-                        {% endif %}
-                        {% if this.theme.threads %}
-                        <a href="{{this.theme.threads_url}}" target="_blank" class="pr p-secondary p-threads big"></a>
-                        {% endif %}
+                {% if this.theme.subscribe %}
+                <div class="col-xs-12 col-md-2 center-md center-xs col-sm-6">
+                    <h2 class="head centered">Stay up to date</h2>
+                    <div class="social-networks contacts col-md-2 col-xs-12 center-md center-xs" role="navigation" aria-label="Newsletter subscription">
+                        <div class="icons mt-1">
+                            <a href="{{this.theme.subscribe}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-subscribe big" aria-label="Subscribe to our newsletter (opens in new window)">
+                                <span class="sr-only">Subscribe</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 {% endif %}
-            </div>
-            <div class="col-xs-12 col-md-2 center-md center-xs col-sm-6 ">
-                <div class="head centered">Contact us</div>
-                <div class="social-networks contacts col-md-2 col-xs-12 center-md center-xs">
-                    <div class="icons mt-1">
-                        <a href="{{'contact'|page}}" class="pr p-secondary p-mail big"></a>
-                    </div>
-                </div>
-            </div>
 
-            {%if this.theme.subscribe%}
-            <div class="col-xs-12 col-md-2  center-md center-xs col-sm-6 ">
-                <div class="head centered">Stay up to date</div>
-                <div class="social-networks contacts col-md-2 col-xs-12 center-md center-xs">
-                    <div class="icons mt-1">
-                        <a href="{{this.theme.subscribe}}" target="_blank" class="pr p-secondary p-subscribe big"></a>
-                    </div>
-                </div>
             </div>
-            {%endif%}
-
         </div>
-    </div>
 
-</div>
-<div class="container-fluid border-box black-background">
-    <div class="row nowrap text-light d-flex justify-content-between align-items-center flex-column flex-lg-row dark-background">
-        {% if (footer_funds_flag != null or footer_funds_text != '') %}
-        <div class="funding flex-column my-1 my-lg-0 flex-lg-row px-1 align-items-center col-sm col-xs-12">
-            {% if footer_funds_flag %}
-            <img class="text mr-0 mr-lg-1 ml-lg-1" style="height:50px;" src="{{ footer_funds_flag }}"/>
+    </div>
+    <div class="container-fluid border-box black-background">
+        <div class="row nowrap text-light d-flex justify-content-between align-items-center flex-column flex-lg-row dark-background">
+            {% if (footer_funds_flag != null or footer_funds_text != '') %}
+            <div class="funding flex-column my-1 my-lg-0 flex-lg-row px-1 align-items-center col-sm col-xs-12" role="region" aria-label="Funding information">
+                {% if footer_funds_flag %}
+                <img class="text mr-0 mr-lg-1 ml-lg-1" style="height:50px;" src="{{ footer_funds_flag }}" alt="European Union flag"/>
+                {% endif %}
+                {% if footer_funds_text %}
+                <span class="align-items-center mt-sm-0 mt-1">SELINA receives funding from the European Union's Horizon Europe research and innovation programme under grant agreement No 101060415. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the European Commission. Neither the EU nor the EC can be held responsible for them.</span>
+                {% endif %}
+            </div>
             {% endif %}
-            {% if footer_funds_text %}
-            <span class="align-items-center mt-sm-0 mt-1">SELINA receives funding from the European Union’s Horizon Europe research and innovation programme under grant agreement No 101060415. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the European Commission. Neither the EU nor the EC can be held responsible for them.</span>
-            {%endif %}
+            <div class="col-lg-1 col-sm-2 col-xs-12 center-xs">
+                <a style="flex:0 0 auto; font-size: 18px;" href="/privacy-policy">Privacy Policy</a>
+            </div>
+            <div class="col-lg-2 col-sm-3 col-xs-12 end-sm center-xs">
+                <div class="powered-by my-1 my-lg-0 px-1 align-items-center end-sm center-xs">
+                <span>Created and maintained by
+                    <a href="https://pensoft.net/" target="_blank" rel="noopener noreferrer" aria-label="Pensoft website (opens in new window)">
+                        <img class="text" src="{{ 'assets/images/pensoft-logo.svg'|theme }}" alt="Pensoft logo" />
+                    </a>
+                </span>
+                </div>
+            </div>
         </div>
-        {% endif %}
-        <div class="col-lg-1 col-sm-2 col-xs-12 center-xs"><a style="flex:0 0 auto; font-size: 18px;" href="/privacy-policy">Privacy Policy</a></div>
-        <div class="col-lg-2 col-sm-3 col-xs-12 end-sm center-xs">
-            <div class="powered-by my-1 my-lg-0 px-1 align-items-center end-sm center-xs">
-                <span>Created and maintained by <a href="https://pensoft.net/" target="_blank">
-                    <img class="text" src="{{ 'assets/images/pensoft-logo.svg'|theme }}" /></a>
-                </span></div></div>
-    </div>
 
-</div>
+    </div>
+</footer>

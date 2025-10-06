@@ -23,25 +23,50 @@ function onStart(){
 ==
 {% component 'siteSearchInclude' %}
 
-<div class="container">
-	<h1 class="page_heading ml-1 mb-4">Contact</h1>
-	<div class="row around-xs">
-		{% for profile in profiles %}
-			<div class="col-xs-12 col-md-7 profile-item">
-				<div class="contact_info row">
-					<div class="col-md-4 col-xs-12 coordinator_image aos-init aos-animate" data-aos="fade-up"><img src="{{profile.avatar.thumb(298, 291, {'mode':'crop'})}}" class="fr-fic fr-dii"></div>
-					<div class="col-md-1">&nbsp;</div>
+<main id="main-content" role="main">
+    <div class="container">
+        <h1 class="page_heading ml-1 mb-4">Contact</h1>
+        <div class="row around-xs">
+            {% for profile in profiles %}
+            <article class="col-xs-12 col-md-7 profile-item">
+                <div class="contact_info row">
+                    <div class="col-md-4 col-xs-12 coordinator_image aos-init aos-animate" data-aos="fade-up">
+                        <img src="{{profile.avatar.thumb(298, 291, {'mode':'crop'})}}" alt="{{profile.names}}" class="fr-fic fr-dii">
+                    </div>
+                    <div class="col-md-1" aria-hidden="true">&nbsp;</div>
                     <div class="col-md-7 col-xs-12 coordinator_info">
-						<h3>{{profile.names}}</h3>
-						{% if profile.position %}<p class="card_title">{{profile.position}}</p>{% endif %}
-						{% if profile.department %}<p class="contact_affiliation">{{profile.department}}</p>{% endif %}
-						{% if profile.address %}<p class="contact_address"><i class="pr big p-location" style="height: 65px;"></i>{{profile.address}}</p>{% endif %}
-						{% if profile.phone %}<p class="contact_phone"><i class="pr big p-phone"></i>{{profile.phone}}</p>{% endif %}
-						{% if profile.email %}<p class="contact_mail"><i class="pr big p-mail" style="margin-top: -7px;"></i><a href="mailto:{{profile.email}}">{{profile.email}}</a></p>{% endif %}
-					</div>
-				</div>
-			</div>
-		{% endfor %}
-	</div>
+                        <h2>{{profile.names}}</h2>
+                        {% if profile.position %}
+                        <p class="card_title">{{profile.position}}</p>
+                        {% endif %}
+                        {% if profile.department %}
+                        <p class="contact_affiliation">{{profile.department}}</p>
+                        {% endif %}
+                        {% if profile.address %}
+                        <p class="contact_address">
+                            <i class="pr big p-location" style="height: 65px;" aria-hidden="true"></i>
+                            <span class="sr-only">Address: </span>{{profile.address}}
+                        </p>
+                        {% endif %}
+                        {% if profile.phone %}
+                        <p class="contact_phone">
+                            <i class="pr big p-phone" aria-hidden="true"></i>
+                            <span class="sr-only">Phone: </span>
+                            <a href="tel:{{profile.phone|replace({' ': '', '(': '', ')': '', '-': ''})}}">{{profile.phone}}</a>
+                        </p>
+                        {% endif %}
+                        {% if profile.email %}
+                        <p class="contact_mail">
+                            <i class="pr big p-mail" style="margin-top: -7px;" aria-hidden="true"></i>
+                            <span class="sr-only">Email: </span>
+                            <a href="mailto:{{profile.email}}" aria-label="Email {{profile.names}}">{{profile.email}}</a>
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
 
-</div>
+    </div>
+</main>

@@ -46,58 +46,68 @@ function onStart(){
 ?>
 ==
 {% component 'siteSearchInclude' %}
-<div class="container about">
-    <h1 class="page_heading ml-1">ABOUT THE PROJECT</h1>
-    <div class="row top-xs">
-        <div class="col-md-6 col-xs-12">
-             <div class="about-vision">
-                {% component 'vision' %}
-             </div>
+<main id="main-content" role="main">
+    <div class="container about">
+        <h1 class="page_heading ml-1">ABOUT THE PROJECT</h1>
+        <div class="row top-xs">
+            <div class="col-md-6 col-xs-12">
+                <section class="about-vision" aria-labelledby="vision-heading">
+                    {% component 'vision' %}
+                </section>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <div class="about-image">
+                    {% component 'image' %}
+                </div>
+            </div>
         </div>
-        <div class="col-md-6 col-xs-12">
-             <div class="about-image">
-                {% component 'image' %}
-             </div>
+        <div class="row top-xs">
+            <div class="col-md-6 col-xs-12">
+                <section class="about-mission" aria-labelledby="mission-heading">
+                    {% component 'mission' %}
+                </section>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <section class="about-goals" aria-labelledby="goals-heading">
+                    {% component 'goals' %}
+                </section>
+            </div>
         </div>
-    </div>
-    <div class="row top-xs">
-        <div class="col-md-6 col-xs-12">
-             <div class="about-mission">
-                {% component 'mission' %}
-             </div>
-        </div>
-        <div class="col-md-6 col-xs-12">
-             <div class="about-goals">
-                {% component 'goals' %}
-             </div>
-        </div>
-    </div>
-    <div class="row top-xs" id="structure">
-        <div class="col-md-12 col-xs-12">
-            <div class="container-fluid " style="background-color:unset;">
-                <h1 class="display-1 aos-init aos-animate" data-aos="fade-up">Project structure</h1>
-    	        <div class="container work_packages row">
-                    
+        <div class="row top-xs" id="structure">
+            <div class="col-md-12 col-xs-12">
+                <section class="container-fluid" style="background-color:unset;" aria-labelledby="structure-heading">
+                    <h2 id="structure-heading" class="display-1 aos-init aos-animate" data-aos="fade-up">Project structure</h2>
+                    <div class="container work_packages row">
 
-                    {% for key, item in accorions %}
 
-                        <div class="accordion-border key_{{key}}"><!-- 1 --><!-- css 1 -->
-                            <div class="row middle-xs accordion-toggle">
-                                <div class="col-xs-2 green_bullet">{{item.prefix | uppercase}}</div>
+                        {% for key, item in accorions %}
 
-                                <div class="col-xs start-xs">{{item.title}}</div>
+                        <div class="accordion-border key_{{key}}">
+                            <h3 class="sr-only">{{item.prefix | uppercase}} - {{item.title}}</h3>
+                            <button class="row middle-xs accordion-toggle"
+                                    aria-expanded="false"
+                                    aria-controls="accordion-content-{{key}}"
+                                    id="accordion-button-{{key}}">
+                                <span class="col-xs-2 green_bullet">{{item.prefix | uppercase}}</span>
 
-                                <div class="col-xs-2 end-xs plusminus"><span class="plus"></span></div>
-                            </div>
+                                <span class="col-xs start-xs">{{item.title}}</span>
 
-                            <div class="accordion-content" style="display: none;">
+                                <span class="col-xs-2 end-xs plusminus" aria-hidden="true"><span class="plus"></span></span>
+                            </button>
+
+                            <div class="accordion-content"
+                                 id="accordion-content-{{key}}"
+                                 role="region"
+                                 aria-labelledby="accordion-button-{{key}}"
+                                 style="display: none;">
                                 {{item.body|raw}}
                             </div>
                         </div>
 
-                    {% endfor %}
-                </div>
+                        {% endfor %}
+                    </div>
+                </section>
             </div>
         </div>
     </div>
-</div>
+</main>

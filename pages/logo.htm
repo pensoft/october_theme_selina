@@ -48,58 +48,69 @@ return Redirect::to('/media-center/logo');
 }
 ?>
 ==
-<div class="container">
+<main id="main-content" role="main">
+    <div class="container">
 
+        <h1 class="page_heading">Logo</h1>
 
+        {% set records = mediaLogosList %}
+        {% set displayColumn = mediaLogosList.displayColumn %}
+        {% set noRecordsMessage = mediaLogosList.noRecordsMessage %}
+        {% set detailsPage = mediaLogosList.detailsPage %}
+        {% set detailsKeyColumn = mediaLogosList.detailsKeyColumn %}
+        {% set detailsUrlParameter = mediaLogosList.detailsUrlParameter %}
 
-	<h1 class="page_heading">Logo</h1>
+        {% for record in records %}
+        {# Use spaceless tag to remove spaces inside the A tag. #}
+        {% spaceless %}
+        {% if record.logo_image %}
 
-	{% set records = mediaLogosList %}
-	{% set displayColumn = mediaLogosList.displayColumn %}
-	{% set noRecordsMessage = mediaLogosList.noRecordsMessage %}
-	{% set detailsPage = mediaLogosList.detailsPage %}
-	{% set detailsKeyColumn = mediaLogosList.detailsKeyColumn %}
-	{% set detailsUrlParameter = mediaLogosList.detailsUrlParameter %}
+        <article class="row card-container-row mb-4 center-xs">
+            <h2 class="sr-only">{{record.name}} - Available formats</h2>
+            {% if record.file_jpg %}
+            <div class="col-md-3 col-xs-12">
+                <div class="card-container text-center">
+                    <img src="{{record.logo_image.path}}" alt="{{record.name}} logo" style="max-width: 250px;">
+                    <p class="card_title">JPG, {{record.file_jpg.size}}</p>
+                    <a href="{{ ''| page }}?{{queries}}&download={{record.file_jpg.id}}&file_name={{record.file_jpg.file_name|replace({' ': '_'})}}"
+                       class="btn btn-primary"
+                       aria-label="Download {{record.name}} logo in JPG format, {{record.file_jpg.size}}"
+                       download>Download</a>
+                </div>
+            </div>
+            {% endif %}
+            {% if record.file_png %}
+            <div class="col-md-3 col-xs-12">
+                <div class="card-container text-center">
+                    <img src="{{record.logo_image.path}}" alt="{{record.name}} logo" style="max-width: 250px;">
+                    <p class="card_title">PNG, {{record.file_png.size}}</p>
+                    <a href="{{ ''| page }}?{{queries}}&download={{record.file_png.id}}&file_name={{record.file_png.file_name|replace({' ': '_'})}}"
+                       class="btn btn-primary"
+                       aria-label="Download {{record.name}} logo in PNG format, {{record.file_png.size}}"
+                       download>Download</a>
+                </div>
+            </div>
+            {% endif %}
+            {% if record.file_eps %}
+            <div class="col-md-3 col-xs-12">
+                <div class="card-container text-center">
+                    <img src="{{record.logo_image.path}}" alt="{{record.name}} logo" style="max-width: 250px;">
+                    <p class="card_title">SVG, vector, {{record.file_eps.size}}</p>
+                    <a href="{{ ''| page }}?{{queries}}&download={{record.file_eps.id}}&file_name={{record.file_eps.file_name|replace({' ': '_'})}}"
+                       class="btn btn-primary"
+                       aria-label="Download {{record.name}} logo in SVG vector format, {{record.file_eps.size}}"
+                       download>Download</a>
+                </div>
+            </div>
+            {% endif %}
+        </article>
+        {% endif %}
 
-	{% for record in records %}
-	{# Use spaceless tag to remove spaces inside the A tag. #}
-	{% spaceless %}
-	{% if record.logo_image %}
-
-
-	<div class="row card-container-row mb-4 center-xs">
-		{% if record.file_jpg %}
-		<div class="col-md-3 col-xs-12">
-			<div class="card-container text-center">
-                <p><img src="{{record.logo_image.path}}" title="{{record.name}}" style="max-width: 250px;"></p>
-				<span class="card_title">JPG, {{record.file_jpg.size}}</span><br>
-				<br><a href="{{ ''| page }}?{{queries}}&download={{record.file_jpg.id}}&file_name={{record.file_jpg.file_name|replace({' ': '_'})}}" title="Logo pack" class="btn btn-primary">Download</a>
-			</div>
-		</div>
-		{% endif %}
-		{% if record.file_png %}
-		<div class="col-md-3 col-xs-12">
-			<div class="card-container text-center">
-                <p><img src="{{record.logo_image.path}}" title="{{record.name}}" style="max-width: 250px;"></p>
-				<span class="card_title">PNG, {{record.file_png.size}}</span><br>
-				<br><a href="{{ ''| page }}?{{queries}}&download={{record.file_png.id}}&file_name={{record.file_png.file_name|replace({' ': '_'})}}" title="Logo pack" class="btn btn-primary">Download</a>
-			</div>
-		</div>
-		{% endif %}
-		{% if record.file_eps %}
-		<div class="col-md-3 col-xs-12">
-			<div class="card-container text-center">
-                <p><img src="{{record.logo_image.path}}" title="{{record.name}}" style="max-width: 250px;"></p>
-				<span class="card_title">SVG, vector, {{record.file_eps.size}}</span><br>
-				<br><a href="{{ ''| page }}?{{queries}}&download={{record.file_eps.id}}&file_name={{record.file_eps.file_name|replace({' ': '_'})}}" title="Logo pack" class="btn btn-primary">Download</a>
-			</div>
-		</div>
-		{% endif %}
-	</div>
-	{% endif %}
-
-	{% endspaceless %}
-	{% else %}
-	{{ noRecordsMessage }}
-	{% endfor %}
-</div>
+        {% endspaceless %}
+        {% else %}
+        <div class="col-xs-12 text-center" role="status">
+            <p>{{ noRecordsMessage }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</main>

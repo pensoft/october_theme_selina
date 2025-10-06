@@ -101,69 +101,75 @@ function onRemoveAttendance(){
 ?>
 ==
 {% if not slug %}
+<main id="main-content" role="main">
     <div class="container">
         <h1 class="page_heading">Events</h1>
-        <div class="tabs">
-            <a class="" href="#listView">List view</a>
-            <a class="" href="#calendarView">Calendar view</a>
-
+        <div class="tabs" role="tablist" aria-label="Event view options">
+            <a class="tab-link" href="#listView" role="tab" aria-selected="true" aria-controls="listView" id="tab-list">List view</a>
+            <a class="tab-link" href="#calendarView" role="tab" aria-selected="false" aria-controls="calendarView" id="tab-calendar">Calendar view</a>
         </div>
     </div>
-	<!--tabs content	-->
+    <!--tabs content	-->
     <div class="container-fluid bg-secondary">
         <div class="container">
 
-            <div class="row" id="listView">
-                <div class="events_list_container">
+            <div class="row" id="listView" role="tabpanel" aria-labelledby="tab-list">
+                <section class="events_list_container" aria-label="List of events">
                     {% for entry in entries %}
                     {% set url = entry.url ?  entry.url : '/events/' ~ entry.slug %}
 
-                    <div class="event_list_item">
+                    <article class="event_list_item">
                         <div class="row between-xs middle-xs time_and_date">
-                            <div class="col-md-2 start-md col-xs-12 center-xs">{{entry.event_date}}</div>
-                            <div class="col-md-8 start-md col-xs-12 center-xs mt-1 mb-1"><a class="button" href="{{ url }}" target="_blank">{{entry.title}}</a></div>
+                            <div class="col-md-2 start-md col-xs-12 center-xs">
+                                <time datetime="{{entry.start|date('Y-m-d')}}">{{entry.event_date}}</time>
+                            </div>
+                            <div class="col-md-8 start-md col-xs-12 center-xs mt-1 mb-1">
+                                <a class="button" href="{{ url }}" {% if entry.url %}target="_blank" rel="noopener noreferrer" aria-label="{{entry.title}} (opens in new window)"{% endif %}>{{entry.title}}</a>
+                            </div>
                             <div class="col-md-2 end-md col-xs-12 center-xs">{{entry.start|date('l')}}</div>
                         </div>
-
-                    </div>
+                    </article>
 
                     {% endfor %}
-                </div>
-                <div class="row container">
+                </section>
+                <nav class="row container" aria-label="Pagination">
                     {{ entries.fragment('listView').render|raw }}
-                </div>
+                </nav>
 
             </div>
-            <div class="row" id="calendarView">
+            <div class="row" id="calendarView" role="tabpanel" aria-labelledby="tab-calendar" hidden>
                 {% component 'calendar' %}
             </div>
         </div>
 
     </div>
+</main>
+{% else %}
 
-	{% else %}
-
-	{% if entry %}
+{% if entry %}
+<main id="main-content" role="main">
     <div class="container">
         <h1 class="page_heading">Events</h1>
-        <div class="row newslist single-news-item">
+        <h2 class="sr-only">{{entry.title}}</h2>
+
+        <article class="row newslist single-news-item">
 
             <div class="col-xs-12 col-md-7">
 
                 {% if entry.event_date %}
-                <div class="event-date">
+                <time class="event-date" datetime="{{entry.start|date('Y-m-d')}}">
                     {{entry.event_date}}
-                </div>
+                </time>
                 {% endif %}
 
                 {% if entry.place %}
                 <div class="event-place"> {{ entry.place }}</div>
                 {% endif %}
 
-                    <div class="news-title">
-                        <h1 class="single-new-title">{{ entry.title }}</h1>
-                    </div>
-                    <div class="content mt-2 mb-2">
+                <header class="news-title">
+                    <h2 class="single-new-title">{{ entry.title }}</h2>
+                </header>
+                <div class="content mt-2 mb-2">
                     {{ entry.description|raw }}
                 </div>
                 {% if internalData.getIM(entry.slug).organiser %}
@@ -197,37 +203,45 @@ function onRemoveAttendance(){
 
 
                 {% if entry.url %}
-                <a href="{{entry.url}}" class="btn btn-primary mb-1 mt-1" target="_blank">Go to event website</a>
+                <a href="{{entry.url}}" class="btn btn-primary mb-1 mt-1" target="_blank" rel="noopener noreferrer" aria-label="Go to {{entry.title}} event website (opens in new window)">Go to event website</a>
                 {% endif %}
                 {% set page_url = 'https://project-selina.eu/events/' ~ entry.slug %}
                 {% set encoded_title = entry.title|url_encode %}
                 {% set slug = entry.slug %}
-                    <div class="btn btn-primary share-btn" id="share-{{slug}}">Share</div>
-                    <script>
-                        createTippy('#share-{{slug}}', {content: '<div class="icons">{% if this.theme.facebook %}<a class="fb-xfbml-parse-ignore pr p-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{page_url}}&amp;src=sdkpreparse" target="_blank" ></a>{% endif %}{% if this.theme.twitter %}<a class="pr p-twitter" href="https://twitter.com/intent/tweet?text={{encoded_title}} {{page_url}}" target="_blank"></a>{% endif %}{% if this.theme.linkedin %}<a class="pr p-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url={{page_url}}" target="_blank"></a>{% endif %}</div>'})
-
-                        var documentHasScroll = function() {
-                            return window.innerHeight <= document.body.offsetHeight;
-                        };
-                        function ready() {
-                            // keepFooter(documentHasScroll());
+                <button class="btn btn-primary share-btn" id="share-{{slug}}" aria-label="Share this event" aria-expanded="false">Share</button>
+                <script>
+                    createTippy('#share-{{slug}}', {
+                        content: '<div class="icons" role="list" aria-label="Share on social media">{% if this.theme.facebook %}<a class="fb-xfbml-parse-ignore pr p-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{page_url}}&amp;src=sdkpreparse" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook (opens in new window)"><span class="sr-only">Facebook</span></a>{% endif %}{% if this.theme.twitter %}<a class="pr p-twitter" href="https://twitter.com/intent/tweet?text={{encoded_title}} {{page_url}}" target="_blank" rel="noopener noreferrer" aria-label="Share on Twitter (opens in new window)"><span class="sr-only">Twitter</span></a>{% endif %}{% if this.theme.linkedin %}<a class="pr p-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url={{page_url}}" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn (opens in new window)"><span class="sr-only">LinkedIn</span></a>{% endif %}</div>',
+                        onShow: function(instance) {
+                            document.getElementById('share-{{slug}}').setAttribute('aria-expanded', 'true');
+                        },
+                        onHide: function(instance) {
+                            document.getElementById('share-{{slug}}').setAttribute('aria-expanded', 'false');
                         }
-                        document.addEventListener("DOMContentLoaded", ready);
-                    </script>
+                    });
+
+                    var documentHasScroll = function() {
+                        return window.innerHeight <= document.body.offsetHeight;
+                    };
+                    function ready() {
+                        // keepFooter(documentHasScroll());
+                    }
+                    document.addEventListener("DOMContentLoaded", ready);
+                </script>
 
                 {% if user  %}
-                        {% if(user_is_attending.checkIfUserIsAttending(entry.id, user.id).id) %}
-                            <a data-request="onRemoveAttendance" data-request-confirm="Are you sure?" data-request-data="user_id: {{user.id}}, event_id: {{entry.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px;  font-size: unset;">Remove attendance</a>
-                        {% else %}
-                                <a href="{{'event-attendance-form'|page}}/{{entry.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px;  font-size: unset;">Add attendance</a>
-                        {% endif %}
-                        {% if internalData.getIM(entry.slug).id %}
-                            <a href="{{'event-attendance-report'|page}}" class="btn btn-primary mb-1 mt-1">Edit</a>
-                        {% endif %}
+                {% if(user_is_attending.checkIfUserIsAttending(entry.id, user.id).id) %}
+                <button data-request="onRemoveAttendance" data-request-confirm="Are you sure?" data-request-data="user_id: {{user.id}}, event_id: {{entry.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px; font-size: unset;" type="button">Remove attendance</button>
+                {% else %}
+                <a href="{{'event-attendance-form'|page}}/{{entry.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px; font-size: unset;">Add attendance</a>
+                {% endif %}
+                {% if internalData.getIM(entry.slug).id %}
+                <a href="{{'event-attendance-report'|page}}" class="btn btn-primary mb-1 mt-1">Edit</a>
+                {% endif %}
 
                 {% endif %}
 
-                </div>
+            </div>
 
 
 
@@ -235,29 +249,31 @@ function onRemoveAttendance(){
             {% if entry.cover_image or materials %}
             <div class="col-xs-12 col-md-5">
                 {% if entry.cover_image %}
-                <img class="content left" src="{{entry.cover_image|crop_image|resize(673, 556, {'mode':'crop'})}}" alt="{{entry.cover_image.title}}">
+                <img class="content left" src="{{entry.cover_image|crop_image|resize(673, 556, {'mode':'crop'})}}" alt="{{entry.title}} event image">
                 {% endif %}
 
 
                 {% if materials %}
-                <ul class="event_materials">
-                    <h1 class="display-1">Materials</h1>
-                    {% for item in materials %}
-                    {% set url = item.button_file ? item.button_file|media : item.button_url %}
-                    <li>
-                        <h2>{{ item.title }}</h2>
-                        <a class="btn btn-primary" href="{{ url }}" target="_blank">{{ item.button_title }}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
+                <section class="event_materials" aria-labelledby="materials-heading">
+                    <h3 id="materials-heading" class="display-1">Materials</h3>
+                    <ul>
+                        {% for item in materials %}
+                        {% set url = item.button_file ? item.button_file|media : item.button_url %}
+                        <li>
+                            <h4>{{ item.title }}</h4>
+                            <a class="btn btn-primary" href="{{ url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ item.button_title }} - {{ item.title }} (opens in new window)">{{ item.button_title }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </section>
                 {% endif %}
 
             </div>
 
             {% endif %}
 
-        </div>
-{% endif %}
+        </article>
+        {% endif %}
     </div>
-
+</main>
 {% endif %}
