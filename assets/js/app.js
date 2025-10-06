@@ -422,7 +422,10 @@ $(document).ready(function() {
         }
     });
 
-    $('.library .publications').text('deliverables');
+    // $('.library .publications').text('deliverables');
+    $('.library .publications').text('');
+     $('.library .download_size').text('');
+    
 
     // Add mouseout event handler to the partners map container
     $('.partners_map').on('mouseleave', hideTooltip);
