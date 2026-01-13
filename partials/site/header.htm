@@ -18,6 +18,7 @@ numberOfLevels = 2
 jumbotron = "home-announcements"
 title = 0
 templates = "template1"
+description_limit = 0
 ==
 <!-- Skip to main content link for keyboard navigation -->
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -51,9 +52,7 @@ templates = "template1"
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
-        <div id="mobile-menu">
-            {% component 'menu' %}
-        </div>
+        {% component 'menu' %}
     </div>
 
     <a href="{{'home'|page}}" class="navbar-brand" aria-label="{{site_name}} - Home" style="background-image: url('{{ this.theme.site_logo.getPath() }}'); background-position: center; background-size: contain;">
