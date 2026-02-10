@@ -96,10 +96,12 @@ return Profiles::where('is_visible', 1)->where('partner_id', $partnerId)->get();
                              role="region"
                              aria-labelledby="partner-map-button-{{loop.index}}">
                             <div class="row">
-                                <div class="col-xs-12">{{partner.content|raw}}</div>
                                 <div class="col-xs-12">
-                                    <a class="website" href="{{partner.instituion_url}}" target="_blank" rel="noopener noreferrer" aria-label="Visit {{ partner.instituion }} website (opens in new window)">{{partner.instituion_url}}</a>
+                                    <a class="website" href="{{partner.instituion_url}}" target="_blank" rel="noopener noreferrer" aria-label="Visit {{ partner.instituion }} website (opens in new window)">Visit website</a>
                                 </div>
+
+                                <div class="col-xs-12">{{partner.content|raw}}</div>
+
                                 {% if partner.add_description %}
                                 <div class="col-xs-12 role" aria-label="Role in the project">
                                     {{partner.add_description|raw}}
@@ -107,37 +109,43 @@ return Profiles::where('is_visible', 1)->where('partner_id', $partnerId)->get();
                                 {% endif %}
                             </div>
                             {% if partner_members.getProfiles(partner.id).count > 0 %}
-                            <div class="col-xs-12 text-center show-hide">
-                                <a class="members-toggle"
-                                        aria-expanded="false"
-                                        aria-controls="members-map-{{loop.index}}"
-                                        data-state="show">Show members</a>
-                            </div>
-                            <div class="members-content justify-content-centerb-2"
-                                 id="members-map-{{loop.index}}"
-                                 style="display: none;">
-                                <div class="row" aria-label="Contact">
-                                    {% for profile in partner_members.getProfiles(partner.id) %}
-                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 text-center member-cover mb-1">
-                                        <div class="avatar-container">
-                                            {% if profile.avatar %}
-                                            <img class="img-fluid" src="{{ profile.avatar.getThumb(111,111, { mode : 'crop' } ) }}" alt="{{ profile.name }} {{ profile.surname }}">
-                                            {% else %}
-                                            <img class="img-fluid" src="{{ 'default-partners-avatar.svg'|media }}" alt="">
-                                            {% endif %}
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="members-toggle-container">
+                                        <div class="col-xs-12 show-hide">
+                                            <a class="members-toggle"
+                                               aria-expanded="false"
+                                               aria-controls="members-map-{{loop.index}}"
+                                               data-state="show">Show members</a>
                                         </div>
-                                        <div class="member-details">
-                                            <div class="partners-name">{{ profile.name }} {{ profile.surname }}</div>
-                                            <div class="partners-position">{{ profile.position }}</div>
-                                            <div class="partners-email-container">
-                                                <a class="email" href="mailto:{{ profile.email }}" aria-label="Email {{ profile.name }} {{ profile.surname }}">Contact</a>
+                                        <div class="members-content justify-content-centerb-2"
+                                             id="members-map-{{loop.index}}"
+                                             style="display: none;">
+                                            <div class="row" aria-label="Contact">
+                                                {% for profile in partner_members.getProfiles(partner.id) %}
+                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 text-center member-cover mb-1">
+                                                    <div class="avatar-container">
+                                                        {% if profile.avatar %}
+                                                        <img class="img-fluid" src="{{ profile.avatar.getThumb(111,111, { mode : 'crop' } ) }}" alt="{{ profile.name }} {{ profile.surname }}">
+                                                        {% else %}
+                                                        <img class="img-fluid" src="{{ 'default-partners-avatar.svg'|media }}" alt="">
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="member-details">
+                                                        <div class="partners-name">{{ profile.name }} {{ profile.surname }}</div>
+                                                        <div class="partners-position">{{ profile.position }}</div>
+                                                        <div class="partners-email-container">
+                                                            <a href="mailto:{{ profile.email }}" aria-label="Email {{ profile.name }} {{ profile.surname }}">{{ profile.email }}</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
                                             </div>
                                         </div>
                                     </div>
-                                    {% endfor %}
                                 </div>
-                                <div class="partner-seperator mt-2" role="separator"></div>
                             </div>
+
                             {% endif %}
                         </div>
                     </article>
@@ -159,12 +167,12 @@ return Profiles::where('is_visible', 1)->where('partner_id', $partnerId)->get();
                             id="partner-list-button-{{loop.index}}">
                         {% if partner.cover %}
                         <span class="col-md-2 col-xs-12 start-md center-xs title_container">
-                        <img alt="{{ partner.instituion }} logo" src="{{partner.cover.getThumb(260,auto, { mode : 'crop' } )}}">
-                    </span>
+                            <img alt="{{ partner.instituion }} logo" src="{{partner.cover.getThumb(260,auto, { mode : 'crop' } )}}">
+                        </span>
                         {% endif %}
-                        <span class="col-md-8 col-xs-8 start-md center-xs title_container">
-                        {{ partner.instituion }}
-                    </span>
+                        <span class="col-md-9 col-xs-9 start-md center-xs title_container">
+                            {{ partner.instituion }}
+                        </span>
                         <span class="col-lg col-xs end-xs plusminus" aria-hidden="true"><span class="plus"></span></span>
                     </a>
                     <div class="row accordion-content"
@@ -173,47 +181,68 @@ return Profiles::where('is_visible', 1)->where('partner_id', $partnerId)->get();
                          aria-labelledby="partner-list-button-{{loop.index}}"
                          style="display: none;">
                         <div class="col-xs-12">{{partner.content|raw}}</div>
-                        <div class="col-xs-12 col-md-6 text-left center-xs" aria-label="Website">
-                            <a class="website" href="{{partner.instituion_url}}" target="_blank" rel="noopener noreferrer" aria-label="Visit {{ partner.instituion }} website (opens in new window)">{{partner.instituion_url}}</a>
+                        <div class="row">
+                            {% if partner.email %}
+                            <div class="col-md col-xs-12" aria-label="Contact">
+                                <h5>Contact</h5>
+                                {% if partner.additional_url %}
+                                <p>{{partner.additional_url|raw}}</p>
+                                {% endif %}
+                                <a class="email" target="_blank" href="mailto:partner.email">{{partner.email}}</a>
+                            </div>
+                            {% endif %}
+                            {% if partner.instituion_url %}
+                            <div class="col-md col-xs-12" aria-label="Website">
+                                <h5>Website</h5>
+                                <a class="website" href="{{partner.instituion_url}}" target="_blank" rel="noopener noreferrer" aria-label="Visit {{ partner.instituion }} website (opens in new window)">{{partner.instituion_url}}</a>
+                            </div>
+                            {% endif %}
                         </div>
                         <div class="col-xs-12 role" aria-label="Role in the project">
+                            <h5>Role in the project</h5>
                             {{partner.add_description|raw}}
                         </div>
                         {% if partner_members.getProfiles(partner.id).count > 0 %}
-                        <div class="col-xs-12 text-center show-hide">
-                            <a class="members-toggle"
-                                    aria-expanded="false"
-                                    aria-controls="members-list-{{loop.index}}"
-                                    data-state="show">Show members</a>
-                        </div>
-                        <div id="members-list-{{loop.index}}" style="display: none;">
-                            <div class="row">
-                                {% for profile in partner_members.getProfiles(partner.id) %}
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 text-center">
-                                    <div class="members-content">
-                                        <div class="member-cover">
-                                            <div class="avatar-container-list mx-auto">
-                                                {% if profile.avatar %}
-                                                <img src="{{ profile.avatar.getThumb(169,169, { mode : 'crop' } ) }}" alt="{{ profile.name }} {{ profile.surname }}" class="img-responsive">
-                                                {% else %}
-                                                <img class="img-fluid" src="{{ 'default-partners-avatar.svg'|media }}" alt="">
-                                                {% endif %}
-                                            </div>
-                                            <div class="member-details">
-                                                <div class="partners-name">{{profile.name}} {{profile.surname}}</div>
-                                                <div class="partners-position">{{profile.position}}</div>
-                                                <div class="partners-email-container">
-                                                    <a href="mailto:{{ profile.email }}" aria-label="Email {{profile.name}} {{profile.surname}}">Contact</a>
+                        <div class="row" style="width: 100%;">
+                            <div class="col-xs-12">
+                                <div class="members-toggle-container">
+                                    <div class="col-xs-12 show-hide">
+                                        <a class="members-toggle"
+                                           aria-expanded="false"
+                                           aria-controls="members-list-{{loop.index}}"
+                                           data-state="show">Show members</a>
+                                    </div>
+                                    <div class="members-content justify-content-centerb-2"
+                                         id="members-list-{{loop.index}}"
+                                         style="display: none;">
+                                        <div class="row" aria-label="Contact">
+                                            {% for profile in partner_members.getProfiles(partner.id) %}
+                                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 text-center member-cover mb-1">
+                                                <div class="avatar-container">
+                                                    {% if profile.avatar %}
+                                                    <img class="img-fluid" src="{{ profile.avatar.getThumb(111,111, { mode : 'crop' } ) }}" alt="{{ profile.name }} {{ profile.surname }}">
+                                                    {% else %}
+                                                    <img class="img-fluid" src="{{ 'default-partners-avatar.svg'|media }}" alt="">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="member-details">
+                                                    <div class="partners-name">{{ profile.name }} {{ profile.surname }}</div>
+                                                    <div class="partners-position">{{ profile.position }}</div>
+                                                    <div class="partners-email-container">
+                                                        <a href="mailto:{{ profile.email }}" aria-label="Email {{ profile.name }} {{ profile.surname }}">{{ profile.email }}</a>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>
-                                {% endfor %}
                             </div>
                         </div>
+
                         {% endif %}
                     </div>
+                    <div class="partner-seperator mt-2" role="separator"></div>
                 </article>
                 {% endfor %}
             </div>

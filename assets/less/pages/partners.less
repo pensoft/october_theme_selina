@@ -15,7 +15,31 @@
             width: auto;
         });
     }
-    
+
+    h5{
+        font-size: 24px;
+        line-height: 33px;
+        font-family: Roboto;
+        letter-spacing: 0px;
+        color: #003040;
+        text-align: left;
+        margin-bottom: 10px;
+    }
+
+    p{
+        margin-bottom: 0;
+    }
+
+    .accordion-content{
+        .row{
+            width: 100%;
+            .col-xs-12{
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+
+        }
+    }
 }
 
 .mapView .partners_map_container{
@@ -97,7 +121,7 @@
         max-width: 100%;
         margin: 0 auto;
     }
-    
+
     .member-details {
         display: flex;
         flex-direction: column;
@@ -111,7 +135,7 @@
     .partners-name, .partners-position{
         font-weight: bold;
     }
-    
+
     .partners-position{
         color: @green-color;
     }
@@ -123,10 +147,67 @@
 .partner-seperator{
     border: 1px solid #AFB8BC;
 }
-.show-hide{
-    padding-top: 15px;
-    padding-bottom: 35px;
+
+
+.members-toggle-container {
+    background: transparent;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+
+    // When toggle is in "hide" state, make container grey
+    &:has(.members-toggle[data-state="hide"]) {
+        background: #EAF0F2;
+
+        .members-toggle{
+            padding-top: 28px;
+        }
+    }
+
+    .show-hide {
+        //padding-top: 15px;
+        //padding-bottom: 35px;
+        padding: 0;
+
+        .members-toggle {
+            position: relative;
+            width: 201px;
+            height: 45px;
+            background: #EAF0F2;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+
+            &::after {
+                content: '';
+                display: inline-block;
+                width: 12px;
+                height: 12px;
+                margin-left: 14px;
+                margin-top: 5px;
+                vertical-align: middle;
+                background-image: url('../../assets/images/show-members-arrow.svg');
+                background-size: contain;
+                background-repeat: no-repeat;
+                transition: transform 0.1s ease;
+            }
+
+            &[data-state="hide"]::after {
+                background-image: url('../../assets/images/hide-members-arrow.svg');
+                vertical-align: middle;
+            }
+        }
+    }
+
+    .members-content {
+        background: #EAF0F2;
+        border-radius: 4px;
+        padding: 31px 3px;
+    }
 }
+
 
 .partner_cover.width{
   height: 119px;
@@ -205,31 +286,9 @@
 
 }
 
-.members-toggle {
-    position: relative;
-    display: inline-block;
-  
-    &::after {
-      content: '';
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      margin-left: 6px;
-      vertical-align: middle;
-      background-image: url('../../assets/images/show-members-arrow.svg');
-      background-size: contain;
-      background-repeat: no-repeat;
-      transition: transform 0.1s ease;
-    }
-  
-    &[data-state="hide"]::after {
-        background-image: url('../../assets/images/hide-members-arrow.svg');
-        vertical-align: middle;
 
-    }
-}
 
-  
+
 .partners-map-container{
     padding-top: 20px;
     padding-bottom: 20px;
@@ -242,8 +301,9 @@
 
         .title_container{
             font-size: 24px;
-            color: @dark-color;
-            font-weight: bold;
+            line-height: 33px;
+            letter-spacing: 0px;
+            color: #003040;
             .breakpoint-laptop-down({
                 font-size: 20px;
             });
@@ -275,18 +335,34 @@
     a{
         font-weight: bold;
         color: @link-color;
+        overflow-wrap: break-word;
 
         &.email{
             font-size: 16px;
         }
 
         &.website{
-            background: url("https://project-selina.eu/storage/app/media/pensoft/internet.svg") left no-repeat;
-            background-size: 22px;
-            padding-left: 30px;
-            margin: 9px 0;
-            display: block;
+            //background: url("https://project-selina.eu/storage/app/media/pensoft/internet.svg") left no-repeat;
+            //background-size: 22px;
+            //padding-left: 30px;
+            margin: 0 0 29px 0;
             float: left;
+            width: 201px;
+            height: 45px;
+            /* UI Properties */
+            background: #045A6B;
+            border-radius: 4px;
+            font-size: 16px;
+            line-height: 28px;
+            font-family: Roboto;
+            letter-spacing: 0px;
+            color: #96B93C;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &:hover{
+                opacity: 0.7!important;
+            }
         }
     }
     .member-details {
@@ -296,7 +372,7 @@
             white-space: normal;
             font-weight: bold;
         }
-        
+
         .partners-position {
             font: normal normal normal 16px/19px Roboto;
             color: @green-color;
@@ -309,7 +385,7 @@
             }
         }
     }
-    
+
     .role ul{
         list-style-type: none;
         padding: 0;
