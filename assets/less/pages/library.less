@@ -8,6 +8,84 @@
   });
 }
 
+.library_collections_banner{
+    padding: 36px 0;
+
+    .container{
+        padding: 0;
+    }
+    .library_collections{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 24px;
+
+        .breakpoint-large-down({
+            text-align: center;
+        });
+    }
+
+    .library_collections_text{
+        font: normal normal bold 24px/33px Roboto;
+        letter-spacing: 0px;
+        color: #003040;
+        text-align: center;
+        flex: 0 1 auto;
+
+        .breakpoint-large-down({
+            flex: 1 1 100%;
+        });
+    }
+
+    .library_collections_links{
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex: 0 0 auto;
+
+        .breakpoint-small-down({
+            flex-wrap: wrap;
+            justify-content: center;
+        });
+
+        a{
+            background: #045A6B 0% 0% no-repeat padding-box;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 50px;
+            padding: 0;
+            font-size: 0;
+            line-height: 0;
+            color: transparent;
+            text-decoration: none;
+            transition: opacity .2s ease-in-out;
+            background-position: center center;
+            background-repeat: no-repeat;
+
+            &:hover,
+            &:focus{
+                opacity: 0.85;
+                text-decoration: none;
+            }
+
+            &.oneecosystem_link{
+                background-image: url("../../assets/images/oceecon_logo_white.svg");
+                background-size: auto 100%;
+                width: 210px;
+            }
+
+            &.zenodo_link{
+                background-image: url("../../assets/images/zenodo-logo.svg");
+                background-size: auto 50%;
+                width: 110px;
+            }
+        }
+    }
+}
+
 .library-items{
   .breakpoint-large-down({
     margin-top: 40px;
@@ -101,7 +179,7 @@
     .download_all{
         margin-right: 7px;
     }
-} 
+}
 
 .library .container{
   position: relative;
@@ -150,12 +228,12 @@
   .libraryForm{
     float: left;
     width: fit-content;
-  
+
     .breakpoint-large-down({
         float: none;
         width: 100%
     });
-  
+
     .col-sm-3.col-xs{
       max-width: 100%;
       flex-basis: unset;

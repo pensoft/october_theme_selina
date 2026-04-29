@@ -73,7 +73,7 @@ $(document).ready(function() {
    $('<div class="mark"></div>').insertAfter($('.group-holder input'));
 
     /*
-    * Mobile menu customization 
+    * Mobile menu customization
     **/
 
    // Show menu on click
@@ -136,8 +136,8 @@ $(document).ready(function() {
     //     ]
     // });
 
-    /* 
-    * DP section 
+    /*
+    * DP section
     **/
    // Show the video popup
    window.showVideoPopup = function(url) {
@@ -189,7 +189,7 @@ $(document).ready(function() {
         $('.tooltip')
             .css({ top: mousey, left: mousex })
     });
-    
+
     // Use session storage to handle smooth scroll on tab change
     $('.tab').on('click', function(event) {
         event.preventDefault();
@@ -209,7 +209,7 @@ $(document).ready(function() {
         sessionStorage.removeItem('scrollToRecords');
     }
 
-    
+
 	$('.tabs:not(#mylibraryForm)').each(function() {
 		// For each set of tabs, we want to keep track of
 		// which tab is active and its associated content
@@ -425,17 +425,21 @@ $(document).ready(function() {
     // $('.library .publications').text('deliverables');
     $('.library .publications').text('');
      $('.library .download_size').text('');
-    
+
 
     // Add mouseout event handler to the partners map container
     $('.partners_map').on('mouseleave', hideTooltip);
-    
+
     // Hide tooltip on scroll
     $(window).on('scroll', hideTooltip);
 
 });
 
-
+function openZenodoModalBtn(){
+    setTimeout(function() {
+        $(".openZenodoModalBtn").trigger("click");
+    },10);
+}
 function onHashChange(){
 	$("path").removeClass('active_path');
 	// $(".accordion-content").hide();
@@ -706,10 +710,10 @@ function createCustomTippy(element, options) {
 function onMapCustomPartners(pCode) {
     // Hide tooltip immediately
     hideTooltip();
-    
+
     // Determine if we're on the communities or partners page
     var isCommunitiesPage = $('.communities-of-practice, .communities-map-container').length > 0;
-    
+
     // Set the correct update target based on the page
     var updateObj = {};
     if (isCommunitiesPage) {
@@ -717,7 +721,7 @@ function onMapCustomPartners(pCode) {
     } else {
         updateObj['components/partners_list'] = '#mycomponentpartners';
     }
-    
+
     $.request('onPartners', {
         update: updateObj,
         data: {
@@ -727,7 +731,7 @@ function onMapCustomPartners(pCode) {
         $('html, body').animate({
             scrollTop: $("#mycomponentpartners").offset().top - 200
         }, 1000);
-        
+
         var tooltip = document.getElementById("tooltip");
         tooltip.classList.remove("active");
 
