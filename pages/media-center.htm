@@ -12,6 +12,7 @@ use Pensoft\Media\Models\Newsletters;
 use Pensoft\Media\Models\Presentations;
 use Pensoft\Media\Models\Pressreleases;
 use Pensoft\Media\Models\Videos;
+use Pensoft\Media\Models\Documents;
 
 function onStart(){
 	$this['logos'] =  MediaLogos::get();
@@ -20,12 +21,13 @@ function onStart(){
 	$this['presentations'] =  Presentations::get();
 	$this['pressreleases'] =  Pressreleases::get();
 	$this['videos'] =  Videos::get();
+	$this['documents'] =  Documents::get();
 }
 ?>
 ==
 <div class="container">
 	<h1 class="page_heading ml-1">Media center</h1>
-	<div class="row around-md around-xs">
+	<div class="row center-md around-xs">
 		{% if logos.count() %}
 		<div class="col-sm-2 col-xs-6">
 			<div class="card-container text-center">
@@ -75,6 +77,18 @@ function onStart(){
 				<a href="{{url('media-center')}}/newsletters" title="Newsletters">
 					<span class="card_image_container" style="background: url({{'media-center/newsletters.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/newsletters" title="Newsletters"></span>
                     <br><span class="media_label">Newsletters</span>
+				</a>
+			</div>
+		</div>
+		{% endif %}
+
+
+		{% if documents.count() %}
+		<div class="col-sm-2 col-xs-6">
+			<div class="card-container text-center">
+				<a href="{{url('media-center')}}/policy-briefs" title="Policy briefs">
+					<span class="card_image_container" style="background: url({{'media-center/newsletters.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/policy-briefs" title="Policy briefs"></span>
+                    <br><span class="media_label">Policy briefs</span>
 				</a>
 			</div>
 		</div>
