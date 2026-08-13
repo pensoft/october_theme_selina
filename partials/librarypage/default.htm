@@ -1,0 +1,74 @@
+{# Theme override of Pensoft\Library\Components\LibraryPage::default
+   Only change vs. the plugin partial: the "Download all" form/submit button is a
+   plain link to the library-download-all page, so Matomo link tracking can record
+   it as a download. Everything else is kept as-is. #}
+{% if total_file_size_bites %}
+<div class="row center-xs mb-1 download-all-container">
+    <div class="col-xs">
+        <a href="{{ 'library-download-all'|page }}" class="btn btn-primary download-all-link matomo_download" download><i class="pr normal p-download"></i> <span class="download_all">{{'Download all' |_}}</span> <span class="publications">{{'publications' |_}}</span> <span class="download_size">({{ (total_file_size / 1024 / 1024 )|round(2)}} MB)</span></a>
+    </div>
+</div>
+{% endif %}
+
+{% if __SELF__.hasLibrary() %}
+    <form method="GET" id="typeForm" action="">
+        <div class="tabs" id="mylibraryForm">
+            <a data-type="0" {% if currentType == 0 %} class="active"{% else %} {% endif%}>{{'All documents' |_}}</a>
+            {% if __SELF__.property('milestones_filter') %}
+            <a data-type="4" {% if currentType == 4 %} class="active"{% else %} {% endif%}>{{'Deliverables & Milestones' |_}}</a>
+            {% else %}
+            <a data-type="1" {% if currentType == 1 %} class="active"{% else %} {% endif%}>{{'Deliverables' |_}}</a>
+            {% endif %}
+            <a data-type="2" {% if currentType == 2 %} class="active"{% else %} {% endif%}>{{'Relevant Publications' |_}}</a>
+            <a data-type="3" {% if currentType == 3 %} class="active"{% else %} {% endif%}>{{themeName}} {{'Publications' |_}}</a>
+
+            {% if __SELF__.property('features_filter') %}
+            <a data-type="5" {% if currentType == 5 %} class="active"{% else %} {% endif%}>{{themeName}} {{'Features' |_}}</a>
+            {% endif %}
+            {% if __SELF__.property('technical_briefs_filter') %}
+            <a data-type="6" {% if currentType == 6 %} class="active"{% else %} {% endif%}>{{'Technical briefs' |_}}</a>
+            {% endif %}
+        </div>
+        <input type="hidden" name="type" id="typeInput" value="{{ currentType }}">
+
+        <div class="form-wrapper">
+            <div class="sort-form">
+                <div id="libraryForm" class="ui form libraryForm">
+                    <div class="row">
+                        <div class="col-sm-2 col-xs">
+                            <div class="field">
+                                <select name="Filter[sort]" id="sortSelect">
+                                    {% for code, option in sortOptions %}
+                                    <option value="{{ code }}" {% if code == currentSort %} selected {% endif %}>
+                                        {{ option|_ }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if __SELF__.property('has_search') %}
+            <div id="searchLibrary" class="searchLibrary">
+                <div class="input-group align-items-start">
+                    <input class="form-control search" name="search" type="text" autocomplete="on"
+                        placeholder="Search in documents" value="{{searchQuery}}">
+                    <button id="clearBtn" class="btn btn-reset btn-link text-grey-search-btn" type="button" title="clear search">&#x2715</button>
+                    <button class="btn searchLibrary btn-link text-grey-search-btn" type="submit"></button>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endif %}
+
+<div class='library-items' id="partialLibraries">
+    {% partial __SELF__ ~ '::libraries' %}
+</div>
+<div class="row container">
+    {{ records.render|raw }}
+</div>
+{% else %}
+<div class="no-records">{{ __SELF__.property('no_records_message') }}</div>
+{% endif %}

@@ -242,9 +242,9 @@ $(document).ready(function() {
 		// Bind the click event handler
 		$(this).find("a").click(function (e) {
             if($(this)[0].innerText == 'Relevant publications' || $(this)[0].innerText == 'SELINA publications'){
-                $('.row.center-xs.mb-1:has(form)').hide();
+                $('.download-all-container').hide();
             }else{
-                $('.row.center-xs.mb-1:has(form)').show();
+                $('.download-all-container').show();
             }
 			if($(this).hasClass('active') && $content.length) {
 				$content.slideDown({

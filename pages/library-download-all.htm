@@ -1,0 +1,30 @@
+url = "/library/download-all"
+layout = "default"
+title = "Download all publications"
+is_hidden = 0
+robot_index = "noindex"
+robot_follow = "nofollow"
+==
+<?php
+use Pensoft\Library\Classes\ZipFiles;
+use Pensoft\Library\Models\Library;
+
+function onStart()
+{
+	// GET endpoint behind the "Download all" link on /library and /resources/publications.
+	// Same payload as LibraryPage::onDownloadAll, but reachable as a normal link so
+	// Matomo can track it instead of it being an AJAX form submit.
+	$zip = (new ZipFiles(new Library))->downloadFiles();
+
+	if (!$zip || !file_exists($zip)) {
+		return Redirect::to('/library');
+	}
+
+	return Response::download($zip, 'publications.zip', [
+		'Content-Type' => 'application/zip',
+		'Pragma' => 'no-cache',
+		'Expires' => '0',
+	])->deleteFileAfterSend(true);
+}
+?>
+==
